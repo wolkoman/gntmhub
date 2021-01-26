@@ -1,16 +1,15 @@
-html,
+@import url("https://fonts.googleapis.com/css2?family=Imbue:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap");
+
+.font-serif {
+  font-family: Imbue;
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Noto Sans JP";
+  font-weight: 300;
+  font-size: 15wpx;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+.font-sans {
+  font-family: "Noto Sans JP";
 }
