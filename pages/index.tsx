@@ -2,6 +2,14 @@ import React from "react";
 import { Site } from "../components/Site";
 
 export default function Home() {
+  const test = () => {
+    fetch("/api/user/auth", {
+      method: "POST",
+      body: JSON.stringify({ username: "wolkoman", password: "wolkoman" }),
+      headers: { "Content-Type": "application/json" },
+    }).then(console.log);
+  };
+
   return (
     <Site>
       <main className="flex justify-center items-center h-screen">
@@ -21,7 +29,10 @@ export default function Home() {
                 className="text-black p-2 mr-2 w-48 rounded"
                 placeholder="Benutzername"
               />
-              <div className="bg-brand text-black p-2 rounded font-bold hover:opacity-80 cursor-pointer overflow-hidden">
+              <div
+                className="bg-brand text-black p-2 rounded font-bold hover:opacity-80 cursor-pointer overflow-hidden"
+                onClick={test}
+              >
                 Login
               </div>
             </div>
