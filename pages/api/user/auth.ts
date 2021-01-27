@@ -21,6 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!valid) {
     res.statusCode = 401;
     res.end();
+    db.close();
     return;
   }
   res.statusCode = 200;
