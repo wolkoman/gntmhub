@@ -1,3 +1,4 @@
+import { compare } from "bcrypt";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCollection, UserEntity } from "../../../util/mongo";
 
@@ -17,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log(req.body);
   const db = await getCollection(UserEntity);
   const value = await db.findOne({ name: req.body.username as string });
-  const valid = false; //await compare(req.body.password, value.hash);
+  const valid = await compare(req.body.password, value.hash);
   if (!valid) {
     res.statusCode = 401;
     res.end();
