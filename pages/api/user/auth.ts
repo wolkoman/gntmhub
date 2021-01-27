@@ -1,6 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import * as bcrypt from "bcrypt";
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import { getCollection, UserEntity } from "../../../util/mongo";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

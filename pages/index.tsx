@@ -1,5 +1,6 @@
 import React from "react";
 import { Site } from "../components/Site";
+import Link from "next/link";
 
 export default function Home() {
   const test = () => {
@@ -12,30 +13,30 @@ export default function Home() {
 
   return (
     <Site>
-      <main className="flex justify-center items-center h-screen">
-        <div className="flex flex-col items-center">
-          <div className="bg-gray-darkest rounded-xl p-6">
-            <div className="text-8xl font-serif">
-              GNTM<span className="text-brand">HUB</span>
+      <div className="p-4 border border-black">
+        <div className="text-4xl font-serif">
+          GNTM<span className="text-brand">HUB</span>
+        </div>
+      </div>
+      <main className="flex justify-center items-center mt-32">
+        <div className="w-full max-w-2xl px-4">
+          <div className="font-serif text-6xl md:text-8xl">
+            There can only be one.
+            <div className="opacity-60">
+              Show the world that you know her already!
             </div>
-            <div className="font-sans w-64 py-2 pb-6 text-justify">
-              Nutzen Sie Ihr detailliertes Wissen über Laufstege und
-              Fotoshootings, damit Sie sich unter Ihren Freunden als der wahre
-              GNTM-Kenner beweisen können.
-            </div>
-            <div className="flex flex-row">
-              <input
-                type="text"
-                className="text-black p-2 mr-2 w-48 rounded"
-                placeholder="Benutzername"
-              />
-              <div
-                className="bg-brand text-black p-2 rounded font-bold hover:opacity-80 cursor-pointer overflow-hidden"
-                onClick={test}
-              >
+          </div>
+          <div className="flex mt-8">
+            <Link href="/login">
+              <div className="px-4 py-2 text-lg border border-brand text-brand font-bold rounded mr-4 cursor-pointer">
                 Login
               </div>
-            </div>
+            </Link>
+            <Link href="/signup">
+              <div className="px-4 py-2 text-lg text-black font-bold bg-brand rounded cursor-pointer">
+                Registrieren
+              </div>
+            </Link>
           </div>
         </div>
       </main>
