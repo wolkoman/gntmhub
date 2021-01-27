@@ -15,10 +15,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.end();
     return;
   }
+  console.log(process.env.MONGO_USERNAME);
   console.log(req.body);
   const db = await getCollection(UserEntity);
   const value = await db.findOne({ name: req.body.username as string });
-  const valid = await compare(req.body.password, value.hash);
+  console.log(value);
+  const valid = await compare(req.body.password, value?.hash ?? "");
+  console.log("valid", valid);
   if (!valid) {
     res.statusCode = 401;
     res.end();
