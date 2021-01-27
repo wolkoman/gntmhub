@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -15,6 +16,7 @@
     "bcrypt": "^5.0.0",
     "mongodb": "^3.6.3",
     "next": "10.0.5",
+    "next-on-netlify": "^2.6.3",
     "postcss": "^8.2.4",
     "react": "17.0.1",
     "react-dom": "17.0.1",
