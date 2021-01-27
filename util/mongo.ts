@@ -15,7 +15,10 @@ export class UserEntity extends Entity {
 export async function getCollection<E extends Entity>(entity: {
   new (): E;
 }): Promise<Collection<E> & { close: () => {} }> {
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   await client.connect();
   const collection = client
     .db(process.env.MONGO_DB)
