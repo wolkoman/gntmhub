@@ -8,11 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
-    "@types/bcrypt": "^3.0.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/mongodb": "^3.6.3",
     "autoprefixer": "^10.2.3",
     "aws-sdk": "^2.831.0",
-    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "mongodb": "^3.6.3",
     "next": "10.0.5",
     "postcss": "^8.2.4",

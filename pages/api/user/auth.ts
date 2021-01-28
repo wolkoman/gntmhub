@@ -1,4 +1,4 @@
-import { compare } from "bcrypt";
+import { compare } from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCollection, UserEntity } from "../../../util/mongo";
 
