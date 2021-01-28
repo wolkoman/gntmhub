@@ -1,34 +1,29 @@
 import { compare } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCollection, UserEntity } from "../../../util/mongo";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method !== "POST") {
     res.statusCode = 405;
     res.end();
-    return;
-  }
-  if (!req.body.username || !req.body.password) {
+  } else if (!req.body.username || !req.body.password) {
     res.statusCode = 400;
     res.end();
     return;
   }
-  console.log(process.env.MONGO_USERNAME);
-  console.log(req.body);
+
   const db = await getCollection(UserEntity);
-  const value = await db.findOne({ name: req.body.username as string });
-  console.log(value);
-  const valid = await compare(req.body.password, value?.hash ?? "");
-  console.log("valid", valid);
-  if (!valid) {
+  const user = await db.findOne({ name: req.body.username as string });
+  const valid = await compare(req.body.password, user?.hash ?? "");
+
+  if (valid) {
+    const jwt = sign({ ...user, hash: "" }, process.env.JWT_SECRET);
+    res.statusCode = 200;
+    res.json({ jwt });
+  } else {
     res.statusCode = 401;
-    res.end();
-    db.close();
-    return;
   }
-  res.statusCode = 200;
-  res.json(value);
+  res.end();
   db.close();
 };
