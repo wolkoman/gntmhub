@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
-import fetchJson from "../util/fetchJson";
+import { fetchJson } from "../util/fetchJson";
 
 export default function Home() {
   const [form, setForm] = useState({
