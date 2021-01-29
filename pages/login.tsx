@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
+import fetchJson from "../util/fetchJson";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [state, setState] = useState<"ACTIVE" | "FETCHING" | "ERROR">("ACTIVE");
+  const router = useRouter();
   const login = () => {
     if (state !== "ACTIVE") return;
     setState("FETCHING");
-    fetch("/api/user/auth", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(response =>
-        response.status === 200 ? response.json() : Promise.reject()
-      )
-      .then(user => console.log(user))
+    fetchJson("/api/user/auth", form)
+      .then(resp => {
+        localStorage.setItem("JWT", JSON.stringify(resp));
+        router.push("/dashboard");
+      })
       .catch(err => {
-        console.log(err);
+        setForm({ username: "", password: "" });
         setState("ERROR");
       });
   };

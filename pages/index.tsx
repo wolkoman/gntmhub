@@ -3,14 +3,6 @@ import { Site } from "../components/Site";
 import Link from "next/link";
 
 export default function Home() {
-  const test = () => {
-    fetch("/api/user/auth", {
-      method: "POST",
-      body: JSON.stringify({ username: "wolkoman", password: "wolkoman" }),
-      headers: { "Content-Type": "application/json" },
-    }).then(console.log);
-  };
-
   return (
     <Site>
       <div className="p-4 border border-black">
