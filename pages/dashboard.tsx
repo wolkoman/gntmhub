@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Site } from "../components/Site";
-import useJwt from "../util/useJwt";
+import { useJwt } from "../util/useJwt";
 import { Navigation } from "../components/Navigation";
 
 export default function Home() {

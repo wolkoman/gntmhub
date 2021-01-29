@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default (options: { redirectOnEmpty?: boolean }) => {
+export function useJwt(options: { redirectOnEmpty?: boolean }) {
   const router = useRouter();
   const [jwt, setJwt] = useState(null);
   useEffect(() => {
@@ -13,4 +13,4 @@ export default (options: { redirectOnEmpty?: boolean }) => {
     }
   }, [router]);
   return jwt;
-};
+}
