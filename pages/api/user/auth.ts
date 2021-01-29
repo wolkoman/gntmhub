@@ -7,6 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
     res.statusCode = 405;
     res.end();
+    return;
   } else if (!req.body.username || !req.body.password) {
     res.statusCode = 400;
     res.end();

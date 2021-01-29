@@ -3,7 +3,7 @@ import { Site } from "../components/Site";
 import Link from "next/link";
 import { Navigation } from "../components/Navigation";
 
-export default function Home() {
+export default function Home({test}) {
   return (
     <Site>
       <Navigation />
@@ -21,7 +21,7 @@ export default function Home() {
             </Link>
             <Link href="/signup">
               <div className="px-4 py-2 text-lg text-black font-bold bg-brand rounded cursor-pointer">
-                Registrieren
+                Registrieren {test}
               </div>
             </Link>
           </div>
@@ -32,4 +32,8 @@ export default function Home() {
       </div>
     </Site>
   );
+}
+
+export function getServerSideProps(){
+  return {props: {test: new Date().toDateString()}};
 }
