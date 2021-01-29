@@ -10,13 +10,16 @@ export class UserEntity extends Entity {
   _collectionName = "users";
   name: string;
   hash: string;
-  active: boolean;
-}
-export class VerifcationMessageEntity extends Entity {
-  _collectionName = "verifcationMessages";
   phone: string;
-  timestamp: string;
-  code: string;
+  verifyToken: string;
+  active: boolean;
+  admin: boolean;
+}
+export class CandidateEntity extends Entity {
+  _collectionName = "candidates";
+  name: string;
+  terminated: boolean;
+  photo: string;
 }
 
 export async function getCollection<E extends Entity>(entity: {

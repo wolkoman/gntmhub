@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
 import fetchJson from "../util/fetchJson";
 import { useRouter } from "next/router";
-import { useJwt } from "../util/useJwt";
+import { setJwt, useJwt } from "../util/jwt";
 
 export default function Home() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -14,7 +14,7 @@ export default function Home() {
     setState("FETCHING");
     fetchJson("/api/user/auth", form)
       .then(resp => {
-        localStorage.setItem("JWT", JSON.stringify(resp));
+        setJwt(resp.jwt);
         router.push("/dashboard");
       })
       .catch(err => {

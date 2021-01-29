@@ -1,6 +1,6 @@
 import React from "react";
 import { Site } from "../components/Site";
-import { useJwt } from "../util/useJwt";
+import { useJwt } from "../util/jwt";
 import { Navigation } from "../components/Navigation";
 
 export default function Home() {

@@ -1,8 +1,11 @@
+import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
 import fetchJson from "../util/fetchJson";
+import { setJwt } from "../util/jwt";
 
 export default function Home() {
+  const router = useRouter();
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -17,14 +20,13 @@ export default function Home() {
     if (state.state !== "ACTIVE") return;
     setState({ state: "FETCHING" });
     fetchJson("/api/user/signup", form)
-      .then(msg => {
-        console.log(msg);
-        return msg;
-      })
       .then(({ err, msg }) =>
         err ? Promise.reject(msg) : Promise.resolve(msg)
       )
-      .then(msg => console.log("works", msg))
+      .then(msg => {
+        setJwt(msg);
+        router.push("/dashboard");
+      })
       .catch(err => setState({ state: "ERROR", msg: err }));
   };
   useEffect(() => setState({ state: "ACTIVE" }), [form]);
