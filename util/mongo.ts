@@ -10,6 +10,7 @@ export class UserEntity extends Entity {
   _collectionName = "users";
   name: string;
   hash: string;
+  active: boolean;
 }
 export class VerifcationMessageEntity extends Entity {
   _collectionName = "verifcationMessages";

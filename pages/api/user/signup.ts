@@ -1,9 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  getCollection,
-  UserEntity,
-  VerifcationMessageEntity,
-} from "../../../util/mongo";
+import { getCollection, UserEntity } from "../../../util/mongo";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (
@@ -34,7 +30,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "Die Telefonnummer muss eine valide österreichische oder deutsche Telefonnummer sein.",
     });
   } else {
-    const user = await (await getCollection(UserEntity)).findOne({
+    const users = await getCollection(UserEntity);
+    const user = await users.findOne({
       $or: [{ name: req.body.username }, { phone: req.body.phone }],
     });
     if (user) {
@@ -43,14 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         msg: "Diese Daten existieren schon.",
       });
     } else {
-      const verifcationMessageCollection = await getCollection(
-        VerifcationMessageEntity
-      );
-      const verifcationMessage = await verifcationMessageCollection.findOne({
-        phone: req.body.phone,
-      });
-      console.log(verifcationMessage, user);
-      res.json({ err: false, msg: "Alles ok." });
+      // users.insertOne({});
     }
   }
   res.end();

@@ -14,7 +14,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const db = await getCollection(UserEntity);
-  const user = await db.findOne({ name: req.body.username as string });
+  const user = await db.findOne({
+    name: req.body.username as string,
+    active: true,
+  });
   const valid = await compare(req.body.password, user?.hash ?? "");
 
   if (valid) {
