@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
+import fetchJson from "../util/fetchJson";
 
 export default function Home() {
   const [form, setForm] = useState({
@@ -15,18 +16,16 @@ export default function Home() {
   const signup = () => {
     if (state.state !== "ACTIVE") return;
     setState({ state: "FETCHING" });
-    fetch("/api/user/signup", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then(response =>
-        response.status === 200
-          ? response.json()
-          : Promise.reject(response.text())
+    fetchJson("/api/user/signup", form)
+      .then(msg => {
+        console.log(msg);
+        return msg;
+      })
+      .then(({ err, msg }) =>
+        err ? Promise.reject(msg) : Promise.resolve(msg)
       )
-      .then(user => console.log(user))
-      .catch(() => setState({ state: "ERROR" }));
+      .then(msg => console.log("works", msg))
+      .catch(err => setState({ state: "ERROR", msg: err }));
   };
   useEffect(() => setState({ state: "ACTIVE" }), [form]);
 
@@ -89,7 +88,7 @@ export default function Home() {
           </div>
           {state.state === "ERROR" ? (
             <div className="border-danger text-danger border-solid border p-2 my-1 w-full rounded text-sm">
-              Die Zugangsdaten sind nicht korrekt.
+              {state.msg}
             </div>
           ) : null}
         </div>

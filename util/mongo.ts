@@ -11,6 +11,12 @@ export class UserEntity extends Entity {
   name: string;
   hash: string;
 }
+export class VerifcationMessageEntity extends Entity {
+  _collectionName = "verifcationMessages";
+  phone: string;
+  timestamp: string;
+  code: string;
+}
 
 export async function getCollection<E extends Entity>(entity: {
   new (): E;

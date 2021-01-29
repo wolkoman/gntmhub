@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
 import fetchJson from "../util/fetchJson";
 import { useRouter } from "next/router";
+import useJwt from "../util/useJwt";
 
 export default function Home() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [state, setState] = useState<"ACTIVE" | "FETCHING" | "ERROR">("ACTIVE");
+  const jwt = useJwt({});
   const router = useRouter();
   const login = () => {
     if (state !== "ACTIVE") return;
@@ -21,6 +23,11 @@ export default function Home() {
       });
   };
   useEffect(() => setState("ACTIVE"), [form]);
+  useEffect(() => {
+    if (!jwt) {
+      router.replace("/dashboard");
+    }
+  });
 
   return (
     <Site>
