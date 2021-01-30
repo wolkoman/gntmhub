@@ -29,6 +29,7 @@ export default function Home() {
 
   return (
     <ModalForm
+      title="Verify"
       form={{
         token: { label: "SMS Token", type: "number" },
       }}

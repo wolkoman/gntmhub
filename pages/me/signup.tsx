@@ -28,6 +28,7 @@ export default function Home() {
 
   return (
     <ModalForm
+      title="Signup"
       form={{
         username: { label: "Benutzername", type: "text" },
         password: { label: "Password", type: "password" },
