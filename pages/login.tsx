@@ -21,10 +21,10 @@ export default function Home() {
         setJwt(jwt);
         router.push("/dashboard");
       })
-      .catch(({ msg }) => {
+      .catch(({ errorMessage }) => {
         setFormState({
           isLoading: false,
-          errorMessage: msg,
+          errorMessage,
         });
       });
   };

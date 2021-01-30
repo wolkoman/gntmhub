@@ -13,23 +13,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   ) {
     res.json({ err: true, msg: "Bitte füllen Sie alle Felder aus." });
   } else if (req.body.password !== req.body.passwordRetype) {
+    res.statusCode = 400;
     res.json({
-      err: true,
-      msg: "Die angegebenen Passwörter stimmen nicht überein.",
+      errorMessage: "Die angegebenen Passwörter stimmen nicht überein.",
     });
   } else if (req.body.phone[0] !== "+") {
+    res.statusCode = 400;
     res.json({
-      err: true,
-      msg: "Die Telefonnummer muss mit einem Plus beginnen.",
+      errorMessage: "Die Telefonnummer muss mit einem Plus beginnen.",
     });
   } else if (
     req.body.phone.length !== 13 ||
     isNaN(req.body.phone.substr(1)) ||
     (!req.body.phone.startsWith("+43") && !req.body.phone.startsWith("+49"))
   ) {
+    res.statusCode = 400;
     res.json({
-      err: true,
-      msg:
+      errorMessage:
         "Die Telefonnummer muss eine valide österreichische oder deutsche Telefonnummer sein.",
     });
   } else {
@@ -38,10 +38,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       $or: [{ name: req.body.username }, { phone: req.body.phone }],
     });
     if (userResult) {
-      res.json({
-        err: true,
-        msg: "Diese Daten existieren schon.",
-      });
+      res.statusCode = 400;
+      res.json({ errorMessage: "Diese Daten existieren schon." });
     } else {
       const verifyToken = (Math.random() * 899999 + 100000).toFixed(0);
       const user = {
@@ -57,7 +55,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         { ...user, hash: "", verifyToken: "" },
         process.env.JWT_SECRET
       );
-      res.json({ err: false, msg: jwt });
+      res.json({ jwt });
       sendVerifyMessage(req.body.phone, verifyToken);
     }
   }

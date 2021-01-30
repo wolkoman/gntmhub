@@ -4,6 +4,7 @@ import { getCollection, UserEntity } from "../../../util/mongo";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.token || !req.body.username) {
+    res.statusCode = 400;
     res.json({ err: true, msg: "Bitte füllen Sie alle Felder aus." });
   } else {
     const users = await getCollection(UserEntity);
@@ -17,12 +18,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         { ...user, hash: "", active: true, verifyToken: "" },
         process.env.JWT_SECRET
       );
-      res.json({
-        err: false,
-        msg: jwt,
-      });
+      res.statusCode = 200;
+      res.json({ jwt });
     } else {
-      res.json({ err: true, msg: "Der angegebene Code ist nicht korrekt." });
+      res.statusCode = 401;
+      res.json({ errorMessage: "Der angegebene Code ist nicht korrekt." });
     }
   }
   res.end();
