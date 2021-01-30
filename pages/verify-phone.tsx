@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
-import fetchJson from "../util/fetchJson";
+import { fetchJson } from "../util/fetchJson";
 import { useRouter } from "next/router";
 import { setJwt, useJwt } from "../util/jwt";
 
 export default function Home() {
   const [form, setForm] = useState({ token: "" });
-  const jwt = useJwt({ redirectOnEmpty: false });
+  const jwt = useJwt({ dontRedirectTo: "/verify-phone" });
   const [state, setState] = useState<{
     state: "ACTIVE" | "FETCHING" | "ERROR";
     msg?: "true";

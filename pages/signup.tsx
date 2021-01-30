@@ -1,7 +1,7 @@
 import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
-import fetchJson from "../util/fetchJson";
+import { fetchJson } from "../util/fetchJson";
 import { setJwt } from "../util/jwt";
 
 export default function Home() {

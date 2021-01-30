@@ -23,6 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json({ jwt });
   } else {
     res.statusCode = 401;
+    res.json({ msg: "Die Zugangsdaten sind falsch." });
   }
   res.end();
   db.close();

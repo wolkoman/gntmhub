@@ -4,7 +4,7 @@ import { useJwt } from "../util/jwt";
 import { Navigation } from "../components/Navigation";
 
 export default function Home() {
-  const jwt = useJwt({ redirectOnEmpty: true });
+  const jwt = useJwt({ dontRedirectTo: "/dashboard" });
   return (
     <Site>
       <Navigation />
