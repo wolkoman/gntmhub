@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { ModalForm } from "../components/ModalForm";
-import { fetchJson } from "../util/fetchJson";
-import { setJwt } from "../util/jwt";
+import { ModalForm } from "../../components/ModalForm";
+import { fetchJson } from "../../util/fetchJson";
+import { setJwt } from "../../util/jwt";
+import { Route } from "../../util/routes";
 
 export default function Home() {
   const [formState, setFormState] = useState<{
@@ -18,7 +19,7 @@ export default function Home() {
     fetchJson("/api/user/signup", formValue)
       .then(({ jwt }) => {
         setJwt(jwt);
-        router.push("/verify-phone");
+        router.push(Route.VERIFY);
       })
       .catch(({ errorMessage }) =>
         setFormState({ isLoading: false, errorMessage })

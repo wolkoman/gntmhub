@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { fetchJson } from "../util/fetchJson";
+import React, { useEffect, useState } from "react";
+import { fetchJson } from "../../util/fetchJson";
 import { useRouter } from "next/router";
-import { setJwt, useJwt } from "../util/jwt";
-import { ModalForm } from "../components/ModalForm";
+import { setJwt, useJwt } from "../../util/jwt";
+import { ModalForm } from "../../components/ModalForm";
+import { Route } from "../../util/routes";
 
 export default function Home() {
   const [formState, setFormState] = useState<{
@@ -11,31 +12,40 @@ export default function Home() {
   }>({ isLoading: false });
   const removeErrorMessage = () =>
     setFormState(state => ({ ...state, errorMessage: null }));
-  const jwt = useJwt({ dontRedirectTo: "/verify-phone" });
+  const jwt = useJwt({ dontRedirectTo: Route.LOGIN });
   const router = useRouter();
-  const verify = formValue => {
+
+  const login = formValue => {
     setFormState({ isLoading: true });
-    fetchJson("/api/user/verify-phone", { ...formValue, username: jwt.name })
+    fetchJson("/api/user/login", formValue)
       .then(({ jwt }) => {
         setJwt(jwt);
-        router.push("/dashboard");
+        router.push(Route.DASHBOARD);
       })
       .catch(({ errorMessage }) => {
-        console.log("ERROR");
-        setFormState(state => ({ isLoading: false, errorMessage }));
+        setFormState({
+          isLoading: false,
+          errorMessage,
+        });
       });
   };
+  useEffect(() => {
+    if (jwt) {
+      router.replace(Route.DASHBOARD);
+    }
+  });
 
   return (
     <ModalForm
       form={{
-        token: { label: "SMS Token", type: "number" },
+        username: { label: "Benutzername", type: "text" },
+        password: { label: "Password", type: "password" },
       }}
       formDisabled={formState.isLoading}
       errorMessage={formState.errorMessage}
       submitDisabled={!!formState.errorMessage || formState.isLoading}
       onFormValueChange={removeErrorMessage}
-      onSubmit={verify}
+      onSubmit={login}
     />
   );
 }

@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Route } from "./routes";
 
 export function useJwt(options: { dontRedirectTo?: string }) {
   const router = useRouter();
@@ -9,11 +10,11 @@ export function useJwt(options: { dontRedirectTo?: string }) {
     if (rawJwt) {
       const jwt = JSON.parse(atob(rawJwt.split(".")[1]));
       setJwt(jwt);
-      if (!jwt.active && options.dontRedirectTo !== "/verify-phone") {
-        router.push("/verify-phone");
+      if (!jwt.active && options.dontRedirectTo !== Route.VERIFY) {
+        router.replace(Route.VERIFY);
       }
-    } else if (options.dontRedirectTo !== "/login") {
-      router.push("/login");
+    } else if (options.dontRedirectTo !== Route.LOGIN) {
+      router.replace(Route.LOGIN);
     }
   }, [router]);
   return jwt;

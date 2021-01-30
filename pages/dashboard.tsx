@@ -2,9 +2,10 @@ import React from "react";
 import { Site } from "../components/Site";
 import { useJwt } from "../util/jwt";
 import { Navigation } from "../components/Navigation";
+import { Route } from "../util/routes";
 
 export default function Home() {
-  const jwt = useJwt({ dontRedirectTo: "/dashboard" });
+  const jwt = useJwt({ dontRedirectTo: Route.DASHBOARD });
   return (
     <Site>
       <Navigation />
