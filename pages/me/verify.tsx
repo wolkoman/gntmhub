@@ -16,7 +16,7 @@ export default function Home() {
   const router = useRouter();
   const verify = formValue => {
     setFormState({ isLoading: true });
-    fetchJson("/api/user/verify-phone", { ...formValue, username: jwt.name })
+    fetchJson("/api/user/verify", { ...formValue, username: jwt.name })
       .then(({ jwt }) => {
         setJwt(jwt);
         router.push(Route.DASHBOARD);

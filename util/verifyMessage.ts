@@ -1,17 +1,16 @@
 export function sendVerifyMessage(phone: string, verifyCode: string) {
-  return fetch(
-    `https://telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com/sms-verification-code?phoneNumber=${encodeURI(
-      phone
-    )}&verifyCode=${encodeURI(verifyCode)}`,
-    {
-      method: "POST",
-      headers: {
-        "x-rapidapi-key": process.env.RAPIDAPI_KEY,
-        "x-rapidapi-host":
-          "telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com",
+  return fetch(`	https://smsgateway.me/api/v4/message/send`, {
+    method: "POST",
+    headers: { Authorization: process.env.SMS_GATEWAY_TOKEN },
+    body: JSON.stringify([
+      {
+        phone_number: phone,
+        message: `Dein Verifizierungscode für GNTMHUB lautet ${verifyCode}.`,
+        device_id: process.env.SMS_GATEWAY_DEVICE,
       },
-    }
-  )
+    ]),
+  })
+    .then(x => x.json())
     .then(x => console.log(x))
     .catch(x => console.log("ERR", x));
 }

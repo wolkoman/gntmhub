@@ -22,6 +22,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json({
       errorMessage: "Die Telefonnummer muss mit einem Plus beginnen.",
     });
+  } else if (req.body.password.length < 8) {
+    res.statusCode = 400;
+    res.json({
+      errorMessage: "Das Passwort muss mindestens 8 Zeichen lang sein.",
+    });
   } else if (
     req.body.phone.length !== 13 ||
     isNaN(req.body.phone.substr(1)) ||
