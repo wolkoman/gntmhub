@@ -42,8 +42,6 @@ export async function getServerSideProps() {
   const candidates = await db.find({}).toArray();
   db.close();
 
-  console.log(candidates);
-
   return {
     props: {
       candidates: candidates.map(candidate => ({

@@ -16,10 +16,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const db = await getCollection(UserEntity);
   const user = await db.findOne({ name: req.body.username as string });
+  console.log("found user", user);
   const valid = await compare(req.body.password, user?.hash ?? "");
+  console.log("valid", valid);
+  res.json(valid);
+  res.end();
+  db.close();
+  return;
 
   if (valid) {
-    const jwt = sign({ ...user, hash: "" }, process.env.JWT_SECRET);
+    const jwt = sign(
+      { ...user, hash: "", active: true, verifyToken: "" },
+      process.env.JWT_SECRET
+    );
+    console.log("jwt", jwt);
     res.statusCode = 200;
     res.json({ jwt });
   } else {
@@ -27,5 +37,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json({ errorMessage: "Die Zugangsdaten sind falsch." });
   }
   res.end();
-  db.close();
 };
