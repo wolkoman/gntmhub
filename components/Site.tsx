@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import { Navigation } from "./Navigation";
 
 export function Site({ children }) {
   return (
@@ -9,8 +10,8 @@ export function Site({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#c0fd00" />
       </Head>
-
-      <main>{children}</main>
+      <Navigation />
+      <main className="w-full max-w-4xl px-4 mx-auto mt-4">{children}</main>
     </div>
   );
 }

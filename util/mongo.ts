@@ -19,7 +19,7 @@ export class CandidateEntity extends Entity {
   _collectionName = "candidates";
   name: string;
   terminated: boolean;
-  photo: string;
+  imageUrl: string;
 }
 
 export async function getCollection<E extends Entity>(entity: {
