@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
+import { Title } from "../components/Title";
 import { fetchJson } from "../util/fetchJson";
 import { useJwt } from "../util/jwt";
 import { CandidateEntity, getCollection } from "../util/mongo";
@@ -9,24 +10,23 @@ export default function Home({ candidates }) {
   const jwt = useJwt({ dontRedirectTo: Route.DASHBOARD });
   return (
     <Site>
-      <div className="font-serif text-4xl">
-        Hallo <span className="text-brand">{jwt?.name}!</span>
-      </div>
-      <div className="font-serif text-4xl">Kandidatinnen</div>
+      <Title>Kandidatinnen</Title>
       <div className="flex flex-wrap">
         {candidates.map(candidate => (
           <div
             key={candidate._id}
-            className="w-36 h-36 rounded m-2"
+            className="w-28 h-28 md:w-36 md:h-36 rounded m-2 cursor-default justify-center"
             style={{
-              backgroundImage: candidate.terminated
-                ? ""
-                : `url(${candidate.imageUrl})`,
+              backgroundImage: `url(${candidate.imageUrl})`,
+              filter: candidate.terminated ? "grayscale(1)" : "",
+              opacity: candidate.terminated ? 0.7 : 1,
               backgroundSize: "cover",
             }}
           >
             <div
-              className={"p-1" + (candidate.terminated ? " line-through" : "")}
+              className={
+                "p-1 text-white" + (candidate.terminated ? " line-through" : "")
+              }
             >
               {candidate.name}
             </div>

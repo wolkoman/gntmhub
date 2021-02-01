@@ -14,6 +14,8 @@ export class UserEntity extends Entity {
   verifyToken: string;
   active: boolean;
   admin: boolean;
+  liquid: number;
+  stocks: Record<string, number>;
 }
 export class CandidateEntity extends Entity {
   _collectionName = "candidates";

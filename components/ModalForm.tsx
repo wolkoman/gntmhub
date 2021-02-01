@@ -32,23 +32,22 @@ export function ModalForm<F extends FormSchema>({
   }, [formData]);
 
   return (
-    <Site>
+    <Site navigation={false}>
       <main className="flex justify-center items-center h-screen">
         <div className="flex flex-col items-center w-52">
-          <div className="text-2xl font-serif flex w-full">
+          <div className="text-xl font-serif flex w-full">
             <div className="flex-grow">
-              <div className="h-1/2 border-b"></div>
+              <div className="h-1/2 border-b border-gray-500"></div>
             </div>
-            <div className="px-2">
-              GNTM<span className="text-brand">HUB</span>
-            </div>
+            <div className="px-2">gntmhub</div>
             <div className="flex-grow">
-              <div className="h-1/2 border-b"></div>
+              <div className="h-1/2 border-b border-gray-500"></div>
             </div>
           </div>
-          <div className="text-6xl -mt-2 mb-6 font-sans font-bold uppercase">
+          <div className="text-5xl mb-6 pb-2 font-sans font-bold uppercase border-b border-gray-500 w-full text-center">
             {title}
           </div>
+          <div className=""></div>
           {Object.entries(form).map(([key, field]) => (
             <input
               key={key}
