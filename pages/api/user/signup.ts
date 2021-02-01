@@ -52,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         phone: req.body.phone,
         verifyToken,
       } as UserEntity;
-      db.insertOne(user);
+      await db.insertOne(user);
       const jwt = sign(
         { ...user, hash: "", verifyToken: "" },
         process.env.JWT_SECRET
