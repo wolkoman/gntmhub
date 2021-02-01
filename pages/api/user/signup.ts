@@ -36,8 +36,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "Die Telefonnummer muss eine valide österreichische oder deutsche Telefonnummer sein.",
     });
   } else {
-    const users = await getCollection(UserEntity);
-    const userResult = await users.findOne({
+    const db = await getCollection(UserEntity);
+    const userResult = await db.findOne({
       $or: [{ name: req.body.username }, { phone: req.body.phone }],
     });
     if (userResult) {
@@ -52,7 +52,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         phone: req.body.phone,
         verifyToken,
       } as UserEntity;
-      users.insertOne(user);
+      db.insertOne(user);
       const jwt = sign(
         { ...user, hash: "", verifyToken: "" },
         process.env.JWT_SECRET
@@ -60,5 +60,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       res.json({ jwt });
       sendVerifyMessage(req.body.phone, verifyToken);
     }
+    db.close();
   }
 };

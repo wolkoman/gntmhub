@@ -8,13 +8,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .status(400)
       .json({ err: true, msg: "Bitte füllen Sie alle Felder aus." });
   } else {
-    const users = await getCollection(UserEntity);
-    const user = await users.findOne({
+    const db = await getCollection(UserEntity);
+    const user = await db.findOne({
       name: req.body.username,
       verifyToken: req.body.token,
     });
     if (user) {
-      users.updateOne({ name: req.body.username }, { $set: { active: true } });
+      db.updateOne({ name: req.body.username }, { $set: { active: true } });
       const jwt = sign(
         { ...user, hash: "", active: true, verifyToken: "" },
         process.env.JWT_SECRET
@@ -25,5 +25,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .status(401)
         .json({ errorMessage: "Der angegebene Code ist nicht korrekt." });
     }
+    db.close();
   }
 };
