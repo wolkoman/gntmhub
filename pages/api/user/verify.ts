@@ -14,7 +14,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       verifyToken: req.body.token,
     });
     if (user) {
-      db.updateOne({ name: req.body.username }, { $set: { active: true } });
+      await db.updateOne(
+        { name: req.body.username },
+        { $set: { active: true } }
+      );
       const jwt = sign(
         { ...user, hash: "", active: true, verifyToken: "" },
         process.env.JWT_SECRET
