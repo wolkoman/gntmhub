@@ -5,12 +5,10 @@ import { getCollection, UserEntity } from "../../../util/mongo";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
-    res.statusCode = 405;
-    res.end();
+    res.status(405);
     return;
   } else if (!req.body.username || !req.body.password) {
-    res.statusCode = 400;
-    res.end();
+    res.status(400);
     return;
   }
 
@@ -19,10 +17,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("found user", user);
   const valid = await compare(req.body.password, user?.hash ?? "");
   console.log("valid", valid);
-  res.json(valid);
-  res.end();
-  db.close();
-  return;
 
   if (valid) {
     const jwt = sign(
@@ -30,11 +24,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       process.env.JWT_SECRET
     );
     console.log("jwt", jwt);
-    res.statusCode = 200;
-    res.json({ jwt });
+    res.status(200).json({ jwt });
   } else {
-    res.statusCode = 401;
-    res.json({ errorMessage: "Die Zugangsdaten sind falsch." });
+    res.status(401).json({ errorMessage: "Die Zugangsdaten sind falsch." });
   }
-  res.end();
 };

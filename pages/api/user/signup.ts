@@ -11,20 +11,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     !req.body.passwordRetype ||
     !req.body.phone
   ) {
-    res.json({ err: true, msg: "Bitte füllen Sie alle Felder aus." });
+    res
+      .status(400)
+      .json({ err: true, msg: "Bitte füllen Sie alle Felder aus." });
   } else if (req.body.password !== req.body.passwordRetype) {
-    res.statusCode = 400;
-    res.json({
+    res.status(400).json({
       errorMessage: "Die angegebenen Passwörter stimmen nicht überein.",
     });
   } else if (req.body.phone[0] !== "+") {
-    res.statusCode = 400;
-    res.json({
+    res.status(400).json({
       errorMessage: "Die Telefonnummer muss mit einem Plus beginnen.",
     });
   } else if (req.body.password.length < 8) {
-    res.statusCode = 400;
-    res.json({
+    res.status(400).json({
       errorMessage: "Das Passwort muss mindestens 8 Zeichen lang sein.",
     });
   } else if (
@@ -32,8 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     isNaN(req.body.phone.substr(1)) ||
     (!req.body.phone.startsWith("+43") && !req.body.phone.startsWith("+49"))
   ) {
-    res.statusCode = 400;
-    res.json({
+    res.status(400).json({
       errorMessage:
         "Die Telefonnummer muss eine valide österreichische oder deutsche Telefonnummer sein.",
     });
@@ -43,8 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       $or: [{ name: req.body.username }, { phone: req.body.phone }],
     });
     if (userResult) {
-      res.statusCode = 400;
-      res.json({ errorMessage: "Diese Daten existieren schon." });
+      res.status(400).json({ errorMessage: "Diese Daten existieren schon." });
     } else {
       const verifyToken = (Math.random() * 899999 + 100000).toFixed(0);
       const user = {
@@ -64,5 +61,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       sendVerifyMessage(req.body.phone, verifyToken);
     }
   }
-  res.end();
 };
