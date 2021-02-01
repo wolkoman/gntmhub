@@ -16,6 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await db.findOne({ name: req.body.username as string });
   console.log("found user", user);
   const valid = await compare(req.body.password, user?.hash ?? "");
+  db.close();
   console.log("valid", valid);
 
   if (valid) {
