@@ -14,8 +14,8 @@ export function Site({
     <div className="min-h-screen text-black">
       <Head>
         <title>GntmHub</title>
-        <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#c0fd00" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico.png" />
       </Head>
       {navigation ? <Navigation /> : null}
       <main className="w-full max-w-4xl px-4 mx-auto mt-4">{children}</main>
