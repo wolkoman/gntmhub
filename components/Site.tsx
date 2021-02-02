@@ -19,7 +19,7 @@ export function Site({
       </Head>
       {navigation ? <Navigation /> : null}
       <main className="w-full max-w-4xl px-4 mx-auto mt-4">{children}</main>
-      <Footer />
+      {navigation ? <Footer /> : null}
     </div>
   );
 }

@@ -33,7 +33,7 @@ export function ModalForm<F extends FormSchema>({
 
   return (
     <Site navigation={false}>
-      <main className="flex justify-center items-center h-screen">
+      <main className="flex justify-center items-center h-screen -mt-4">
         <div className="flex flex-col items-center w-52">
           <div className="text-xl font-serif flex w-full">
             <div className="flex-grow">
