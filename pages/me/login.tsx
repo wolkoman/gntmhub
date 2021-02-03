@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchJson } from "../../util/fetchJson";
 import { useRouter } from "next/router";
-import { setJwt, useJwt } from "../../util/jwt";
 import { ModalForm } from "../../components/ModalForm";
 import { Route } from "../../util/routes";
 
@@ -12,16 +11,14 @@ export default function Home() {
   }>({ isLoading: false });
   const removeErrorMessage = () =>
     setFormState(state => ({ ...state, errorMessage: null }));
-  const jwt = useJwt({ dontRedirectTo: Route.LOGIN });
   const router = useRouter();
 
   const login = formValue => {
     setFormState({ isLoading: true });
     fetchJson("/api/user/login", formValue)
-      .then(({ jwt }) => {
-        setJwt(jwt);
-        router.push(Route.DASHBOARD);
-      })
+      .then(({ active }) =>
+        router.push(active ? Route.DASHBOARD : Route.VERIFY)
+      )
       .catch(({ errorMessage }) => {
         setFormState({
           isLoading: false,
@@ -29,11 +26,6 @@ export default function Home() {
         });
       });
   };
-  useEffect(() => {
-    if (jwt) {
-      router.replace(Route.DASHBOARD);
-    }
-  });
 
   return (
     <ModalForm

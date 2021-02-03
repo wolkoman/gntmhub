@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { fetchJson } from "../../util/fetchJson";
 import { useRouter } from "next/router";
-import { setJwt, useJwt } from "../../util/jwt";
 import { ModalForm } from "../../components/ModalForm";
 import { Route } from "../../util/routes";
 
@@ -12,19 +11,14 @@ export default function Home() {
   }>({ isLoading: false });
   const removeErrorMessage = () =>
     setFormState(state => ({ ...state, errorMessage: null }));
-  const jwt = useJwt({ dontRedirectTo: Route.VERIFY });
   const router = useRouter();
   const verify = formValue => {
     setFormState({ isLoading: true });
-    fetchJson("/api/user/verify", { ...formValue, username: jwt.name })
-      .then(({ jwt }) => {
-        setJwt(jwt);
-        router.push(Route.DASHBOARD);
-      })
-      .catch(({ errorMessage }) => {
-        console.log("ERROR");
-        setFormState(state => ({ isLoading: false, errorMessage }));
-      });
+    fetchJson("/api/user/verify", formValue)
+      .then(() => router.push(Route.DASHBOARD))
+      .catch(({ errorMessage }) =>
+        setFormState({ isLoading: false, errorMessage })
+      );
   };
 
   return (
