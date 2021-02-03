@@ -1,6 +1,8 @@
 import { sign } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCollection, UserEntity } from "../../../util/mongo";
+import {serialize} from "cookie";
+import {setAuthorizationCookie} from "../../../util/authorization";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.token || !req.body.username) {
@@ -22,6 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         { ...user, hash: "", active: true, verifyToken: "" },
         process.env.JWT_SECRET
       );
+      setAuthorizationCookie(res, jwt);
       res.json({ jwt });
     } else {
       res

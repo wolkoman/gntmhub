@@ -14,7 +14,7 @@ export class UserEntity extends Entity {
   verifyToken: string;
   active: boolean;
   admin: boolean;
-  liquid: number;
+  points: number;
   stocks: Record<string, number>;
 }
 export class CandidateEntity extends Entity {
