@@ -1,4 +1,4 @@
-import { Collection, MongoClient } from "mongodb";
+import {Collection, MongoClient, ObjectId as MongoObjectId} from "mongodb";
 
 const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 
@@ -37,4 +37,9 @@ export async function getCollection<E extends Entity>(entity: {
     .collection<E>(new entity()._collectionName);
   collection["close"] = () => client.close();
   return collection as Collection<E> & { close: () => {} };
+}
+
+export function ObjectId(id: string){
+  let moi = MongoObjectId as any;
+  return moi(id);
 }

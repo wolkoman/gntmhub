@@ -1,10 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCollection, UserEntity } from "../../../util/mongo";
+import {getCollection, ObjectId, UserEntity} from "../../../util/mongo";
 import {
   getUserFromRequest,
   setAuthorizationCookie,
 } from "../../../util/authorization";
-import { ObjectId } from "mongodb";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.token) {

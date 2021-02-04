@@ -1,8 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { parse, serialize } from "cookie";
 import { sign, verify } from "jsonwebtoken";
-import { getCollection, UserEntity } from "./mongo";
-import { ObjectId } from "mongodb";
+import {getCollection, ObjectId, UserEntity} from "./mongo";
 
 export function setAuthorizationCookie(res: ServerResponse, id: string) {
   const jwt = sign({ id }, process.env.JWT_SECRET);

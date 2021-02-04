@@ -1,5 +1,4 @@
 import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getCollection, UserEntity } from "../../../util/mongo";
 import { setAuthorizationCookie } from "../../../util/authorization";
