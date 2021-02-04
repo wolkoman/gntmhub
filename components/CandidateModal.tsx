@@ -45,7 +45,7 @@ export function CandidateModal({
   };
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-50 bg-white"
+      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-50 bg-white z-10"
       onClick={onClose}
     >
       <div

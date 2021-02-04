@@ -8,6 +8,7 @@ import { getUserFromRequest } from "../util/authorization";
 import { MarketService } from "../util/MarketService";
 import LeaderBoard from "../components/leaderboard";
 import { calculatePrice } from "../util/market";
+import { CandidateList } from "../components/CandidateList";
 
 export default function Home({ candidates, user, users, stocks }) {
   const [activeCandidate, setCandidateModal] = useState<string | null>(null);
@@ -26,34 +27,18 @@ export default function Home({ candidates, user, users, stocks }) {
           stocks={stocks}
         />
       ) : null}
-      <div className="flex flex-wrap justify-center">
-        {candidates.map(candidate => (
-          <div
-            key={candidate._id}
-            className="w-28 h-28 md:w-36 md:h-36 rounded md:m-2 m-1 cursor-pointer flex flex-col justify-between"
-            style={{
-              backgroundImage: `url(${candidate.imageUrl})`,
-              filter: candidate.terminated ? "grayscale(1)" : "",
-              opacity: candidate.terminated ? 0.7 : 1,
-              backgroundSize: "cover",
-            }}
-            onClick={() => setCandidateModal(candidate._id)}
-          >
-            <div
-              className={
-                "p-1 text-white" + (candidate.terminated ? " line-through" : "")
-              }
-            >
-              {candidate.name}
-            </div>
-            <div className="font-serif text-5xl text-white text-right m-1">
-              {calculatePrice(stocks, candidate._id, 1).toFixed(2)}
-            </div>
-          </div>
-        ))}
-      </div>
+      <CandidateList
+        candidates={candidates}
+        onCandidate={id => setCandidateModal(id)}
+        stocks={stocks}
+      />
       <Title>Liste</Title>
-      <LeaderBoard users={users} stocks={stocks} userId={user._id.toString()} />
+      <LeaderBoard
+        users={users}
+        stocks={stocks}
+        userId={user._id.toString()}
+        candidates={candidates}
+      />
     </Site>
   );
 }

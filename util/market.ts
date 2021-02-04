@@ -1,5 +1,4 @@
 export function calculateStockPrice(stockIndex: number): number {
-  //  return 1 + Math.pow(stockIndex,1.23)/10;
   return 1 + stockIndex / 10;
 }
 
