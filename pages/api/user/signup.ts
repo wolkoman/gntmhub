@@ -44,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       errorMessage: "Das Passwort muss mindestens 8 Zeichen lang sein.",
     });
   } else if (
-    req.body.phone.length !== 13 ||
+    req.body.phone.length < 13 ||
     isNaN(req.body.phone.substr(1)) ||
     (!req.body.phone.startsWith("+43") && !req.body.phone.startsWith("+49"))
   ) {
