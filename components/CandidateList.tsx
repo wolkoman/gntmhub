@@ -11,7 +11,7 @@ export function CandidateList({
   onCandidate: (candidateId: string) => any;
 }) {
   return (
-    <div className="flex flex-wrap justify-center">
+    <div className="flex flex-wrap mx-auto">
       {candidates
         .map(candidate => ({
           ...candidate,
@@ -22,7 +22,7 @@ export function CandidateList({
         .map(candidate => (
           <div
             key={candidate._id}
-            className="w-28 h-28 md:w-36 md:h-36 rounded md:m-2 m-1 flex flex-col justify-between z-0 transform hover:scale-105 transition-all"
+            className="w-28 h-28 md:w-36 md:h-36 rounded md:m-2 m-1 flex flex-col justify-between z-0"
             style={{
               cursor: candidate.terminated ? "default" : "pointer",
               backgroundImage: `url(${candidate.imageUrl})`,

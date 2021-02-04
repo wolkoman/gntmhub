@@ -67,11 +67,11 @@ export function CandidateModal({
             ></div>
             {candidate.name}
           </div>
-          <div className="grid grid-cols-3 w-full py-4">
+          <div className="grid grid-cols-2 w-full py-4">
             {[
               ["Deine Aktien", user.stocks[candidate._id]],
               [
-                "Dein Wert",
+                "Dein Aktienwert",
                 (-calculatePrice(
                   stocks,
                   candidate._id,
@@ -82,7 +82,7 @@ export function CandidateModal({
             ].map(([key, value]) => (
               <div className="mb-4" key={key}>
                 <div className="uppercase text-sm">{key}</div>
-                <div className="text-4xl">{value}</div>
+                <div className="text-3xl">{value}</div>
               </div>
             ))}
           </div>
@@ -91,7 +91,7 @@ export function CandidateModal({
               <button
                 disabled={formState.isLoading}
                 onClick={() => setAmount(f => f - 1)}
-                className="px-3 py-2 rounded-l flex-1 bg-gray-300"
+                className="px-3 py-2 rounded flex-1 border border-pohutukawa-400 text-pohutukawa-400"
                 children="◀"
               />
               <div className="px-6 flex-1 text-center">
@@ -99,7 +99,7 @@ export function CandidateModal({
                 <div
                   className={
                     "text-sm italic " +
-                    (price > 0 ? "text-red-500" : "text-green-500")
+                    (price > 0 ? "text-red-500" : "text-gray-500")
                   }
                 >
                   {(-price).toFixed(2)}gp
@@ -108,16 +108,16 @@ export function CandidateModal({
               <button
                 disabled={formState.isLoading}
                 onClick={() => setAmount(f => f + 1)}
-                className="px-3 py-2 rounded-r flex-1 bg-gray-300"
+                className="px-3 py-2 rounded flex-1 border border-pohutukawa-400 text-pohutukawa-400"
                 children="▶"
               />
             </div>
             <button
               disabled={user.points - price < 0 || formState.isLoading}
               onClick={trade}
-              className="px-3 py-2 flex-1 font-serif bg-gray-700 text-white w-full rounded mt-4"
+              className="px-3 py-2 flex-1 font-serif bg-pohutukawa-400 border-2 border-white text-white w-full rounded mt-4"
             >
-              {formState.isLoading ? "loading" : "Trade"}
+              {formState.isLoading ? "loading" : "Handeln"}
             </button>
             {formState.errorMessage ? (
               <div className="my-2 p-2 border-red-500 border rounded text-red-500 text-xs">

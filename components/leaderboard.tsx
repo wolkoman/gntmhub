@@ -15,7 +15,7 @@ export default function LeaderBoard({
 }) {
   return (
     <div className="flex flex-col justify-center">
-      <div className={`flex p-2 italic rounded mb-2 mx-auto text-gray-400 `}>
+      <div className={`flex p-2 italic rounded mb-2 text-gray-400 `}>
         <div className="w-20 font-bold text-center">#</div>
         <div className="w-40">Name</div>
         <div className="w-20">Cash</div>
@@ -27,7 +27,12 @@ export default function LeaderBoard({
           ...user,
           equity: Object.entries(user.stocks).reduce(
             (p, [candidateId, amount]) =>
-              p + -calculatePrice(stocks, candidateId, -amount),
+              p +
+              -calculatePrice(stocks, candidateId, -amount) *
+                (candidates.find(candidate => candidate._id === candidateId)
+                  .terminated
+                  ? 0
+                  : 1),
             0
           ),
         }))
@@ -36,7 +41,7 @@ export default function LeaderBoard({
           <div
             key={user._id}
             className={
-              `flex p-2 rounded mb-2 mx-auto ` +
+              `flex p-2 rounded mb-2 ` +
               (user._id === userId
                 ? "font-bold border border-pohutukawa-50"
                 : "")
