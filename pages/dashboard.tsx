@@ -25,7 +25,7 @@ export default function Home({ candidates, user, stocks }) {
         {candidates.map(candidate => (
           <div
             key={candidate._id}
-            className="w-28 h-28 md:w-36 md:h-36 rounded md:m-2 m-1 justify-center cursor-pointer"
+            className="w-28 h-28 md:w-36 md:h-36 rounded md:m-2 m-1 cursor-pointer flex flex-col justify-between"
             style={{
               backgroundImage: `url(${candidate.imageUrl})`,
               filter: candidate.terminated ? "grayscale(1)" : "",
@@ -40,6 +40,9 @@ export default function Home({ candidates, user, stocks }) {
               }
             >
               {candidate.name}
+            </div>
+            <div className="font-serif text-6xl text-white text-right m-1">
+              {stocks[candidate._id]}
             </div>
           </div>
         ))}
@@ -59,10 +62,12 @@ export async function getServerSideProps(context: NextPageContext) {
     context.res.setHeader("Location", "/");
     context.res.end();
   }
-
+  const stocks = Object.fromEntries(
+    (await getStocks()).map(({ _id, total }) => [_id, total])
+  );
   return {
     props: {
-      stocks: await getStocks(),
+      stocks,
       user: { ...user, _id: user._id.toString() },
       candidates: candidates.map(candidate => ({
         ...candidate,
@@ -74,13 +79,13 @@ export async function getServerSideProps(context: NextPageContext) {
 
 async function getStocks() {
   const userCollection = await getCollection(UserEntity);
-  const data = await userCollection
+  const data = ((await userCollection
     .aggregate([
       { $project: { item: 1, stocks: { $objectToArray: "$stocks" } } },
       { $unwind: "$stocks" },
       { $group: { _id: "$stocks.k", total: { $sum: "$stocks.v" } } },
     ])
-    .toArray();
+    .toArray()) as unknown) as { _id: string; total: number }[];
   userCollection.close();
   return data;
 }

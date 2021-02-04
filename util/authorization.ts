@@ -1,7 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { parse, serialize } from "cookie";
 import { sign, verify } from "jsonwebtoken";
-import { NextPageContext } from "next";
 import { getCollection, UserEntity } from "./mongo";
 import { ObjectId } from "mongodb";
 
@@ -29,7 +28,7 @@ export async function getUserFromRequest(
   };
   if (jwt.id) {
     const userCollection = await getCollection(UserEntity);
-    const user = await userCollection.findOne({ _id: new ObjectId(jwt.id) });
+    const user = await userCollection.findOne({ _id: ObjectId(jwt.id) });
     userCollection.close();
     return requireUserToBeActive && !user.active ? null : user;
   } else {

@@ -14,9 +14,7 @@ export function Modal({
       <div>{candidate.name}</div>
       <img src={candidate.imageUrl} />
       <div>Deine Aktien: {user.stocks[candidate._id]}</div>
-      <div>
-        Alle Aktien: {stocks.find(stock => stock._id === candidate._id).total}
-      </div>
+      <div>Alle Aktien: {stocks[candidate._id]}</div>
     </div>
   );
 }
