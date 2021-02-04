@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Site } from "../components/Site";
 import { Title } from "../components/Title";
 import { CandidateEntity, getCollection, UserEntity } from "../util/mongo";
-import { Modal } from "../components/Modal";
+import { CandidateModal } from "../components/CandidateModal";
 import { NextPageContext } from "next";
 import { getUserFromRequest } from "../util/authorization";
+import {MarketService} from "../util/MarketService";
 
 export default function Home({ candidates, user, stocks }) {
   const [activeCandidate, setCandidateModal] = useState<string | null>(null);
@@ -13,7 +14,7 @@ export default function Home({ candidates, user, stocks }) {
     <Site>
       <Title>Kandidatinnen</Title>
       {activeCandidate ? (
-        <Modal
+        <CandidateModal
           onClose={() => {
             setCandidateModal(null);
           }}
@@ -64,13 +65,11 @@ export async function getServerSideProps(context: NextPageContext) {
     context.res.statusCode = 302;
     context.res.setHeader("Location", "/");
     context.res.end();
+    return;
   }
-  const stocks = Object.fromEntries(
-    (await getStocks()).map(({ _id, total }) => [_id, total])
-  );
   return {
     props: {
-      stocks,
+      stocks: await MarketService.getStocks(),
       user: { ...user, _id: user._id.toString() },
       candidates: candidates.map(candidate => ({
         ...candidate,
@@ -78,17 +77,4 @@ export async function getServerSideProps(context: NextPageContext) {
       })),
     },
   };
-}
-
-async function getStocks() {
-  const userCollection = await getCollection(UserEntity);
-  const data = ((await userCollection
-    .aggregate([
-      { $project: { item: 1, stocks: { $objectToArray: "$stocks" } } },
-      { $unwind: "$stocks" },
-      { $group: { _id: "$stocks.k", total: { $sum: "$stocks.v" } } },
-    ])
-    .toArray()) as unknown) as { _id: string; total: number }[];
-  userCollection.close();
-  return data;
 }
