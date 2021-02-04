@@ -17,7 +17,7 @@ export default function LeaderBoard({
         //todo: load the stocks for all users and not just current one
         let equity = Object.entries(user.stocks).reduce(
           (p, [candidateId, amount]) =>
-            p + calculatePrice(stocks, candidateId, amount),
+            p + -calculatePrice(stocks, candidateId, -amount),
           0
         );
         return (
@@ -28,7 +28,6 @@ export default function LeaderBoard({
               (user._id === userId ? "border" : "")
             }
           >
-            <div className="w-20">{i + 1}</div>
             <div className="w-40">{user.name}</div>
             <div className="w-20">{user.points.toFixed(2)}</div>
             <div className="w-20">{equity.toFixed(2)}</div>

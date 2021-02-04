@@ -52,7 +52,7 @@ export default function Home({ candidates, user, users, stocks }) {
           </div>
         ))}
       </div>
-      <Title>Rangliste</Title>
+      <Title>Liste</Title>
       <LeaderBoard users={users} stocks={stocks} userId={user._id.toString()} />
     </Site>
   );
