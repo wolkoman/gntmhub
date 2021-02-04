@@ -1,45 +1,43 @@
 import React from "react";
-import { CandidateEntity, UserEntity } from "../util/mongo";
+import { UserEntity } from "../util/mongo";
 import { calculatePrice } from "../util/market";
 
 export default function LeaderBoard({
   users,
-  candidates,
+  userId,
   stocks,
 }: {
   users: UserEntity[];
-  candidates: CandidateEntity[];
+  userId: string;
   stocks: any;
 }) {
   return (
-    <div className="flex flex-wrap justify-center mt-20">
-      <table>
-        <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Cash</th>
-            <th>Equity</th>
-            <th>Total</th>
-          </tr>
-          {users.map(user => {
-            //todo: load the stocks for all users and not just current one
-            let equity = candidates.reduce(
-              (p, candidate) =>
-                p +
-                calculatePrice(stocks, candidate._id, stocks[candidate._id]),
-              0
-            );
-            return (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>{user.points}</td>
-                <td>{equity}</td>
-                <td>{equity + user.points}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div className="flex flex-col justify-center">
+      {users.map((user, i) => {
+        //todo: load the stocks for all users and not just current one
+        let equity = Object.entries(user.stocks).reduce(
+          (p, [candidateId, amount]) =>
+            p + calculatePrice(stocks, candidateId, amount),
+          0
+        );
+        return (
+          <div
+            key={user._id}
+            className={
+              `flex p-2 bg-gray-200 rounded mb-2 border-pohutukawa-200 ` +
+              (user._id === userId ? "border" : "")
+            }
+          >
+            <div className="w-20">{i + 1}</div>
+            <div className="w-40">{user.name}</div>
+            <div className="w-20">{user.points.toFixed(2)}</div>
+            <div className="w-20">{equity.toFixed(2)}</div>
+            <div className="w-20 font-bold">
+              {(equity + user.points).toFixed(2)}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

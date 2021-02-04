@@ -6,7 +6,8 @@ import { CandidateModal } from "../components/CandidateModal";
 import { NextPageContext } from "next";
 import { getUserFromRequest } from "../util/authorization";
 import { MarketService } from "../util/MarketService";
-import LeaderBoard from "../components/Leaderboard";
+import LeaderBoard from "../components/leaderboard";
+import { calculatePrice } from "../util/market";
 
 export default function Home({ candidates, user, users, stocks }) {
   const [activeCandidate, setCandidateModal] = useState<string | null>(null);
@@ -45,13 +46,14 @@ export default function Home({ candidates, user, users, stocks }) {
             >
               {candidate.name}
             </div>
-            <div className="font-serif text-6xl text-white text-right m-1">
-              {stocks[candidate._id]}
+            <div className="font-serif text-5xl text-white text-right m-1">
+              {calculatePrice(stocks, candidate._id, 1).toFixed(2)}
             </div>
           </div>
         ))}
       </div>
-      <LeaderBoard users={users} stocks={stocks} candidates={candidates} />
+      <Title>Rangliste</Title>
+      <LeaderBoard users={users} stocks={stocks} userId={user._id.toString()} />
     </Site>
   );
 }

@@ -72,13 +72,13 @@ export function CandidateModal({
               ["Deine Aktien", user.stocks[candidate._id]],
               [
                 "Dein Wert",
-                -calculatePrice(
+                (-calculatePrice(
                   stocks,
                   candidate._id,
                   -user.stocks[candidate._id]
-                ),
+                )).toFixed(2),
               ],
-              ["Kurs", calculatePrice(stocks, candidate._id, 1)],
+              ["Kurs", calculatePrice(stocks, candidate._id, 1).toFixed(2)],
             ].map(([key, value]) => (
               <div className="mb-4" key={key}>
                 <div className="uppercase text-sm">{key}</div>
@@ -102,7 +102,7 @@ export function CandidateModal({
                     (price > 0 ? "text-red-500" : "text-green-500")
                   }
                 >
-                  {-price}gp
+                  {(-price).toFixed(2)}gp
                 </div>
               </div>
               <button
