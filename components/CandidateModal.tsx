@@ -29,7 +29,7 @@ export function CandidateModal({candidate, user, stocks, onClose}: {
         }).then(() => setFormState({isLoading: false})).catch(({errorMessage}) => setFormState({
             isLoading: false,
             errorMessage
-        })).finally(() => router.push(router.asPath));
+        })).finally(() => router.push('/dashboard'));
     };
     return (
         <div
@@ -50,7 +50,7 @@ export function CandidateModal({candidate, user, stocks, onClose}: {
                     <div className="text-6xl font-bold mb-4">{stocks[candidate._id]}</div>
                     <div className="uppercase">Handel</div>
                     <div>
-                        <input type="number" value={amount} onChange={(e) => setAmount(+e.target!.value!)}/>
+                        <input type="number" placeholder="wie viele?" onChange={(e) => setAmount(+e.target!.value!)}/>
                         <button disabled={user.points - price < 0 || formState.isLoading} onClick={buy}>Buy</button>
                         <div>{user.points} {price < 0 ? "+" : "-"} {Math.abs(price)} = {user.points - price}</div>
                         {formState.errorMessage ? <div

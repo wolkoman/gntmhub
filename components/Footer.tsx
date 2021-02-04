@@ -8,6 +8,9 @@ export function Footer() {
       <Link href={Route.IMPRESSUM}>
         <div className="cursor-pointer">Impressum</div>
       </Link>
+        <Link href={Route.DASHBOARD}>
+            <div className="cursor-pointer"> Dashboard</div>
+        </Link>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import React from "react";
+import {Site} from "../components/Site";
 
 export default function Impressum({}) {
   return (
-    <div className="font-mono p-5">
+      <Site>
+      <div className="font-mono p-5">
       <h1 data-fontsize="32" data-lineheight="44.8px">
         Impressum
       </h1>
@@ -383,5 +385,6 @@ export default function Impressum({}) {
         nachlesen.
       </p>
     </div>
-  );
+          </Site>
+              );
 }
