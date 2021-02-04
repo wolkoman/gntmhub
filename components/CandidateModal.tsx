@@ -22,11 +22,12 @@ export function CandidateModal({
     errorMessage?: string;
     isLoading: boolean;
   }>({ isLoading: false });
-  const removeErrorMessage = () => setFormState({ isLoading: true });
   useEffect(() => setPrice(calculatePrice(stocks, candidate._id, amount)), [
     amount,
     stocks,
   ]);
+  const setLimitedAmount = (amount: number | string) =>
+    setAmount(Math.max(-user.stocks[candidate._id], Math.floor(+amount)));
   const trade = () => {
     setFormState({ errorMessage: null, isLoading: true });
     fetchJson("/api/market/trade", {
@@ -45,11 +46,11 @@ export function CandidateModal({
   };
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-50 bg-white z-10"
+      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-70 bg-gray-500 z-10"
       onClick={onClose}
     >
       <div
-        className="bg-white shadow-lg flex flex-col md:flex-row rounded-lg overflow-hidden w-screen max-w-2xl"
+        className="bg-white shadow-2xl flex flex-col md:flex-row rounded-lg overflow-hidden w-screen max-w-2xl"
         style={{
           filter: formState.isLoading ? "contrast(80%)" : "",
         }}
@@ -63,8 +64,8 @@ export function CandidateModal({
                 backgroundImage: `url(${candidate.imageUrl})`,
                 backgroundSize: "cover",
               }}
-              className="w-16 h-16 mr-4 rounded md:hidden"
-            ></div>
+              className="w-28 h-28 mr-4 md:hidden rounded-lg"
+            />
             {candidate.name}
           </div>
           <div className="grid grid-cols-2 w-full py-4">
@@ -90,12 +91,18 @@ export function CandidateModal({
             <div className="flex">
               <button
                 disabled={formState.isLoading}
-                onClick={() => setAmount(f => f - 1)}
+                onClick={() => setLimitedAmount(amount - 1)}
                 className="px-3 py-2 rounded flex-1 border border-pohutukawa-400 text-pohutukawa-400"
                 children="◀"
               />
               <div className="px-6 flex-1 text-center">
-                <div className="text-lg">{amount}</div>
+                <input
+                  className="text-lg text-center w-20"
+                  type="number"
+                  value={amount}
+                  step="1"
+                  onChange={e => setLimitedAmount(e.target.value)}
+                />
                 <div
                   className={
                     "text-sm italic " +
@@ -107,7 +114,7 @@ export function CandidateModal({
               </div>
               <button
                 disabled={formState.isLoading}
-                onClick={() => setAmount(f => f + 1)}
+                onClick={() => setLimitedAmount(amount + 1)}
                 className="px-3 py-2 rounded flex-1 border border-pohutukawa-400 text-pohutukawa-400"
                 children="▶"
               />

@@ -7,7 +7,6 @@ import { NextPageContext } from "next";
 import { getUserFromRequest } from "../util/authorization";
 import { MarketService } from "../util/MarketService";
 import LeaderBoard from "../components/leaderboard";
-import { calculatePrice } from "../util/market";
 import { CandidateList } from "../components/CandidateList";
 
 export default function Home({ candidates, user, users, stocks }) {
