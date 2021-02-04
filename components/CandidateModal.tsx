@@ -52,7 +52,7 @@ export function CandidateModal({candidate, user, stocks, onClose}: {
                     <div>
                         <input type="number" value={amount} onChange={(e) => setAmount(+e.target!.value!)}/>
                         <button disabled={user.points - price < 0 || formState.isLoading} onClick={buy}>Buy</button>
-                        <div>{user.points} {price < 0 ? "+" : "-"} {price} = {user.points - price}</div>
+                        <div>{user.points} {price < 0 ? "+" : "-"} {Math.abs(price)} = {user.points - price}</div>
                         {formState.errorMessage ? <div
                             className="my-2 p-2 border-red-500 border rounded text-red-500">{formState.errorMessage}</div> : null}
                     </div>
