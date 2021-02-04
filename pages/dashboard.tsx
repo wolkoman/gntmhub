@@ -7,13 +7,16 @@ import { NextPageContext } from "next";
 import { getUserFromRequest } from "../util/authorization";
 
 export default function Home({ candidates, user, stocks }) {
-  const [activeCandidate, setCandidateModal] = useState<string>();
+  const [activeCandidate, setCandidateModal] = useState<string | null>(null);
 
   return (
     <Site>
       <Title>Kandidatinnen</Title>
       {activeCandidate ? (
         <Modal
+          onClose={() => {
+            setCandidateModal(null);
+          }}
           candidate={candidates.find(
             candidate => candidate._id === activeCandidate
           )}
