@@ -3,18 +3,20 @@ import { useEffect, useState } from "react";
 import { calculatePrice } from "../util/market";
 import { fetchJson } from "../util/fetchJson";
 import { useRouter } from "next/router";
+import { useStore } from "../util/store";
 
 export function CandidateModal({
-  candidate,
-  user,
-  stocks,
+  candidateId,
   onClose,
 }: {
-  candidate: CandidateEntity;
-  user: UserEntity;
-  stocks: any;
+  candidateId: string;
   onClose: () => void;
 }) {
+  const [candidate, stocks, user] = useStore(state => [
+    state.candidate(candidateId),
+    state.stocks,
+    state.user,
+  ]);
   const [amount, setAmount] = useState(0);
   const [price, setPrice] = useState(0);
   const router = useRouter();

@@ -1,15 +1,15 @@
 import { calculatePrice } from "../util/market";
-import { CandidateEntity } from "../util/mongo";
+import { useStore } from "../util/store";
 
 export function CandidateList({
-  candidates,
-  stocks,
   onCandidate,
 }: {
-  candidates: CandidateEntity[];
-  stocks: any;
   onCandidate: (candidateId: string) => any;
 }) {
+  const [candidates, stocks] = useStore(state => [
+    state.candidates,
+    state.stocks,
+  ]);
   return (
     <div className="flex flex-wrap mx-auto">
       {candidates

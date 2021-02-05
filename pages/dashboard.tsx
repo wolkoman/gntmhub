@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Site } from "../components/Site";
 import { Title } from "../components/Title";
 import { CandidateEntity, getCollection, UserEntity } from "../util/mongo";
@@ -6,38 +6,28 @@ import { CandidateModal } from "../components/CandidateModal";
 import { NextPageContext } from "next";
 import { getUserFromRequest } from "../util/authorization";
 import { MarketService } from "../util/MarketService";
-import LeaderBoard from "../components/leaderboard";
 import { CandidateList } from "../components/CandidateList";
+import { useStore } from "../util/store";
 
 export default function Home({ candidates, user, users, stocks }) {
-  const [activeCandidate, setCandidateModal] = useState<string | null>(null);
+  const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
+  const setAll = useStore(state => state.setAll);
+  useEffect(() => setAll({ candidates, user, users, stocks }), [
+    candidates,
+    user,
+    users,
+    stocks,
+  ]);
   return (
     <Site>
       <Title>Kandidatinnen</Title>
       {activeCandidate ? (
         <CandidateModal
-          onClose={() => {
-            setCandidateModal(null);
-          }}
-          candidate={candidates.find(
-            candidate => candidate._id === activeCandidate
-          )}
-          user={user}
-          stocks={stocks}
+          onClose={() => setActiveCandidate(null)}
+          candidateId={activeCandidate}
         />
       ) : null}
-      <CandidateList
-        candidates={candidates}
-        onCandidate={id => setCandidateModal(id)}
-        stocks={stocks}
-      />
-      <Title>Liste</Title>
-      <LeaderBoard
-        users={users}
-        stocks={stocks}
-        userId={user._id.toString()}
-        candidates={candidates}
-      />
+      <CandidateList onCandidate={id => setActiveCandidate(id)} />
     </Site>
   );
 }
