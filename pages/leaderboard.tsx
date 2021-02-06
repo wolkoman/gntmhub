@@ -5,7 +5,7 @@ import { calculatePrice } from "../util/market";
 import { useStore } from "../util/store";
 
 export default function LeaderboardPage() {
-  const store = useStore(state => state);
+  const [store] = useStore(state => [state, state.load()]);
   return (
     <Site>
       <Title>Rangliste</Title>

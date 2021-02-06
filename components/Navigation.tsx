@@ -3,7 +3,10 @@ import React from "react";
 import { useStore } from "../util/store";
 
 export function Navigation() {
-  const isLoggedIn = useStore(state => state.isLoggedIn());
+  const [isLoggedIn, loading] = useStore(state => [
+    state.isLoggedIn(),
+    state.loading,
+  ]);
   return (
     <div className="p-4 border-b border-black flex items-end justify-between">
       <Link href="/">
@@ -11,6 +14,11 @@ export function Navigation() {
           gntmhub
         </div>
       </Link>
+      {loading ? (
+        <div className="bg-gray-200 p-1 px-2 rounded text-gray-600 uppercase text-sm">
+          LÄDT
+        </div>
+      ) : null}
       {isLoggedIn ? (
         <div className="flex">
           <Link href="/dashboard">

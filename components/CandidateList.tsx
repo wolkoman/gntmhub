@@ -9,6 +9,7 @@ export function CandidateList({
   const [candidates, stocks] = useStore(state => [
     state.candidates,
     state.stocks,
+    state.load(),
   ]);
   return (
     <div className="flex flex-wrap mx-auto">

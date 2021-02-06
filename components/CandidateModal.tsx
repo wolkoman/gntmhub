@@ -12,10 +12,11 @@ export function CandidateModal({
   candidateId: string;
   onClose: () => void;
 }) {
-  const [candidate, stocks, user] = useStore(state => [
+  const [candidate, stocks, user, setAll] = useStore(state => [
     state.candidate(candidateId),
     state.stocks,
     state.user,
+    state.setAll,
   ]);
   const [amount, setAmount] = useState(0);
   const [price, setPrice] = useState(0);
@@ -37,7 +38,12 @@ export function CandidateModal({
       amount,
       expectedPrice: price,
     })
-      .then(() => setFormState({ isLoading: false }))
+      .then(data => {
+        console.log(data);
+        setFormState({ isLoading: false });
+        setAmount(0);
+        setAll(data);
+      })
       .catch(({ errorMessage }) =>
         setFormState({
           isLoading: false,
@@ -54,7 +60,7 @@ export function CandidateModal({
       <div
         className="bg-white shadow-2xl flex flex-col md:flex-row rounded-lg overflow-hidden w-screen max-w-2xl"
         style={{
-          filter: formState.isLoading ? "contrast(80%)" : "",
+          filter: formState.isLoading ? "contrast(70%)" : "",
         }}
         onClick={e => e.stopPropagation()}
       >
