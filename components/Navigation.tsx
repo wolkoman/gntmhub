@@ -21,7 +21,12 @@ export function Navigation() {
       ) : null}
       {isLoggedIn ? (
         <div className="flex">
-          <Link href="/dashboard">
+          <Link href="/overview">
+            <div className="text-md cursor-pointer px-4 uppercase">
+              Übersicht
+            </div>
+          </Link>
+          <Link href="/candidates">
             <div className="text-md cursor-pointer px-4 uppercase">
               Kandidatinnen
             </div>

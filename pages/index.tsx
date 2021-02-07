@@ -16,9 +16,9 @@ export default function Home() {
             Topmodel Kandidatinnen.
           </div>
           <div className="text-xl py-2 font-bold opacity-70">
-            Spielstart am 8. Februar
+            Spielstart am 10. Februar
           </div>
-          <div className="flex my-8">
+          <div className="flex my-8 hidden">
             <Link href={Route.LOGIN}>
               <div className="px-4 py-2 text-lg border border-pohutukawa-400 text-pohutukawa-400 font-bold rounded mr-4 cursor-pointer">
                 Login

@@ -1,9 +1,9 @@
-import { CandidateEntity, UserEntity } from "../util/mongo";
 import { useEffect, useState } from "react";
 import { calculatePrice } from "../util/market";
 import { fetchJson } from "../util/fetchJson";
 import { useRouter } from "next/router";
 import { useStore } from "../util/store";
+import {Route} from '../util/routes';
 
 export function CandidateModal({
   candidateId,
@@ -50,7 +50,7 @@ export function CandidateModal({
           errorMessage,
         })
       )
-      .finally(() => router.push("/dashboard"));
+      .finally(() => router.push(Route.CANDIDATES));
   };
   return (
     <div

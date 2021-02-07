@@ -1,5 +1,5 @@
-import React from "react";
-import {Site} from "../components/Site";
+import React from 'react';
+import {Site} from '../components/Site';
 
 export default function Impressum({}) {
   return (

@@ -13,8 +13,6 @@ export default function LeaderboardPage() {
         <div className={`flex p-2 italic rounded mb-2 text-gray-400 `}>
           <div className="w-20 font-bold text-center">#</div>
           <div className="w-40">Name</div>
-          <div className="w-20">Cash</div>
-          <div className="w-20">Aktien</div>
           <div className="w-20 font-bold">Gesamtwert</div>
         </div>
         {store.users
@@ -45,8 +43,6 @@ export default function LeaderboardPage() {
             >
               <div className="w-20 font-bold text-center">{i + 1}</div>
               <div className="w-40">{user.name}</div>
-              <div className="w-20">{user.points.toFixed(2)}</div>
-              <div className="w-20">{user.equity.toFixed(2)}</div>
               <div className="w-20 font-bold">
                 {(user.equity + user.points).toFixed(2)}
               </div>

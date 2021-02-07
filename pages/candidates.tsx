@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Site } from "../components/Site";
 import { Title } from "../components/Title";
 import { CandidateModal } from "../components/CandidateModal";
 import { CandidateList } from "../components/CandidateList";
-import { useStore } from "../util/store";
 
 export default function Home() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
