@@ -1,6 +1,7 @@
 import create from "zustand";
 import { fetchJson } from "./fetchJson";
-import { CandidateEntity, UserEntity } from "./mongo";
+import {CandidateEntity, UserEntity} from './DatabaseService';
+
 export type State = {
   users: UserEntity[];
   candidates: CandidateEntity[];
