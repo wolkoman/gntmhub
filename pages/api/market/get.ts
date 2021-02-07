@@ -1,33 +1,35 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getUserFromRequest } from "../../../util/authorization";
-import { MarketService } from "../../../util/MarketService";
 import {
   CandidateEntity,
-  getCollection,
+  DatabaseService,
   UserEntity,
-} from "../../../util/mongo";
+} from "../../../util/DatabaseService";
+import { MarketService } from "../../../util/MarketService";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const candidateCollection = await getCollection(CandidateEntity);
+  const candidateCollection = await DatabaseService.getCollection(
+    CandidateEntity
+  );
   const candidates = await candidateCollection.find({}).toArray();
-  candidateCollection.close();
 
-  const userCollection = await getCollection(UserEntity);
+  const userCollection = await DatabaseService.getCollection(UserEntity);
   const users = await userCollection.find({}).toArray();
-  userCollection.close();
-
   const user = await getUserFromRequest(req);
+
   if (!user) {
     res.status(401).json({ errorMessage: "Sie sind nicht angemeldet." });
-    return;
+  } else {
+    res.json({
+      users: users.map(user => ({ ...user, _id: user._id.toString() })),
+      stocks: await MarketService.getStocks(),
+      user: { ...user, _id: user._id.toString() },
+      candidates: candidates.map(candidate => ({
+        ...candidate,
+        _id: candidate._id.toString(),
+      })),
+    });
   }
-  res.json({
-    users: users.map(user => ({ ...user, _id: user._id.toString() })),
-    stocks: await MarketService.getStocks(),
-    user: { ...user, _id: user._id.toString() },
-    candidates: candidates.map(candidate => ({
-      ...candidate,
-      _id: candidate._id.toString(),
-    })),
-  });
+  console.log("before close");
+  await DatabaseService.close();
 };

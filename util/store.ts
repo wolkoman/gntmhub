@@ -29,11 +29,10 @@ export const useStore = create<State>((set, get) => ({
     const loaded = get().candidates.length !== 0;
     if (!loaded) {
       set({ loading: true });
-      fetch("/api/market/get")
-        .then(x => x.json())
-        .then(data => {
-          console.log(data);
-          set({ ...data, loading: false });
+      fetchJson("/api/market/get")
+        .then(data => set({ ...data, loading: false }))
+        .catch(() => {
+          console.log("ERROR");
         });
     }
   },

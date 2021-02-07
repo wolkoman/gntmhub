@@ -1,24 +1,19 @@
 import { hash } from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
-import {
-  CandidateEntity,
-  getCollection,
-  UserEntity,
-} from "../../../util/mongo";
 import { sendVerifyMessage } from "../../../util/verifyMessage";
 import { setAuthorizationCookie } from "../../../util/authorization";
+import {
+  CandidateEntity,
+  DatabaseService,
+  UserEntity,
+} from "../../../util/DatabaseService";
 
 async function loadInitialCandidateStocking() {
-  const candidatesCollection = await getCollection(CandidateEntity);
-
-  let candidatesStocking = Object.fromEntries(
-    (await candidatesCollection.find({}).toArray()).map(candidate => [
-      candidate._id,
-      0,
-    ])
+  const candidatesCollection = await DatabaseService.getCollection(
+    CandidateEntity
   );
-  candidatesCollection.close();
-  return candidatesStocking;
+  const candidates = await candidatesCollection.find({}).toArray();
+  return Object.fromEntries(candidates.map(candidate => [candidate._id, 0]));
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -53,8 +48,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "Die Telefonnummer muss eine valide österreichische oder deutsche Telefonnummer sein.",
     });
   } else {
-    const db = await getCollection(UserEntity);
-    const userResult = await db.findOne({
+    const userCollection = await DatabaseService.getCollection(UserEntity);
+    const userResult = await userCollection.findOne({
       $or: [{ name: req.body.username }, { phone: req.body.phone }],
     });
     if (userResult) {
@@ -71,11 +66,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         points: 1000,
         stocks: await loadInitialCandidateStocking(),
       } as UserEntity;
-      await db.insertOne(user);
+      await userCollection.insertOne(user);
       setAuthorizationCookie(res, user._id);
       sendVerifyMessage(req.body.phone, verifyToken);
       res.json({});
     }
-    db.close();
+
+    await DatabaseService.close();
   }
 };

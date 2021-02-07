@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { parse, serialize } from "cookie";
 import { sign, verify } from "jsonwebtoken";
-import {getCollection, ObjectId, UserEntity} from "./mongo";
+import {DatabaseService, ObjectId, UserEntity} from './DatabaseService';
 
 export function setAuthorizationCookie(res: ServerResponse, id: string) {
   const jwt = sign({ id }, process.env.JWT_SECRET);
@@ -26,9 +26,10 @@ export async function getUserFromRequest(
     id?: string;
   };
   if (jwt.id) {
-    const userCollection = await getCollection(UserEntity);
+    const userCollection = await DatabaseService.getCollection(UserEntity);
     const user = await userCollection.findOne({ _id: ObjectId(jwt.id) });
-    userCollection.close();
+    console.log("user", user);
+    if (!user) return null;
     return requireUserToBeActive && !user.active ? null : user;
   } else {
     return undefined;

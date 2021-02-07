@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getCollection, UserEntity } from "../../../util/mongo";
 import { setAuthorizationCookie } from "../../../util/authorization";
+import { DatabaseService, UserEntity } from "../../../util/DatabaseService";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
@@ -12,10 +12,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  const db = await getCollection(UserEntity);
+  const db = await DatabaseService.getCollection(UserEntity);
   const user = await db.findOne({ name: req.body.username as string });
   const valid = await compare(req.body.password, user?.hash ?? "");
-  db.close();
 
   if (valid) {
     setAuthorizationCookie(res, user._id);
@@ -23,4 +22,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     res.status(401).json({ errorMessage: "Die Zugangsdaten sind falsch." });
   }
+
+  await DatabaseService.close();
 };

@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {getCollection, ObjectId, UserEntity} from "../../../util/mongo";
 import {
   getUserFromRequest,
   setAuthorizationCookie,
 } from "../../../util/authorization";
+import { DatabaseService, UserEntity } from "../../../util/DatabaseService";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.token) {
@@ -11,12 +11,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     const user = await getUserFromRequest(req, false);
     if (user && user.verifyToken === req.body.token) {
-      const userCollection = await getCollection(UserEntity);
+      const userCollection = await DatabaseService.getCollection(UserEntity);
       await userCollection.updateOne(
-        { _id: ObjectId(user._id) },
+        { _id: Object(user._id) },
         { $set: { active: true } }
       );
-      userCollection.close();
       setAuthorizationCookie(res, user._id);
       res.json({});
     } else {
@@ -24,5 +23,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .status(401)
         .json({ errorMessage: "Der angegebene Code ist nicht korrekt." });
     }
+    await DatabaseService.close();
   }
 };
