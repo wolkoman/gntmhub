@@ -11,6 +11,5 @@ export function sendVerifyMessage(phone: string, verifyCode: string) {
     ]),
   })
     .then(x => x.json())
-    .then(x => console.log(x))
     .catch(x => console.log("ERR", x));
 }

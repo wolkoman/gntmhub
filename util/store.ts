@@ -32,8 +32,8 @@ export const useStore = create<State>((set, get) => ({
       set({ loading: true });
       fetchJson("/api/market/get")
         .then(data => set({ ...data, loading: false }))
-        .catch(() => {
-          console.log("ERROR");
+        .catch((err) => {
+          console.log("Request error");
         });
     }
   },

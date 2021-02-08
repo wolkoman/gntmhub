@@ -1,4 +1,5 @@
 export function fetchJson(url: string, postData?: any) {
+  console.log("fetching", url);
   return fetch(url, {
     method: postData ? "POST" : "GET",
     body: postData ? JSON.stringify(postData) : undefined,

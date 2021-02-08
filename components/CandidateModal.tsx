@@ -39,7 +39,6 @@ export function CandidateModal({
       expectedPrice: price,
     })
       .then(data => {
-        console.log(data);
         setFormState({ isLoading: false });
         setAmount(0);
         setAll(data);

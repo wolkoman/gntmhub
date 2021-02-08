@@ -28,12 +28,13 @@ export class DatabaseService {
 
   private static async getClient(): Promise<MongoClient> {
     if (!DatabaseService.client) {
+      console.log("Connecting");
       const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
       const mongoClient = new MongoClient(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       });
-      DatabaseService.client = await mongoClient.connect();
+      DatabaseService.client = await mongoClient.connect().catch(x => {console.log("client connect",x);return x});
     }
     return DatabaseService.client;
   }
@@ -54,7 +55,10 @@ export class DatabaseService {
 
   static async close() {
     if (DatabaseService.client && DatabaseService.client.isConnected) {
-      await DatabaseService.client.close();
+      await DatabaseService.client.close().catch(() => console.log("error closing"));
+      DatabaseService.client = null;
+    }else{
+      console.error("Database not closing");
     }
   }
 }
