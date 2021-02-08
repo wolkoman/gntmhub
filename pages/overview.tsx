@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { Site } from "../components/Site";
 import { Title } from "../components/Title";
-import { CandidateModal } from "../components/CandidateModal";
-import { CandidateList } from "../components/CandidateList";
 import {useStore} from '../util/store';
 import {calculatePrice} from '../util/market';
 
-export default function Home() {
+export default function Overview() {
   const [user, stocks, candidates] = useStore(state => [state.user, state.stocks, state.candidates]);
   const [equity, setEquity] = useState(0);
   useEffect(() => {
@@ -26,7 +24,7 @@ export default function Home() {
     <Site>
       <Title>Übersicht</Title>
       <div className="text-lg mb-4">
-        Hallo <span>{user.name}</span>!
+        Hallo <span>{user?.name}</span>!
       </div>
       <div className="bg-gradient-to-r from-pohutukawa-300 to-pohutukawa-100 rounded p-6 flex flex-col md:flex-row">
         <div className="mr-8">
@@ -34,7 +32,7 @@ export default function Home() {
             Aktuelle GPoints
           </div>
           <div className="text-white text-6xl">
-            {(user.points + equity).toFixed(2)}
+            {(user?.points + equity).toFixed(2)}
           </div>
         </div>
         <div className="flex mt-8 md:mt-0">
@@ -43,7 +41,7 @@ export default function Home() {
               Liquidität
             </div>
             <div className="text-4xl">
-              {user.points.toFixed(2)}
+              {user?.points.toFixed(2)}
             </div>
           </div>
           <div className="bg-white rounded p-4">
@@ -51,7 +49,7 @@ export default function Home() {
               Aktienwert
             </div>
             <div className="text-4xl">
-              {equity.toFixed(2)}
+              {equity?.toFixed(2)}
             </div>
           </div>
         </div>

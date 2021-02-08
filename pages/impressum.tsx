@@ -1,7 +1,7 @@
 import React from 'react';
 import {Site} from '../components/Site';
 
-export default function Impressum({}) {
+export default function Impressum() {
   return (
       <Site>
       <div className="font-mono p-5">
