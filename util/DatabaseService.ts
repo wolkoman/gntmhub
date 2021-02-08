@@ -54,6 +54,7 @@ export class DatabaseService {
 
   static async close() {
     if (DatabaseService.client && DatabaseService.client.isConnected) {
+      await DatabaseService.client.close();
     }
   }
 }
