@@ -13,10 +13,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   );
   const candidates = await candidateCollection.find({}).toArray();
 
-  console.log("before");
-  const userCollection = await DatabaseService.getCollection(UserEntity).catch(x => {console.log("/get [native] collection",x);return x});
-  const users = await userCollection.find({}).toArray().catch(x => {console.log("/get [native] userfind",x);return x});
-  const user = await getUserFromRequest(req).catch(x => {console.log("/get [native] getuserrequest",x);return x});
+  const userCollection = await DatabaseService.getCollection(UserEntity);
+  const users = await userCollection.find({}).toArray();
+  const user = await getUserFromRequest(req);
 
   if (!user) {
     res.status(401).json({ errorMessage: "Sie sind nicht angemeldet." });
@@ -31,7 +30,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       })),
     });
   }
-  console.log("before close");
   await DatabaseService.close();
-  console.log("after close");
 };

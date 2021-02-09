@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import { Site } from "../components/Site";
-import { Title } from "../components/Title";
+import {Site} from '../components/Site';
+import {Title} from '../components/Title';
 import {useStore} from '../util/store';
 import {calculatePrice} from '../util/market';
+import {Administrator} from '../components/Administrator';
+import {PayoutMessageEntity} from '../util/DatabaseService';
+import {GPoints} from '../components/GPoints';
 
 export default function Overview() {
-  const [user, stocks, candidates] = useStore(state => [state.user, state.stocks, state.candidates, state.load()]);
+  const [user, stocks, candidates, messages] = useStore(state => [
+    state.user, state.stocks, state.candidates, state.messages, state.loadMessages(), state.load()
+  ]);
   const [equity, setEquity] = useState(0);
   useEffect(() => {
-    setEquity(Object.entries(user?.stocks).reduce(
+    setEquity(Object.entries(user?.stocks ?? {}).reduce(
       (p, [candidateId, amount]) =>
         p +
         -calculatePrice(stocks, candidateId, -amount) *
@@ -51,6 +56,20 @@ export default function Overview() {
           </div>
         </div>
       </div>
+      <Title>Auszahlungen</Title>
+      <div>
+        {messages
+          .map(message => (message as PayoutMessageEntity).payouts)
+          .map((payouts, i) => <div key={i} className="bg-gray-300 p-3 rounded mb-4">
+          <div>Dividenauszahlung</div>
+          <div className="flex flex-wrap">
+            {payouts.map(payout => <div className="p-1 px-2 m-1 bg-white rounded">
+              {candidates.find(candidate => candidate._id === payout.candidateId)?.name}: {payout.amount.toFixed(2)}gp
+            </div>)}
+          </div>
+        </div>)}
+      </div>
+      {user?.admin ? <Administrator/> : null}
     </Site>
   );
 }

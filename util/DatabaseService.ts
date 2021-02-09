@@ -21,6 +21,15 @@ export class CandidateEntity extends Entity {
   terminated: boolean;
   imageUrl: string;
 }
+export class MessageEntity extends Entity{
+  _collectionName = "messages";
+  userId: string;
+  type: string;
+}
+export class PayoutMessageEntity extends MessageEntity {
+  type = "PAYOUT";
+  payouts: {candidateId: string, amount: number}[];
+}
 
 export class DatabaseService {
   static client: MongoClient;
