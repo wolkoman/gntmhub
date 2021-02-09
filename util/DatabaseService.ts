@@ -43,7 +43,7 @@ export class DatabaseService {
     new (): E;
   }): Promise<Collection<E>> {
     const collectionName = new entity()._collectionName;
-    if (!DatabaseService.collections[collectionName]) {
+    if (!DatabaseService.collections[collectionName] || true) {
       const client = await DatabaseService.getClient();
       const collection = client
         .db(process.env.MONGO_DB)

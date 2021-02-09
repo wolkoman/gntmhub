@@ -32,6 +32,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
   }
   console.log("before close");
-  //await DatabaseService.close();
+  await DatabaseService.close();
   console.log("after close");
 };
