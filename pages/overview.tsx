@@ -37,7 +37,7 @@ export default function Overview() {
             {(user?.points + equity).toFixed(2)}
           </div>
         </div>
-        <div className="flex mt-8 md:mt-0">
+        <div className="flex flex-wrap mt-8 md:mt-0">
           <div className="bg-white rounded p-4 mr-8">
             <div className="text-sm font-bold uppercase">
               Liquidität
