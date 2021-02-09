@@ -5,10 +5,10 @@ import {useStore} from '../util/store';
 import {calculatePrice} from '../util/market';
 
 export default function Overview() {
-  const [user, stocks, candidates] = useStore(state => [state.user, state.stocks, state.candidates]);
+  const [user, stocks, candidates] = useStore(state => [state.user, state.stocks, state.candidates, state.load()]);
   const [equity, setEquity] = useState(0);
   useEffect(() => {
-    setEquity(Object.entries(user.stocks).reduce(
+    setEquity(Object.entries(user?.stocks).reduce(
       (p, [candidateId, amount]) =>
         p +
         -calculatePrice(stocks, candidateId, -amount) *
@@ -22,10 +22,7 @@ export default function Overview() {
   }, [user]);
   return (
     <Site>
-      <Title>Übersicht</Title>
-      <div className="text-lg mb-4">
-        Hallo <span>{user?.name}</span>!
-      </div>
+      <Title>Punkteübersicht</Title>
       <div className="bg-gradient-to-r from-pohutukawa-300 to-pohutukawa-100 rounded p-6 flex flex-col md:flex-row">
         <div className="mr-8">
           <div className="font-bold text-white uppercase">
