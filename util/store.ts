@@ -48,7 +48,7 @@ export const useStore = create<State>((set, get) => ({
     console.log('load messages');
     fetchJson('/api/market/payouts')
       .then(({messages}) => {
-        set({messages, loadingMessages: false});
+        set({messages});
       })
       .catch((err) => {
         console.log('Message error');

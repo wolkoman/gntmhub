@@ -1,5 +1,5 @@
 export function calculateStockPrice(stockIndex: number): number {
-  return 1 + stockIndex / 10;
+  return 0.9 + stockIndex / 10;
 }
 
 export function calculatePrice(
