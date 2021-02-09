@@ -13,11 +13,11 @@ export function Portfolio({onSelect}: { onSelect: (id: string) => any }) {
         .map(([candidateId, amount]) => ({candidate: candidates.find(candidate => candidate._id === candidateId) as CandidateEntity, amount}))
         .filter(({candidate}) => !candidate.terminated)
         .map(({candidate, amount}) => {
-          return <div key={candidate._id} className="flex items-center cursor-pointer"
+          return <div key={candidate._id} className="flex items-center cursor-pointer rounded mb-2"
                       onClick={() => onSelect(candidate._id)}>
-            <div className="text-lg p-3 pr-6 w-20 text-2xl font-bold text-right">{amount}</div>
+            <div className="text-lg p-3 pr-4 w-20 text-2xl font-bold text-right">{amount}</div>
             <div style={{backgroundImage: `url(${candidate.imageUrl})`, backgroundSize: 'cover'}}
-                 className="w-14 h-14 mb-2 rounded"/>
+                 className="w-14 h-14"/>
             <div className="text-lg p-2 pl-6">{candidate.name}</div>
           </div>;
         })}

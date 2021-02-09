@@ -18,7 +18,7 @@ export default function Home() {
           candidateId={activeCandidate}
         />
       ) : null}
-      <div className="bg-pohutukawa-10 p-4 mb-4 rounded pointer-events-none">
+      <div className="text-gray-800 italic p-4 mb-4 rounded pointer-events-none">
         Donnerstags von 20:00 - 21:00 Uhr und 21:30 - 23:00 Uhr besteht eine Handelssperre.
       </div>
       <CandidateList onCandidate={id => setActiveCandidate(id)} />

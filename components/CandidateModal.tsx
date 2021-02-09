@@ -51,6 +51,7 @@ export function CandidateModal({
       )
       .finally(() => router.push(Route.CANDIDATES));
   };
+  const disabled = user.points - price < 0 || formState.isLoading || amount === 0;
   return (
     <div
       className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-70 bg-gray-500 z-10"
@@ -127,9 +128,9 @@ export function CandidateModal({
               />
             </div>
             <button
-              disabled={user.points - price < 0 || formState.isLoading}
+              disabled={disabled}
               onClick={trade}
-              className="px-3 py-2 flex-1 font-serif bg-pohutukawa-400 border-2 border-white text-white w-full rounded mt-4"
+              className={`px-3 py-2 flex-1 font-serif border-2 border-white text-white w-full rounded mt-4 ${disabled ? "bg-gray-400 cursor-default" : "bg-pohutukawa-400"}`}
             >
               {formState.isLoading ? "loading" : "Handeln"}
             </button>
