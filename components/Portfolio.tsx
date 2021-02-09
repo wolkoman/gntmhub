@@ -7,7 +7,7 @@ export function Portfolio({onSelect}: { onSelect: (id: string) => any }) {
   const [expanded, setExpanded] = useState(false);
   return <div>
     <div style={{maxHeight: expanded ? 2000 : 190}} className="overflow-hidden transition-all duration-1000">{
-      Object.entries(user.stocks)
+      (Object.entries(user?.stocks ?? {}))
         .filter(([, amount]) => amount)
         .sort((a, b) => b[1] - a[1])
         .map(([candidateId, amount]) => ({candidate: candidates.find(candidate => candidate._id === candidateId) as CandidateEntity, amount}))
