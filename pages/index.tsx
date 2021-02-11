@@ -142,7 +142,7 @@ export default function Home() {
                 <Title>Was geschieht wenn ich meine gesamten <GPoints/> verloren haben?</Title>
                 <div>
                     Dann können Sie nicht weiter mitspielen und scheiden aus dem Spiel aus. Es wäre also gut nicht ihr
-                    gesamtes Kapital risikobehaftet anzulegen.s
+                    gesamtes Kapital risikobehaftet anzulegen.
                 </div>
             </div>
         </Site>
