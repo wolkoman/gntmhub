@@ -103,10 +103,46 @@ export default function Home() {
                 <div>
                     Durch die Tatsache, dass Spielerinnen und Spieler durch ihren Aktienhandel den Markt stark
                     beeinflussen, haben Personen, die früher Aktienhandel betreiben einen Vorteil. Dieser lässt sich nur
-                    schwer völlig verhindern. Allerdings wird versucht die Chancen etwas auszugleichen, indem Spielerinnen und Spieler
+                    schwer völlig verhindern. Allerdings wird versucht die Chancen etwas auszugleichen, indem
+                    Spielerinnen und Spieler
                     bei Spielstart am 11.02.2021 nur 200 <GPoints></GPoints> erhalten und dieser Betrag im Laufe der
                     kommenden Wochen auf das Startkapital von insgesamt 1000 <GPoints/> aufgestockt wird. Genaue
                     Finanizierungspläne werden in den kommenden Tagen hier bekanntgegeben.
+                </div>
+            </div>
+            <div>
+                <Title>Wieso sollte ich früh auf erfolgreiche Kandidatinnen setzten?</Title>
+                <div>
+                    Jede investierte Aktie eines Models verliert beim Ausscheiden des Models aus dem Wettbewerb ihren
+                    gesamten Wert.
+                    Um sichere Investitionen zu tätigen, wäre es also ratsam Aktien von Kandidatinnen zu kaufen, deren
+                    Fortbestand in dem Wettbewerb Sie als gesichert annehmen können.
+                </div>
+            </div>
+            <div>
+                <Title>Wieso sollte ich möglicherweise weniger erfolgreiche Kandidatinnen setzten?</Title>
+                <div>
+                    Für jede Aktie einer Kandidatinnen die eine Runde weiter kommt, werden Dividenden ausgeschüttet.
+                    Diese sind mit einem Fixbetrag pro Kandidatin fixiert. Bei hoch gehandelten Kandidatinnen ist es
+                    schwieriger einen hohen Anteil an Aktien zu halten und damit verringert sich auch die
+                    Dividendenausschüttung. Im Gegensatz sind Aktien niedrig gehandelter Kandidatinnen günstig zu
+                    erwerben und retounieren Ihnen durch einen hohen Aktienanteil eine große Gewinnausschüttung. Gehen
+                    Sie dabei zu großes Risiko ein und setzen auf eine Kandidatin die ausscheidet, verlieren ihre
+                    Aktiven jeglichen Wert. Seien Sie also vorsichtig.
+                </div>
+            </div>
+            <div>
+                <Title>Wieso sollte ich überhaupt Aktien kaufen?</Title>
+                <div>
+                    Aktien sind die Hauptquelle um Geld zu lukrieren. Wenn Sie einen guten Ranglistenplatz erreichen
+                    wollen, werden Sie um Aktienhandel nicht herumkommen.
+                </div>
+            </div>
+            <div>
+                <Title>Was geschieht wenn ich meine gesamten <GPoints/> verloren haben?</Title>
+                <div>
+                    Dann können Sie nicht weiter mitspielen und scheiden aus dem Spiel aus. Es wäre also gut nicht ihr
+                    gesamtes Kapital risikobehaftet anzulegen.s
                 </div>
             </div>
         </Site>
