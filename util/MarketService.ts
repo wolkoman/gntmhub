@@ -5,7 +5,6 @@ export class MarketService {
 
   static isAllowedTime(){
     const date = new Date();
-    console.log(date);
     if(date.getDay() !== 4) return true;
     if(date.getHours() < 19 || date.getHours() >= 22) return true;
     if(date.getHours() === 20 && date.getMinutes() <= 30) return true;

@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { MarketService } from "../../../util/MarketService";
 import { getUserFromRequest } from "../../../util/authorization";
 import get from "./get";
+import {DatabaseService} from '../../../util/DatabaseService';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.candidateId || !req.body.amount || !req.body.expectedPrice) {
@@ -20,7 +21,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     .then(() => {
       get(req, res);
     })
-    .catch(({ message }) => {
+    .catch(async ({ message }) => {
       res.status(500).json({ errorMessage: message });
+      await DatabaseService.close();
     });
 };
