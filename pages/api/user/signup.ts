@@ -63,7 +63,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         admin: false,
         phone: req.body.phone,
         verifyToken,
-        points: 1000,
+        points: 200,
+        initalPoints: 200,
         stocks: await loadInitialCandidateStocking(),
       } as UserEntity;
       await userCollection.insertOne(user);

@@ -13,6 +13,7 @@ export class UserEntity extends Entity {
   active: boolean;
   admin: boolean;
   points: number;
+  initalPoints: number;
   stocks: Record<string, number>;
 }
 export class CandidateEntity extends Entity {
@@ -36,7 +37,7 @@ export class DatabaseService {
   static collections: Record<string, Collection> = {};
 
   private static async getClient(): Promise<MongoClient> {
-    if (!DatabaseService.client) {
+    if (!DatabaseService.client && false) {
       console.log("Connecting");
       const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
       const mongoClient = new MongoClient(uri, {
