@@ -64,7 +64,7 @@ export default function Overview() {
           <div>Dividenauszahlung</div>
           <div className="flex flex-wrap">
             {payouts.sort((a,b) => b.amount - a.amount).map(payout => <div className="p-1 px-2 m-1 bg-white rounded">
-              {candidates.find(candidate => candidate._id === payout.candidateId)?.name}: {payout.amount.toFixed(2)}gp
+              {candidates.find(candidate => candidate._id === payout.candidateId)?.name}: {payout.amount.toFixed(2)} gp
             </div>)}
           </div>
         </div>)}
