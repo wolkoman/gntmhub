@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { calculatePrice } from "../util/market";
+import {calculatePrice, calculateStocksForPrice} from '../util/market';
 import { fetchJson } from "../util/fetchJson";
 import { useRouter } from "next/router";
 import { useStore } from "../util/store";
@@ -19,18 +19,20 @@ export function CandidateModal({
     state.setAll,
   ]);
   const [amount, setAmount] = useState(0);
+  const [limit, setLimit] = useState({min: 0, max: 0});
   const [price, setPrice] = useState(0);
   const router = useRouter();
   const [formState, setFormState] = useState<{
     errorMessage?: string;
     isLoading: boolean;
   }>({ isLoading: false });
-  useEffect(() => setPrice(calculatePrice(stocks, candidate._id, amount)), [
-    amount,
-    stocks,
-  ]);
+  useEffect(() => setLimit({
+    min: -user.stocks[candidate._id],
+    max: calculateStocksForPrice(stocks, candidateId, user.points)
+  }), [stocks, user]);
+  useEffect(() => setPrice(calculatePrice(stocks, candidate._id, amount)), [amount, stocks]);
   const setLimitedAmount = (amount: number | string) =>
-    setAmount(Math.max(-user.stocks[candidate._id], Math.floor(+amount)));
+    setAmount(Math.min(limit.max, Math.max(limit.min, Math.floor(+amount))));
   const trade = () => {
     setFormState({ errorMessage: null, isLoading: true });
     fetchJson("/api/market/trade", {
@@ -51,7 +53,7 @@ export function CandidateModal({
       )
       .finally(() => router.push(Route.CANDIDATES));
   };
-  const disabled = user.points - price < 0 || formState.isLoading || amount === 0;
+  const disabled = formState.isLoading || amount === 0;
   return (
     <div
       className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-70 bg-gray-500 z-10"
@@ -89,7 +91,7 @@ export function CandidateModal({
               ],
               ["Kurs", calculatePrice(stocks, candidate._id, 1).toFixed(2)],
             ].map(([key, value]) => (
-              <div className="mb-4" key={key}>
+              <div className="mb-2" key={key}>
                 <div className="uppercase text-sm">{key}</div>
                 <div className="text-3xl">{value}</div>
               </div>
@@ -127,10 +129,13 @@ export function CandidateModal({
                 children="▶"
               />
             </div>
+            <div>
+              <input type="range" step={1} max={limit.max} min={limit.min} value={amount} onChange={(e) => setLimitedAmount(e.target.value)}/>
+            </div>
             <button
               disabled={disabled}
               onClick={trade}
-              className={`px-3 py-2 flex-1 font-serif border-2 border-white text-white w-full rounded mt-4 ${disabled ? "bg-gray-400 cursor-default" : "bg-pohutukawa-400"}`}
+              className={`px-3 py-2 flex-1 font-serif border-2 border-white text-white w-full rounded ${disabled ? "bg-gray-400 cursor-default" : "bg-pohutukawa-400"}`}
             >
               {formState.isLoading ? "loading" : "Handeln"}
             </button>
