@@ -1,15 +1,8 @@
 import { DatabaseService, ObjectId, UserEntity } from "./DatabaseService";
-import { calculatePrice } from "./market";
+import {calculatePrice, isAllowedTime} from './market';
 
 export class MarketService {
 
-  static isAllowedTime(){
-    const date = new Date();
-    if(date.getDay() !== 4) return true;
-    if(date.getHours() < 19 || date.getHours() >= 22) return true;
-    if(date.getHours() === 20 && date.getMinutes() <= 30) return true;
-    return false;
-  }
 
   static async getStocks() {
     const userCollection = await DatabaseService.getCollection(UserEntity);
@@ -29,7 +22,7 @@ export class MarketService {
     amount: number,
     expectedPrice?: number
   ) {
-    if(!MarketService.isAllowedTime()){
+    if(!isAllowedTime()){
       throw new Error("Zurzeit besteht eine Handelssperre.");
       return;
     }
