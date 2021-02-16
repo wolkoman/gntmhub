@@ -15,7 +15,7 @@ export default function Home() {
   const verify = formValue => {
     setFormState({ isLoading: true });
     fetchJson("/api/user/verify", formValue)
-      .then(() => router.push(Route.CANDIDATES))
+      .then(() => router.push(Route.APP))
       .catch(({ errorMessage }) =>
         setFormState({ isLoading: false, errorMessage })
       );

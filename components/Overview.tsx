@@ -26,7 +26,7 @@ export default function Overview() {
     ));
   }, [user]);
   return (
-    <Site>
+    <div>
       <Title>Punkteübersicht</Title>
       <div className="bg-gradient-to-r from-pohutukawa-300 to-pohutukawa-100 rounded p-6 flex flex-col md:flex-row">
         <div className="mr-8">
@@ -69,7 +69,6 @@ export default function Overview() {
           </div>
         </div>)}
       </div>
-      {user?.admin ? <Administrator/> : null}
-    </Site>
+    </div>
   );
 }

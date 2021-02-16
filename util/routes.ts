@@ -1,9 +1,9 @@
 export enum Route {
   HOMEPAGE = "/",
-  OVERVIEW = "/overview",
-  CANDIDATES = "/candidates",
+  APP = "/app",
   LOGIN = "/me/login",
   SIGNUP = "/me/signup",
   VERIFY = "/me/verify",
   IMPRESSUM = "/impressum",
+  LEADERBOARD = "/leaderboard",
 }

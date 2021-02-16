@@ -51,7 +51,7 @@ export function CandidateModal({
           errorMessage,
         })
       )
-      .finally(() => router.push(Route.CANDIDATES));
+      .finally(() => router.push(Route.APP));
   };
   const disabled = formState.isLoading || amount === 0;
   return (

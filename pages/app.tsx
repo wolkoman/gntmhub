@@ -4,8 +4,9 @@ import { Title } from "../components/Title";
 import { CandidateModal } from "../components/CandidateModal";
 import { CandidateList } from "../components/CandidateList";
 import { Portfolio } from '../components/Portfolio';
-import {MarketService} from '../util/MarketService';
 import {isAllowedTime} from '../util/market';
+import Overview from '../components/Overview';
+import {Administrator} from '../components/Administrator';
 
 export default function Home() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
@@ -16,7 +17,7 @@ export default function Home() {
   },[]);
   return (
     <Site>
-      <Title>Portfolio</Title>
+      <Overview/>
       <Portfolio onSelect={id => setActiveCandidate(id)}/>
       <Title>Kandidatinnen</Title>
       {activeCandidate ? (
@@ -31,6 +32,7 @@ export default function Home() {
       <div className={tradingBlock ? "pointer-events-none" : ""}>
         <CandidateList onCandidate={id => setActiveCandidate(id)} />
       </div>
+      <Administrator/>
     </Site>
   );
 }

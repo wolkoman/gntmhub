@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useStore } from "../util/store";
+import {Route} from '../util/routes';
 
 export function Navigation() {
   const [isLoggedIn, loading] = useStore(state => [
@@ -21,17 +22,12 @@ export function Navigation() {
       ) : null}
       {isLoggedIn ? (
         <div className="flex flex-col md:flex-row">
-          <Link href="/overview">
+          <Link href={Route.APP}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
-              Übersicht
+              Handel
             </div>
           </Link>
-          <Link href="/candidates">
-            <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
-              Kandidatinnen
-            </div>
-          </Link>
-          <Link href="/leaderboard">
+          <Link href={Route.LEADERBOARD}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
               Rangliste
             </div>

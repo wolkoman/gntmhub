@@ -17,7 +17,7 @@ export default function Home() {
     setFormState({ isLoading: true });
     fetchJson("/api/user/login", formValue)
       .then(({ active }) =>
-        router.push(active ? Route.CANDIDATES : Route.VERIFY)
+        router.push(active ? Route.APP : Route.VERIFY)
       )
       .catch(({ errorMessage }) => {
         setFormState({
