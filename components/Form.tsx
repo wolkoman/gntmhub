@@ -4,7 +4,7 @@ import { Site } from "./Site";
 export type FormControlType = "text" | "password" | "number";
 type FormSchema = Record<string, { type: FormControlType; label: string }>;
 
-export function ModalForm<F extends FormSchema>({
+export function Form<F extends FormSchema>({
   form,
   onSubmit,
   formDisabled,

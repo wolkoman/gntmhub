@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { fetchJson } from "../../util/fetchJson";
 import { useRouter } from "next/router";
-import { ModalForm } from "../../components/ModalForm";
+import { Form } from "../../components/Form";
 import { Route } from "../../util/routes";
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <ModalForm
+    <Form
       title="Verify"
       form={{
         token: { label: "SMS Token", type: "number" },

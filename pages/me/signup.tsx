@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { ModalForm } from "../../components/ModalForm";
+import { Form } from "../../components/Form";
 import { fetchJson } from "../../util/fetchJson";
 import { Route } from "../../util/routes";
 
@@ -23,7 +23,7 @@ export default function Home() {
   };
 
   return (
-    <ModalForm
+    <Form
       title="Signup"
       form={{
         username: { label: "Benutzername", type: "text" },

@@ -7,6 +7,7 @@ import { Portfolio } from '../components/Portfolio';
 import {isAllowedTime} from '../util/market';
 import Overview from '../components/Overview';
 import {Administrator} from '../components/Administrator';
+import Payouts from '../components/Payouts';
 
 export default function Home() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
