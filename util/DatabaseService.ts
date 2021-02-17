@@ -16,6 +16,10 @@ export class UserEntity extends Entity {
   initalPoints: number;
   stocks: Record<string, number>;
 }
+export class FreeMoneyEntity extends Entity {
+  _collectionName = "freemoney";
+  money: number;
+}
 export class CandidateEntity extends Entity {
   _collectionName = "candidates";
   name: string;

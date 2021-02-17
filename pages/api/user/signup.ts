@@ -4,9 +4,9 @@ import { sendVerifyMessage } from "../../../util/verifyMessage";
 import { setAuthorizationCookie } from "../../../util/authorization";
 import {
   CandidateEntity,
-  DatabaseService,
+  DatabaseService, FreeMoneyEntity,
   UserEntity,
-} from "../../../util/DatabaseService";
+} from '../../../util/DatabaseService';
 
 async function loadInitialCandidateStocking() {
   const candidatesCollection = await DatabaseService.getCollection(
@@ -48,6 +48,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         "Die Telefonnummer muss eine valide österreichische oder deutsche Telefonnummer sein.",
     });
   } else {
+    const freeMoneyCollection = await DatabaseService.getCollection(FreeMoneyEntity);
+    const freeMoneys = await freeMoneyCollection.find({}).toArray();
+    const points = freeMoneys.map(freeMoney => freeMoney.money).reduce((a,b) => a+b, 0);
     const userCollection = await DatabaseService.getCollection(UserEntity);
     const userResult = await userCollection.findOne({
       $or: [{ name: req.body.username }, { phone: req.body.phone }],
@@ -63,7 +66,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         admin: false,
         phone: req.body.phone,
         verifyToken,
-        points: 200,
+        points,
         initalPoints: 200,
         stocks: await loadInitialCandidateStocking(),
       } as UserEntity;

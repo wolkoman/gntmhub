@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
-import {DatabaseService, UserEntity} from '../../../util/DatabaseService';
+import {DatabaseService, FreeMoneyEntity, UserEntity} from '../../../util/DatabaseService';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserFromRequest(req);
@@ -10,6 +10,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.body.money && req.body.money === 0) {
     res.status(400).json({errorMessage: 'Sie müssen einen positiven Betrag angeben.'});
   } else {
+
+    const freeMoneyCollection = await DatabaseService.getCollection(FreeMoneyEntity);
+    await freeMoneyCollection.insertOne({money: req.body.money} as FreeMoneyEntity)
 
     const userCollection = await DatabaseService.getCollection(UserEntity);
     let users = await userCollection.find({}).toArray();
