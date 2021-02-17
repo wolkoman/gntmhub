@@ -13,8 +13,8 @@ export default function Payouts() {
       {messages
         .filter(message => message.type === "PAYOUT")
         .map(message => (message as PayoutMessageEntity))
-        .map((message, i) => <div>
-          <div key={i} className="bg-gray-300 p-3 rounded mb-4 cursor-pointer flex justify-between" onClick={() => setActivePayout(i)}>
+        .map((message, i) => <div key={i}>
+          <div className="bg-gray-300 p-3 rounded mb-4 cursor-pointer flex justify-between" onClick={() => setActivePayout(i)}>
             <div>Dividenauszahlung vom <DateText date={message.date}/></div>
             <div className="font-bold">{message.payouts.map(payout => payout.amount).reduce((a,b) => a+b, 0).toFixed(2)} gp</div>
           </div>

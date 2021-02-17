@@ -40,11 +40,13 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
         setAmount(0);
         setAll(data);
       })
-      .catch(({errorMessage}) =>
-        setFormState({
-          isLoading: false,
-          errorMessage,
-        })
+      .catch(all => {
+          setAll(all);
+          setFormState({
+            isLoading: false,
+            errorMessage: all.errorMessage,
+          });
+        }
       )
       .finally(() => router.push(Route.APP));
   };

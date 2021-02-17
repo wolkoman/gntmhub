@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { MarketService } from "../../../util/MarketService";
 import { getUserFromRequest } from "../../../util/authorization";
-import get from "./get";
+import get, {calculateGetInfo} from './get';
 import {DatabaseService} from '../../../util/DatabaseService';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       get(req, res);
     })
     .catch(async ({ message }) => {
-      res.status(500).json({ errorMessage: message });
+      res.status(500).json({ errorMessage: message, ... await calculateGetInfo(user) });
       await DatabaseService.close();
     });
 };
