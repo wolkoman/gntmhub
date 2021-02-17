@@ -30,6 +30,7 @@ export class MessageEntity extends Entity{
 export class PayoutMessageEntity extends MessageEntity {
   type = "PAYOUT";
   payouts: {candidateId: string, amount: number}[];
+  date: string;
 }
 
 export class DatabaseService {

@@ -11,17 +11,19 @@ export default function Payouts() {
   return (
     <div className="grid md:grid-cols-2 gap-3">
       {messages
-        .map(message => (message as PayoutMessageEntity).payouts)
-        .map((payouts, i) => <div>
-          <div key={i} className="bg-gray-300 p-3 rounded mb-4 cursor-pointer" onClick={() => setActivePayout(i)}>
-            <div>Dividenauszahlung</div>
+        .filter(message => message.type === "PAYOUT")
+        .map(message => (message as PayoutMessageEntity))
+        .map((message, i) => <div>
+          <div key={i} className="bg-gray-300 p-3 rounded mb-4 cursor-pointer flex justify-between" onClick={() => setActivePayout(i)}>
+            <div>Dividenauszahlung vom <DateText date={message.date}/></div>
+            <div className="font-bold">{message.payouts.map(payout => payout.amount).reduce((a,b) => a+b, 0).toFixed(2)} gp</div>
           </div>
           {activePayout === i ? <Modal disabled={false} onClose={() => setActivePayout(null)}>
             <div className="p-6">
               <div className="font-serif text-3xl mb-6">Dividenauszahlung</div>
               <div className="flex flex-wrap">
-                {payouts.sort((a, b) => b.amount - a.amount).map(payout =>
-                  <div className="p-1 px-2 m-1 border-gray-300 border rounded">
+                {message.payouts.sort((a, b) => b.amount - a.amount).map((payout,i) =>
+                  <div key={i} className="p-1 px-2 m-1 border-gray-300 border rounded">
                     {candidates.find(candidate => candidate._id === payout.candidateId)?.name}: {payout.amount.toFixed(2)} gp
                   </div>
                 )}
@@ -31,4 +33,9 @@ export default function Payouts() {
         </div>)}
     </div>
   );
+}
+
+const DateText = ({date}: {date:string}) => {
+  const d = new Date(date);
+  return <span>{d.getDate()}.{d.getMonth()+1}.{d.getFullYear()}</span>;
 }

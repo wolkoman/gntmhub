@@ -49,6 +49,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .map(userId => ({
         userId,
         type: "PAYOUT",
+        date: new Date().toISOString(),
         payouts: messages
           .filter(message => message.userId === userId)
           .map(message => ({candidateId: message.candidateId, amount: message.amount}))

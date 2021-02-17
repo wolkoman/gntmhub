@@ -3,7 +3,7 @@ import {DatabaseService, UserEntity} from './DatabaseService';
 export async function sendBulkMessage(message: string) {
   const usersCollection = await DatabaseService.getCollection(UserEntity);
   const users = await usersCollection.find({}).toArray();
-  return await Promise.all(users.filter(user => user.active).filter(user => user.name === "wolkoman").map(user =>
+  return await Promise.all(users.filter(user => user.active).map(user =>
     fetch(`	https://smsgateway.me/api/v4/message/send`, {
       method: 'POST',
       headers: {Authorization: process.env.SMS_GATEWAY_TOKEN},
