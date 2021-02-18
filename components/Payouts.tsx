@@ -1,28 +1,48 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStore} from '../util/store';
 import {PayoutMessageEntity} from '../util/DatabaseService';
 import {Modal} from './Modal';
+import {Route} from '../util/routes';
+import Link from 'next/link';
 
 export default function Payouts() {
   const [candidates, messages] = useStore(state => [
     state.candidates, state.messages, state.loadMessages(), state.load()
   ]);
   const [activePayout, setActivePayout] = useState<number>();
+  const [nextPayouts, setNextPayouts] = useState([new Date('2021-02-18T15:00:00.000Z'), new Date('2021-02-18T16:00:00.000Z'), new Date('2021-03-18T17:00:00.000Z')]);
+  const [remainingPayoutTime, setRemainingPayoutTime] = useState<number>();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setNextPayouts(nextPayouts => nextPayouts.filter(date => date.getTime() >= new Date().getTime()));
+      if(nextPayouts.length === 0 && remainingPayoutTime) {
+        setRemainingPayoutTime(null);
+      }else if(nextPayouts.length > 0){
+        setRemainingPayoutTime((nextPayouts[0].getTime() - new Date().getTime()));
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [nextPayouts]);
+
   return (
     <div className="grid md:grid-cols-2 gap-3">
       {messages
-        .filter(message => message.type === "PAYOUT")
+        .filter(message => message.type === 'PAYOUT')
         .map(message => (message as PayoutMessageEntity))
         .map((message, i) => <div key={i}>
-          <div className="bg-gray-300 p-3 rounded mb-4 cursor-pointer flex justify-between" onClick={() => setActivePayout(i)}>
+          <div className="bg-gray-300 p-3 rounded mb-4 cursor-pointer flex justify-between"
+               onClick={() => setActivePayout(i)}>
             <div>Dividenauszahlung vom <DateText date={message.date}/></div>
-            <div className="font-bold">{message.payouts.map(payout => payout.amount).reduce((a,b) => a+b, 0).toFixed(2)} gp</div>
+            <div
+              className="font-bold">{message.payouts.map(payout => payout.amount).reduce((a, b) => a + b, 0).toFixed(2)} gp
+            </div>
           </div>
           {activePayout === i ? <Modal disabled={false} onClose={() => setActivePayout(null)}>
             <div className="p-6">
               <div className="font-serif text-3xl mb-6">Dividenauszahlung</div>
               <div className="flex flex-wrap">
-                {message.payouts.sort((a, b) => b.amount - a.amount).map((payout,i) =>
+                {message.payouts.sort((a, b) => b.amount - a.amount).map((payout, i) =>
                   <div key={i} className="p-1 px-2 m-1 border-gray-300 border rounded">
                     {candidates.find(candidate => candidate._id === payout.candidateId)?.name}: {payout.amount.toFixed(2)} gp
                   </div>
@@ -31,11 +51,21 @@ export default function Payouts() {
             </div>
           </Modal> : null}
         </div>)}
+      {nextPayouts.length > 0 ? <Link href={Route.GIVEAWAY}>
+        <div className="bg-gray-400 p-3 rounded mb-4 cursor-pointer flex justify-between">
+          <div>Nächste Auszahlung</div>
+          <div className="font-bold"><TimeText time={remainingPayoutTime}/></div>
+        </div>
+      </Link> : null }
     </div>
   );
 }
 
-const DateText = ({date}: {date:string}) => {
+const DateText = ({date}: { date: string }) => {
   const d = new Date(date);
-  return <span>{d.getDate()}.{d.getMonth()+1}.{d.getFullYear()}</span>;
+  return <span>{d.getDate()}.{d.getMonth() + 1}.{d.getFullYear()}</span>;
+}
+const TimeText = ({time}: { time: number }) => {
+  const d = new Date(time);
+  return <span>{(d.getHours()-1).toString().padStart(2, '0')}:{d.getMinutes().toString().padStart(2, '0')}:{d.getSeconds().toString().padStart(2, '0')}</span>;
 }

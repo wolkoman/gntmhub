@@ -6,4 +6,5 @@ export enum Route {
   VERIFY = "/me/verify",
   IMPRESSUM = "/impressum",
   LEADERBOARD = "/leaderboard",
+  GIVEAWAY = "/giveaway",
 }

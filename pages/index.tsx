@@ -68,7 +68,7 @@ export default function Home() {
                             description: (
                                 <div>
                                     Am Ende jeder Folge erhält jede Kandidatin, die im Rennen
-                                    bleibt, einen Pot von 50 <GPoints/> der anteilig auf alle
+                                    bleibt, einen Pot von 30 <GPoints/> der anteilig auf alle
                                     Aktionäre aufgeteilt wird. Aktien von Kandidatinnen, die
                                     ausscheiden, werden wertlos.
                                 </div>
@@ -89,7 +89,7 @@ export default function Home() {
                             ),
                         },
                     ].map(element => (
-                        <div className="flex-1 p-4 border-pohutukawa-400  border rounded">
+                        <div key={element.title} className="flex-1 p-4 border-pohutukawa-400  border rounded">
                             <div className="text-2xl text-center pb-2 text-pohutukawa-400">
                                 {element.title}
                             </div>
