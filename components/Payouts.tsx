@@ -10,7 +10,7 @@ export default function Payouts() {
     state.candidates, state.messages, state.loadMessages(), state.load()
   ]);
   const [activePayout, setActivePayout] = useState<number>();
-  const [nextPayouts, setNextPayouts] = useState([new Date('2021-02-18T15:00:00.000Z'), new Date('2021-02-18T16:00:00.000Z'), new Date('2021-03-18T17:00:00.000Z')]);
+  const [nextPayouts, setNextPayouts] = useState([]);
   const [remainingPayoutTime, setRemainingPayoutTime] = useState<number>();
 
   useEffect(() => {
