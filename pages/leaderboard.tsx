@@ -49,9 +49,9 @@ export default function LeaderboardPage() {
           >
             <div className="w-20 font-bold text-center">{i + 1}</div>
             <div className="w-40">{user.name}</div>
-            {myRank >= i ? <div className="w-20 font-bold">
-              {(user.equity + user.points).toFixed(2)}
-            </div> : null}
+            <div className="w-20 font-bold">
+              {(user.equity + user.points).toFixed(0)}
+            </div>
           </div>
         ))}
       </div>
