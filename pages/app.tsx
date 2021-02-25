@@ -28,7 +28,7 @@ export default function Home() {
         />
       ) : null}
       <div className={`p-4 mb-4 rounded pointer-events-none ${tradingBlock ? "font-bold bg-pohutukawa-300 text-white" : "italic text-gray-800"}`}>
-        Donnerstags von 20:00 - 21:00 Uhr und 21:15 - 22:40 Uhr besteht eine Handelssperre.
+        Donnerstags von 20:00 - 21:00 Uhr und 21:15 - 22:45 Uhr besteht eine Handelssperre.
       </div>
       <div className={tradingBlock ? "pointer-events-none" : ""}>
         <CandidateList onCandidate={id => setActiveCandidate(id)} />
