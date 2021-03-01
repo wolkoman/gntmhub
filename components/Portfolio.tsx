@@ -24,11 +24,11 @@ export function Portfolio({onSelect}: { onSelect: (id: string) => any }) {
     <Title>Portfolio</Title>
     <div style={{maxHeight: expanded ? 2000 : 190}} className="overflow-hidden flex flex-wrap">{
       candidates.map(({candidate, amount}) =>
-        <div key={candidate._id} className="flex items-center cursor-pointer rounded mb-2 w-1/3"
+        <div key={candidate._id} className="flex items-center cursor-pointer rounded mb-2 w-full md:w-1/3"
              onClick={() => onSelect(candidate._id)}>
           <div className="text-lg p-3 pr-4 w-20 text-2xl font-bold text-right">{amount}</div>
           <div style={{backgroundImage: `url(${candidate.imageUrl})`, backgroundSize: 'cover'}}
-               className="w-14 h-14 rounded"/>
+               className="w-14 h-14 rounded flex-grow-0 flex-shrink-0"/>
           <div className="text-lg p-2 pl-6">{candidate.name}</div>
         </div>)}
     </div>
