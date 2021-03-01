@@ -31,7 +31,7 @@ export default function Payouts() {
         .filter(message => message.type === 'PAYOUT')
         .map(message => (message as PayoutMessageEntity))
         .map((message, i) => <div key={i}>
-          <div className="bg-gray-300 p-3 rounded mb-4 cursor-pointer flex justify-between"
+          <div className="bg-gray-200 p-3 rounded cursor-pointer flex justify-between"
                onClick={() => setActivePayout(i)}>
             <div>Dividenauszahlung vom <DateText date={message.date}/></div>
             <div
@@ -40,7 +40,7 @@ export default function Payouts() {
           </div>
           {activePayout === i ? <Modal disabled={false} onClose={() => setActivePayout(null)}>
             <div className="p-6">
-              <div className="font-serif text-3xl mb-6">Dividenauszahlung</div>
+              <div className="font-serif text-3xl mb-6">Dividenauszahlung vom <DateText date={message.date}/></div>
               <div className="flex flex-wrap">
                 {message.payouts.sort((a, b) => b.amount - a.amount).map((payout, i) =>
                   <div key={i} className="p-1 px-2 m-1 border-gray-300 border rounded">

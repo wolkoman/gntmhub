@@ -26,10 +26,10 @@ export default function Overview() {
     <div>
       <Title>Punkteübersicht</Title>
       <div
-        className="bg-gradient-to-r from-pohutukawa-300 to-pohutukawa-100 rounded p-6 mb-3 flex flex-col md:flex-row">
+        className="bg-gray-200 rounded p-6 mb-3 flex flex-col md:flex-row">
         <div className="mr-8">
-          <div className="font-bold text-white uppercase">Aktuelle GPoints</div>
-          <div className="text-white text-6xl">{(user?.points + equity).toFixed(2)}</div>
+          <div className="font-bold uppercase">Aktuelle GPoints</div>
+          <div className="text-6xl">{(user?.points + equity).toFixed(2)}</div>
         </div>
         <div className="flex flex-wrap mt-8 md:mt-0">
           <div className="bg-white rounded p-4 mr-8">
