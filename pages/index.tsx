@@ -86,8 +86,8 @@ export default function Home() {
               ),
             },
           ].map(element => (
-            <div key={element.title} className="flex-1 p-4 border-pohutukawa-400  border rounded">
-              <div className="text-2xl text-center pb-2 text-pohutukawa-400">
+            <div key={element.title} className="flex-1 p-4 bg-gray-100 rounded">
+              <div className="text-2xl text-center pb-2 text-pohutukawa-400 font-bold font-serif">
                 {element.title}
               </div>
               <div children={element.description}/>
@@ -133,13 +133,6 @@ export default function Home() {
         <div>
           Aktien sind die Hauptquelle um Geld zu lukrieren. Wenn Sie einen guten Ranglistenplatz erreichen
           wollen, werden Sie um Aktienhandel nicht herumkommen.
-        </div>
-      </div>
-      <div>
-        <Title>Was geschieht wenn ich meine gesamten <GPoints/> verloren haben?</Title>
-        <div>
-          Dann können Sie nicht weiter mitspielen und scheiden aus dem Spiel aus. Es wäre also gut nicht ihr
-          gesamtes Kapital risikobehaftet anzulegen.
         </div>
       </div>
     </Site>

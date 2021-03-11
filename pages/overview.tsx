@@ -19,20 +19,6 @@ export default function Home() {
   return (
     <Site>
       <Overview/>
-      <Portfolio onSelect={id => setActiveCandidate(id)}/>
-      <Title>Kandidatinnen</Title>
-      {activeCandidate ? (
-        <CandidateModal
-          onClose={() => setActiveCandidate(null)}
-          candidateId={activeCandidate}
-        />
-      ) : null}
-      <div className={`p-4 mb-4 rounded pointer-events-none ${tradingBlock ? "font-bold bg-pohutukawa-300 text-white" : "italic text-gray-800"}`}>
-        Donnerstags von 20:00 - 21:00 Uhr und 21:10 - 22:30 Uhr besteht eine Handelssperre.
-      </div>
-      <div className={tradingBlock ? "pointer-events-none" : ""}>
-        <CandidateList onCandidate={id => setActiveCandidate(id)} />
-      </div>
       <Administrator/>
     </Site>
   );

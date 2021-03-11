@@ -1,11 +1,11 @@
 export enum Route {
   HOMEPAGE = "/",
-  APP = "/app",
+  OVERVIEW = "/overview",
+  TRADE = "/trade",
+  LEADERBOARD = "/leaderboard",
+  QUESTION = "/question",
+  IMPRESSUM = "/impressum",
   LOGIN = "/me/login",
   SIGNUP = "/me/signup",
   VERIFY = "/me/verify",
-  IMPRESSUM = "/impressum",
-  QUESTION = "/question",
-  LEADERBOARD = "/leaderboard",
-  GIVEAWAY = "/giveaway",
 }

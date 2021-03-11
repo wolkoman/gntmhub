@@ -51,7 +51,7 @@ export default function Payouts() {
             </div>
           </Modal> : null}
         </div>)}
-      {nextPayouts.length > 0 ? <Link href={Route.GIVEAWAY}>
+      {nextPayouts.length > 0 ? <Link href={Route.TRADE}>
         <div className="bg-gray-400 p-3 rounded mb-4 cursor-pointer flex justify-between">
           <div>Nächste Auszahlung</div>
           <div className="font-bold"><TimeText time={remainingPayoutTime}/></div>

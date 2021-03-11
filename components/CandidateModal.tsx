@@ -48,7 +48,7 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
           });
         }
       )
-      .finally(() => router.push(Route.APP));
+      .finally(() => router.push(Route.TRADE));
   };
   const disabled = formState.isLoading || amount === 0;
   return (

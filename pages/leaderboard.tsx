@@ -32,7 +32,7 @@ export default function LeaderboardPage() {
     <Site>
       <Title>Rangliste</Title>
       <div className="flex flex-col justify-center">
-        <div className={`flex p-2 italic rounded mb-2 text-gray-400 `}>
+        <div className={`flex p-2 rounded mb-2 text-gray-400 `}>
           <div className="w-20 font-bold text-center">#</div>
           <div className="w-40">Name</div>
           <div className="w-20 font-bold">Gesamtwert</div>
@@ -43,7 +43,7 @@ export default function LeaderboardPage() {
             className={
               `flex p-2 rounded mb-2 ` +
               (user._id === store.user._id
-                ? 'font-bold border border-pohutukawa-50'
+                ? 'font-bold bg-pohutukawa-400 text-white'
                 : '')
             }
           >
