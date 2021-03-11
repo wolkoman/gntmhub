@@ -26,15 +26,29 @@ export class CandidateEntity extends Entity {
   terminated: boolean;
   imageUrl: string;
 }
+export class QuestionEntity extends Entity {
+  _collectionName = "questions";
+  question: string;
+  options: string[];
+  deadline: string;
+  answers: Record<string, number>
+  correct: number | null;
+  pot: number;
+}
 export class MessageEntity extends Entity{
   _collectionName = "messages";
   userId: string;
   type: string;
+  date: string;
 }
 export class PayoutMessageEntity extends MessageEntity {
   type = "PAYOUT";
   payouts: {candidateId: string, amount: number}[];
-  date: string;
+}
+export class QuestionMessageEntity extends MessageEntity {
+  type = "QUESTION";
+  questionId: string;
+  payout: number;
 }
 
 export class DatabaseService {

@@ -1,6 +1,6 @@
 import create from 'zustand';
 import {fetchJson} from './fetchJson';
-import {CandidateEntity, MessageEntity, UserEntity} from './DatabaseService';
+import {CandidateEntity, MessageEntity, QuestionEntity, UserEntity} from './DatabaseService';
 
 export type State = {
   users: UserEntity[];
@@ -11,6 +11,7 @@ export type State = {
   loading: boolean;
   loadingMessages: boolean,
   setAll: (any) => any;
+  questions: QuestionEntity[],
   candidate: (id: string) => CandidateEntity | undefined;
   isLoggedIn: () => boolean;
   load: () => any;
@@ -22,6 +23,7 @@ export const useStore = create<State>((set, get) => ({
   candidates: [],
   user: undefined,
   messages: [],
+  questions: [],
   stocks: {},
   loading: false,
   loadingMessages: false,
@@ -38,7 +40,7 @@ export const useStore = create<State>((set, get) => ({
       fetchJson('/api/market/get')
         .then(data => set({...data, loading: false}))
         .catch((err) => {
-          console.log('Request error');
+          console.log('Request error', err);
         });
     }
   },

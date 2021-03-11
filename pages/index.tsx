@@ -75,16 +75,13 @@ export default function Home() {
               ),
             },
             {
-              title: 'Bonusrunden *',
+              title: 'Bonusrunden',
               description: (
                 <div>
                   Gute Extra-
                   <GPoints/> erhalten Sie in Bonusrunden! Beantworten Sie
                   wöchentliche Fragen korrekt um womöglich den entscheidenden
                   Vorteil im Rennen um den ersten Platz zu erhaschen.
-
-                  <div className="opacity-80">* Diese Funktionalität wird vorraussichtlich mit 04.
-                    März zur Verfügung stehen.</div>
                 </div>
               ),
             },

@@ -27,6 +27,11 @@ export function Navigation() {
               Handel
             </div>
           </Link>
+          <Link href={Route.BONUS}>
+            <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
+              Bonusfragen
+            </div>
+          </Link>
           <Link href={Route.LEADERBOARD}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
               Rangliste

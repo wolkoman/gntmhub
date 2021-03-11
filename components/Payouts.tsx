@@ -28,21 +28,21 @@ export default function Payouts() {
   return (
     <div className="grid md:grid-cols-2 gap-3">
       {messages
-        .filter(message => message.type === 'PAYOUT')
-        .map(message => (message as PayoutMessageEntity))
         .map((message, i) => <div key={i}>
-          <div className="bg-gray-200 p-3 rounded cursor-pointer flex justify-between"
+          <div className={`bg-gray-200 p-3 rounded flex justify-between ${message.type === "QUESTION" ? "pointer-events-none" : "cursor-pointer"}`}
                onClick={() => setActivePayout(i)}>
-            <div>Dividenauszahlung vom <DateText date={message.date}/></div>
-            <div
-              className="font-bold">{message.payouts.map(payout => payout.amount).reduce((a, b) => a + b, 0).toFixed(2)} gp
+            <div>{message.type === "PAYOUT" ? "Dividenauszahlung" : "Bonusfrage"} vom <DateText date={message.date}/></div>
+            <div className="font-bold">{message.type === "PAYOUT"
+              ? message['payouts'].map(payout => payout.amount).reduce((a, b) => a + b, 0).toFixed(2)
+              : message['payout']
+            } gp
             </div>
           </div>
           {activePayout === i ? <Modal disabled={false} onClose={() => setActivePayout(null)}>
             <div className="p-6">
-              <div className="font-serif text-3xl mb-6">Dividenauszahlung vom <DateText date={message.date}/></div>
+              <div className="font-serif text-3xl mb-6">{message.type === "PAYOUT" ? "Dividenauszahlung" : "Bonusfrage"} vom <DateText date={message.date}/></div>
               <div className="flex flex-wrap">
-                {message.payouts.sort((a, b) => b.amount - a.amount).map((payout, i) =>
+                {(message as PayoutMessageEntity).payouts.sort((a, b) => b.amount - a.amount).map((payout, i) =>
                   <div key={i} className="p-1 px-2 m-1 border-gray-300 border rounded">
                     {candidates.find(candidate => candidate._id === payout.candidateId)?.name}: {payout.amount.toFixed(2)} gp
                   </div>

@@ -29,7 +29,7 @@ export class MarketService {
     let userCollection = await DatabaseService.getCollection(UserEntity);
     let user = await userCollection.findOne({ _id: ObjectId(userId) });
     if (!user || !user.active)
-      throw new Error("Die Bentzerin oder der Benutzer ist nicht valide.");
+      throw new Error("Die Benutzerin oder der Benutzer ist nicht valide.");
     const price = await calculatePrice(
       await this.getStocks(),
       candidateId,
