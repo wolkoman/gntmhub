@@ -38,7 +38,7 @@ function Question({question}: { question: QuestionEntity }) {
       <div className="flex flex-row flex-wrap my-2">
         {question.options.map((option, optionIndex) =>
           <div key={optionIndex}
-               className={`px-4 py-1 border border-gray-400 mx-1 cursor-pointer rounded ${optionIndex === selectedOption ? "bg-pohutukawa-400 text-white" : ""} ${optionIndex === question.correct ? "ring-4 ring-pohutukawa-400" : ""}`}
+               className={`px-4 py-1 border border-gray-400 mx-1 cursor-pointer rounded mb-6 ${optionIndex === selectedOption ? "bg-pohutukawa-400 text-white" : ""} ${optionIndex === question.correct ? "ring-4 ring-pohutukawa-400" : ""}`}
                onClick={() => answer(optionIndex)}>
             {option}
           </div>)}

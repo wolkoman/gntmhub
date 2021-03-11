@@ -27,7 +27,7 @@ export function Navigation() {
               Handel
             </div>
           </Link>
-          <Link href={Route.BONUS}>
+          <Link href={Route.QUESTION}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
               Bonusfragen
             </div>
