@@ -21,7 +21,7 @@ export default function Home() {
           <div className="flex my-8">
             <Link href={Route.LOGIN}>
               <div
-                className="px-4 py-2 text-lg border border-pohutukawa-400 text-pohutukawa-400 font-bold rounded mr-4 cursor-pointer">
+                className="px-4 py-2 text-lg bg-gray-100 text-pohutukawa-400 font-bold rounded mr-4 cursor-pointer">
                 Login
               </div>
             </Link>
