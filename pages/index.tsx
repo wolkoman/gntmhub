@@ -68,7 +68,7 @@ export default function Home() {
               description: (
                 <div>
                   Am Ende jeder Folge erhält jede Kandidatin, die im Rennen
-                  bleibt, einen Pot von 30 <GPoints/> der anteilig auf alle
+                  bleibt, einen Pot von 60 <GPoints/> der anteilig auf alle
                   Aktionäre aufgeteilt wird. Aktien von Kandidatinnen, die
                   ausscheiden, werden wertlos.
                 </div>
