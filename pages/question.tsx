@@ -62,6 +62,7 @@ function Question({question}: { question: QuestionEntity }) {
                ${optionIndex === question.correct ? " ring-4 ring-pohutukawa-400" : ""}`}
                onClick={() => answer(optionIndex)}>
             {option}
+            {answerable ? null : " ("+(100* Object.values(question.answers).filter(x => x === optionIndex).length / Object.values(question.answers).length).toFixed(0) + "%)"}
           </div>)}
         {loading ? <div className="px-4 py-1">speichert...</div> : null}
       </div>
