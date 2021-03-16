@@ -28,7 +28,7 @@ function Question({question}: { question: QuestionEntity }) {
     setSelectedOption(optionId);
   }
   return (
-    <div className="bg-gray-100 mb-6 p-3 rounded">
+    <div className="bg-gray-100 mb-6 p-3 pb-1 rounded">
       <div className="flex flex-row flex-wrap uppercase">
         <div>Pot: {question.pot} gpoints</div>
         <div className="ml-4">Deadline: {new Date(question.deadline).toLocaleString('de-AT')}</div>
@@ -37,7 +37,7 @@ function Question({question}: { question: QuestionEntity }) {
       <div className="flex flex-row flex-wrap my-2">
         {question.options.map((option, optionIndex) =>
           <div key={optionIndex}
-               className={`px-4 py-1 border border-gray-400 mx-1 cursor-pointer rounded ${optionIndex === selectedOption ? "bg-gray-600 text-white" : ""} ${optionIndex === question.correct ? "ring-4 ring-pohutukawa-400" : ""}`}
+               className={`px-4 py-1 border border-gray-400 mx-1 cursor-pointer rounded mb-2 ${optionIndex === selectedOption ? "bg-gray-600 text-white" : ""} ${optionIndex === question.correct ? "ring-4 ring-pohutukawa-400" : ""}`}
                onClick={() => answer(optionIndex)}>
             {option}
           </div>)}
