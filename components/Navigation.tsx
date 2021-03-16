@@ -2,12 +2,15 @@ import Link from "next/link";
 import React from "react";
 import { useStore } from "../util/store";
 import {Route} from '../util/routes';
+import {useRouter} from 'next/router';
 
 export function Navigation() {
-  const [isLoggedIn, loading] = useStore(state => [
+  const [isLoggedIn, points, loading] = useStore(state => [
     state.isLoggedIn(),
+    state.user.points,
     state.loading,
   ]);
+  const router = useRouter();
   return (
     <div className="p-4 bg-gray-100 flex items-end justify-between">
       <Link href="/">
@@ -16,6 +19,11 @@ export function Navigation() {
         </div>
       </Link>
       {isLoggedIn ? (
+        <>
+          {router.asPath === Route.TRADE ?
+        <div className="hidden md:block text-gray-700 px-1.5 rounded-xl">
+          Liquidität: {points.toFixed(2)}gp
+        </div> : null }
         <div className="flex flex-col md:flex-row">
           <Link href={Route.OVERVIEW}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
@@ -38,6 +46,7 @@ export function Navigation() {
             </div>
           </Link>
         </div>
+        </>
       ) : null}
     </div>
   );
