@@ -5,9 +5,9 @@ import {Route} from '../util/routes';
 import {useRouter} from 'next/router';
 
 export function Navigation() {
-  const [isLoggedIn, points, loading] = useStore(state => [
+  const [isLoggedIn, user, loading] = useStore(state => [
     state.isLoggedIn(),
-    state.user.points,
+    state.user,
     state.loading,
   ]);
   const router = useRouter();
@@ -22,7 +22,7 @@ export function Navigation() {
         <>
           {router.asPath === Route.TRADE ?
         <div className="hidden md:block text-gray-700 px-1.5 rounded-xl">
-          Liquidität: {points.toFixed(2)}gp
+          Liquidität: {user?.points.toFixed(2)}gp
         </div> : null }
         <div className="flex flex-col md:flex-row">
           <Link href={Route.OVERVIEW}>
