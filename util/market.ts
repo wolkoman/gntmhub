@@ -32,7 +32,7 @@ export const isAllowedTime = () => {
   const date = new Date();
   if(date.getUTCDay() !== 4) return true;
   if(date.getUTCHours() < 19 || date.getUTCHours() >= 22) return true;
-  if(date.getUTCHours() === 20 && date.getUTCMinutes() >= 10 && date.getUTCMinutes() <= 15) return true;
-  if(date.getUTCHours() === 22 && date.getUTCMinutes() >= 10) return true;
+  if(date.getUTCHours() === 20 &&date.getUTCMinutes() <= 30) return true;
+  if(date.getUTCHours() === 21 && date.getUTCMinutes() >= 45) return true;
   return false;
 }

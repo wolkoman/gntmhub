@@ -29,12 +29,12 @@ export default function Payouts() {
     <div className="grid md:grid-cols-2 gap-3">
       {messages
         .map((message, i) => <div key={i}>
-          <div className={`bg-gray-200 p-3 rounded flex justify-between ${message.type === "QUESTION" ? "pointer-events-none" : "cursor-pointer"}`}
+          <div className={`bg-gray-200 p-3 rounded flex justify-between ${(message.type === 'PAYOUT' ? 'cursor-pointer' : 'pointer-events-none')}`}
                onClick={() => setActivePayout(i)}>
-            <div>{message.type === "PAYOUT" ? "Dividenauszahlung" : "Bonusfrage"} vom <DateText date={message.date}/></div>
+            <div>{{PAYOUT: "Dividenauszahlung", QUESTION: "Bonusfrage", REFUND: "Erstattung"}[message.type]} vom <DateText date={message.date}/></div>
             <div className="font-bold">{message.type === "PAYOUT"
               ? message['payouts'].map(payout => payout.amount).reduce((a, b) => a + b, 0).toFixed(2)
-              : message['payout']
+              : message['payout'].toFixed(2)
             } gp
             </div>
           </div>
