@@ -4,9 +4,10 @@ import {Footer} from './Footer';
 import {Navigation} from './Navigation';
 import {useStore} from '../util/store';
 
-export function Site({children, navigation = true}: {
+export function Site({children, navigation = true, responsive = true}: {
   navigation?: boolean;
   children: any;
+  responsive?: boolean;
 }) {
   const [loading] = useStore(state => [state.loading]);
   return (
@@ -18,10 +19,14 @@ export function Site({children, navigation = true}: {
       </Head>
       {loading ? <LoadingScreen/> : <>
         {navigation ? <Navigation/> : null}
-        <main className="w-full max-w-4xl px-4 mx-auto mt-4">{children}</main>
+        {responsive ? <Responsive>{children}</Responsive> : children}
         {navigation ? <Footer/> : null}</>}
     </div>
   );
+}
+
+export const Responsive = ({children}) => {
+  return <main className="w-full max-w-4xl px-4 mx-auto mt-4">{children}</main>;
 }
 
 const LoadingScreen = () => {
