@@ -31,6 +31,8 @@ export function calculateStocksForPrice(
 export const isAllowedTime = () => {
   const date = new Date();
   const myHours = date.getUTCHours() + 2;
+  console.log("now", date);
+  console.log("myHours", myHours);
   if(date.getUTCDay() !== 4) return true;
   if(myHours < 20 || myHours >= 23) return true;
   if(myHours === 20 && date.getUTCMinutes() <= 15) return true;
