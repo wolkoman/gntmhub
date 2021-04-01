@@ -30,9 +30,11 @@ export function calculateStocksForPrice(
 
 export const isAllowedTime = () => {
   const date = new Date();
+  const myHours = date.getUTCHours() + 2;
   if(date.getUTCDay() !== 4) return true;
-  if(date.getUTCHours() < 19 || date.getUTCHours() >= 22) return true;
-  if(date.getUTCHours() === 20 &&date.getUTCMinutes() <= 30) return true;
-  if(date.getUTCHours() === 21 && date.getUTCMinutes() >= 45) return true;
+  if(myHours < 20 || myHours >= 23) return true;
+  if(myHours === 20 && date.getUTCMinutes() <= 15) return true;
+  if(myHours === 21 && date.getUTCMinutes() >= 30) return true;
+  if(myHours === 22 && date.getUTCMinutes() >= 50) return true;
   return false;
 }
