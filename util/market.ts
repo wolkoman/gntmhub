@@ -36,7 +36,7 @@ export const isAllowedTime = () => {
   if(date.getUTCDay() !== 4) return true;
   if(myHours < 20 || myHours >= 23) return true;
   if(myHours === 20 && date.getUTCMinutes() <= 15) return true;
-  if(myHours === 21 && date.getUTCMinutes() >= 30) return true;
+  if(myHours === 21 && date.getUTCMinutes() >= 5) return true;
   if(myHours === 22 && date.getUTCMinutes() >= 50) return true;
   return false;
 }

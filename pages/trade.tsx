@@ -9,7 +9,7 @@ import {isAllowedTime} from '../util/market';
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
   const [tradingBlock, setTradingBlock] = useState(false);
-  const tradingBlockNotice = "Donnerstags von 20:15 - 21:00 Uhr und 21:30 - 22:50 Uhr besteht eine Handelssperre.";
+  const tradingBlockNotice = "Donnerstags von 20:15 - 21:00 Uhr und 21:05 - 22:50 Uhr besteht eine Handelssperre.";
 
   const updateTrading = () => setTradingBlock(!isAllowedTime());
 
