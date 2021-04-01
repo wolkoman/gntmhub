@@ -30,7 +30,7 @@ export default function QuestionPage() {
 }
 
 function Question({question}: { question: QuestionEntity }) {
-  const [user] = useStore(state => [state.user, state.load()]);
+  const [user, setAnswerInStore] = useStore(state => [state.user, state.setAnswer, state.load()]);
   const [selectedOption, setSelectedOption] = useState<number>(null);
   const [answerable, setAnswerable] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,7 +45,10 @@ function Question({question}: { question: QuestionEntity }) {
     if(!answerable || loading) return;
     setLoading(true);
     fetchJson('/api/market/answer-question', {questionId: question._id, optionId})
-      .then(() => setSelectedOption(optionId))
+      .then(() => {
+        setSelectedOption(optionId);
+        setAnswerInStore(question._id, optionId);
+      })
       .finally(() => setLoading(false));
   }
   return (

@@ -16,6 +16,7 @@ export type State = {
   isLoggedIn: () => boolean;
   load: () => any;
   loadMessages: () => any;
+  setAnswer: (questionId, answerId) => void;
 };
 
 export const useStore = create<State>((set, get) => ({
@@ -55,5 +56,14 @@ export const useStore = create<State>((set, get) => ({
       .catch((err) => {
         console.log('Message error');
       });
+  },
+  setAnswer: (questionId, answerId) => {
+    const myUserId = get().user._id;
+    set({
+      questions: get().questions.map(question => question._id === questionId ? {
+        ...question,
+        answers: Object.fromEntries(Object.entries(question.answers).map(([userId, answer]) => [userId, userId === myUserId ? answerId : answer]))
+      } : question)
+    });
   },
 }));
