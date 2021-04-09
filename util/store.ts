@@ -1,6 +1,6 @@
 import create from 'zustand';
 import {fetchJson} from './fetchJson';
-import {CandidateEntity, MessageEntity, QuestionEntity, UserEntity} from './DatabaseService';
+import {CandidateEntity, MessageEntity} from './DatabaseService';
 import {GetDto} from '../pages/api/market/get';
 
 export type State = {
@@ -54,11 +54,10 @@ export const useStore = create<State>((set, get) => ({
       .catch(() => console.log('Message error'));
   },
   setAnswer: (questionId, answerId) => {
-    const myUserId = get().user._id;
     set({
       questions: get().questions.map(question => question._id === questionId ? {
         ...question,
-        answers: Object.fromEntries(Object.entries(question.answers).map(([userId, answer]) => [userId, userId === myUserId ? answerId : answer]))
+        answer: answerId
       } : question)
     });
   },

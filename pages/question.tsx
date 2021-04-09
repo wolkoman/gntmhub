@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Site} from '../components/Site';
 import {Title} from '../components/Title';
-import {calculatePrice} from '../util/market';
-import {useStore} from '../util/store';
+import {useStore, State} from '../util/store';
 import {fetchJson} from '../util/fetchJson';
-import {QuestionEntity} from '../util/DatabaseService';
+import {ArrayElement, GetDto} from './api/market/get';
 
 export default function QuestionPage() {
-  const [questions] = useStore(state => [state.questions, state.load()]);
+  const [questions]: [State['questions'], null] = useStore(state => [state.questions, state.load()]);
   return (
     <Site>
       <Title>Bonusfragen</Title>
@@ -18,7 +17,7 @@ export default function QuestionPage() {
           aggregate[current.group] = aggregate[current.group] ?? [];
           aggregate[current.group].push(current);
           return aggregate;
-        }, {})).sort(([b],[a]) => a.localeCompare(b)).map(([group, questions]: [string, QuestionEntity[]]) => <div key={group}>
+        }, {})).sort(([b],[a]) => a.localeCompare(b)).map(([group, questions]: [string, State['questions']]) => <div key={group}>
           <div className="text-xl font-serif mb-3 mt-6">
             Folge vom {new Date(group).toLocaleDateString("de")}
           </div>
@@ -29,12 +28,12 @@ export default function QuestionPage() {
   );
 }
 
-function Question({question}: { question: QuestionEntity }) {
+function Question({question}: { question: ArrayElement<GetDto['questions']> }) {
   const [user, setAnswerInStore] = useStore(state => [state.user, state.setAnswer, state.load()]);
   const [selectedOption, setSelectedOption] = useState<number>(null);
   const [answerable, setAnswerable] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
-  useEffect(() => setSelectedOption(question.answers[user._id]), [question, user]);
+  useEffect(() => setSelectedOption(question.answer), [question, user]);
   useEffect(() => {
     const update = () => setAnswerable(new Date(question.deadline).getTime() > new Date().getTime());
     update();
@@ -67,7 +66,6 @@ function Question({question}: { question: QuestionEntity }) {
                ${optionIndex === question.correct ? " ring-4 ring-pohutukawa-400" : ""}`}
                onClick={() => answer(optionIndex)}>
             {option}
-            {answerable ? null : " ("+(100* Object.values(question.answers).filter(x => x === optionIndex).length / Object.values(question.answers).length).toFixed(0) + "%)"}
           </div>)}
         {loading ? <div className="px-4 py-1">speichert...</div> : null}
       </div>

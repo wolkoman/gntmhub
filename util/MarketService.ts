@@ -37,7 +37,7 @@ export class MarketService {
     );
     if (price !== expectedPrice)
       throw new Error("Die Preise haben sich geändert.");
-    if (user.points - price < 0)
+    if (user.points - price < user.points)
       throw new Error("Die Benutzerin oder der Benutzer hat nicht genug Geld.");
     if (user.stocks[candidateId] + amount < 0)
       throw new Error(
