@@ -12,7 +12,7 @@ export function CandidateList({
     state.load(),
   ]);
   return (
-    <div className="flex flex-wrap mx-auto">
+    <div className="flex flex-wrap mx-auto justify-between">
       {candidates
         .map(candidate => ({
           ...candidate,
@@ -23,7 +23,7 @@ export function CandidateList({
         .map(candidate => (
           <div
             key={candidate._id}
-            className="w-28 h-28 md:w-36 md:h-36 rounded md:m-2 m-1 flex flex-col bg-gray-200 overflow-hidden"
+            className="w-28 h-28 md:w-40 md:h-40 rounded md:m-2 m-1 flex flex-col bg-gray-200 overflow-hidden"
             style={{
               cursor: candidate.terminated ? 'default' : 'pointer',
               filter: candidate.terminated ? 'grayscale(1) contrast(75%)' : '',
@@ -34,7 +34,7 @@ export function CandidateList({
             onClick={() => candidate.terminated ? null : onCandidate(candidate._id)}
           >
             <div className="h-full"/>
-            <div className="flex flex-row justify-between items-center px-2 py-1" style={{background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(5px)'}}>
+            <div className="flex flex-row justify-between items-center px-2 py-1" style={{background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(2px)'}}>
               <div className={candidate.terminated ? 'line-through' : ''}>
                 {candidate.name}
               </div>

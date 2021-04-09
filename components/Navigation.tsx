@@ -12,7 +12,7 @@ export function Navigation() {
   ]);
   const router = useRouter();
   return (
-    <div className="p-4 bg-gray-100 flex items-end justify-between">
+    <div className="p-4 bg-white flex items-end justify-between">
       <Link href="/">
         <div className="text-2xl font-serif font-bold cursor-pointer">
           gntmhub

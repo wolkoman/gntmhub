@@ -5,7 +5,7 @@ export function Modal({ onClose, children, disabled }: {onClose: () => any, chil
       onClick={onClose}
     >
       <div
-        className="bg-white shadow-2xl rounded-lg overflow-hidden w-screen max-w-2xl max-h-screen overflow-auto"
+        className="bg-white shadow-2xl rounded overflow-hidden w-screen max-w-2xl max-h-screen overflow-auto"
         style={{
           filter: disabled ? "contrast(70%)" : "",
         }}

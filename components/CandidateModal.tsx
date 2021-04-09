@@ -80,7 +80,7 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
               ['Kurs', calculatePrice(stocks, candidate._id, 1).toFixed(2)],
             ].map(([key, value]) => (
               <div className="mb-2" key={key}>
-                <div className="uppercase text-sm">{key}</div>
+                <div className="text-sm">{key}</div>
                 <div className="text-3xl">{value}</div>
               </div>
             ))}

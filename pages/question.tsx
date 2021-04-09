@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Site} from '../components/Site';
-import {Title} from '../components/Title';
-import {useStore, State} from '../util/store';
+import {State, useStore} from '../util/store';
 import {fetchJson} from '../util/fetchJson';
 import {ArrayElement, GetDto} from './api/market/get';
 
@@ -9,26 +8,30 @@ export default function QuestionPage() {
   const [questions]: [State['questions'], null] = useStore(state => [state.questions, state.load()]);
   return (
     <Site>
-      <Title>Bonusfragen</Title>
       <div className="flex flex-col justify-center">
         {Object.entries(questions
-          .map(q => ({...q, group: q.deadline.substr(0,10)}))
+          .map(q => ({...q, group: q.deadline.substr(0, 10)}))
           .reduce((aggregate, current) => {
-          aggregate[current.group] = aggregate[current.group] ?? [];
-          aggregate[current.group].push(current);
-          return aggregate;
-        }, {})).sort(([b],[a]) => a.localeCompare(b)).map(([group, questions]: [string, State['questions']]) => <div key={group}>
-          <div className="text-xl font-serif mb-3 mt-6">
-            Folge vom {new Date(group).toLocaleDateString("de")}
+            aggregate[current.group] = aggregate[current.group] ?? [];
+            aggregate[current.group].push(current);
+            return aggregate;
+          }, {})).sort(([b], [a]) => a.localeCompare(b)).map(([group, questions]: [string, State['questions']], i: number) =>
+          <div key={group} className="flex flex-col lg:flex-row mb-8">
+            <div className="text-xl mb-3 mt-6 w-56 flex-shrink-0 flex lg:block">
+              <div className="lg:font-serif mr-2">Folge vom</div>
+              <div className="lg:text-4xl">{new Date(group).toLocaleDateString('de')}</div>
+            </div>
+            <div className="flex flex-col w-full">
+              {questions.map(question => <Question key={question._id} question={question} highlight={i === 0}/>)}
+            </div>
           </div>
-          {questions.map(question => <Question key={question._id} question={question}/>)}
-        </div>)}
+        )}
       </div>
     </Site>
   );
 }
 
-function Question({question}: { question: ArrayElement<GetDto['questions']> }) {
+function Question({question, highlight}: { question: ArrayElement<GetDto['questions']>, highlight: boolean }) {
   const [user, setAnswerInStore] = useStore(state => [state.user, state.setAnswer, state.load()]);
   const [selectedOption, setSelectedOption] = useState<number>(null);
   const [answerable, setAnswerable] = useState<boolean>(true);
@@ -41,7 +44,7 @@ function Question({question}: { question: ArrayElement<GetDto['questions']> }) {
     return () => clearInterval(interval);
   });
   const answer = (optionId) => {
-    if(!answerable || loading) return;
+    if (!answerable || loading) return;
     setLoading(true);
     fetchJson('/api/market/answer-question', {questionId: question._id, optionId})
       .then(() => {
@@ -51,7 +54,7 @@ function Question({question}: { question: ArrayElement<GetDto['questions']> }) {
       .finally(() => setLoading(false));
   }
   return (
-    <div className={`bg-gray-100 mb-2 p-3 pb-1 rounded ${loading ? "opacity-80": ""}`}>
+    <div className={`mb-2 p-3 pb-1 rounded ${loading ? 'opacity-80' : ''} ${highlight ? 'bg-gray-100' : ''}`}>
       <div className="flex flex-row flex-wrap uppercase">
         <div>Pot: {question.pot} gpoints</div>
         <div className="ml-4">Deadline: {new Date(question.deadline).toLocaleString('de-AT')}</div>
@@ -61,9 +64,9 @@ function Question({question}: { question: ArrayElement<GetDto['questions']> }) {
         {question.options.map((option, optionIndex) =>
           <div key={optionIndex}
                className={`px-4 py-1 border border-gray-400 mx-1  rounded mb-2 
-               ${answerable && !loading ? " cursor-pointer" : ""}
-               ${optionIndex === selectedOption ? " bg-gray-600 text-white" : ""}
-               ${optionIndex === question.correct ? " ring-4 ring-pohutukawa-400" : ""}`}
+               ${answerable && !loading ? ' cursor-pointer' : ''}
+               ${optionIndex === selectedOption ? ' bg-gray-600 text-white' : ''}
+               ${optionIndex === question.correct ? ' ring-4 ring-pohutukawa-400' : ''}`}
                onClick={() => answer(optionIndex)}>
             {option}
           </div>)}
