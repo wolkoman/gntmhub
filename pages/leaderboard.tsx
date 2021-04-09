@@ -8,30 +8,33 @@ export default function LeaderboardPage() {
   const [users, myUser] = useStore(state => [state.users, state.user, state.load()]);
   return (
     <Site>
-      <Title>Rangliste</Title>
-      <div className="flex flex-col justify-center">
-        <div className={`flex p-2 rounded mb-2 text-gray-400 `}>
-          <div className="w-20 font-bold text-center">#</div>
-          <div className="w-40">Name</div>
-          <div className="w-20 font-bold">Gesamtwert</div>
-        </div>
-        {users.map((user, i) => (
-          <div
-            key={user.name}
-            className={
-              `flex p-2 rounded mb-2 ` +
-              (user.name === myUser.name
-                ? 'font-bold bg-pohutukawa-400 text-white'
-                : '')
-            }
-          >
-            <div className="w-20 font-bold text-center">{i + 1}</div>
-            <div className="w-40">{user.name}</div>
-            <div className="w-20 font-bold">
-              {user.total.toFixed(0)}
-            </div>
+      <div className="max-w-xl mx-auto">
+        <div className="flex flex-col justify-center">
+          <div className="flex w-full p-6 rounded bg-gray-600 text-white mb-2 text-2xl items-center transform lg:scale-110">
+            <div className="w-12 font-bold text-center text-4xl">1</div>
+            <div className="flex-grow">{users[0].name}</div>
+            <div className="w-20 font-bold text-right">{users[0].total.toFixed(0)}</div>
           </div>
-        ))}
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex w-full p-4 rounded self-center bg-gray-300 items-center text-lg transform lg:scale-105 lg:-ml-3 my-1">
+              <div className="w-8 font-bold text-center text-xl">2</div>
+              <div className="flex-grow">{users[1].name}</div>
+              <div className="w-20 font-bold text-right">{users[1].total.toFixed(0)}</div>
+            </div>
+            <div className="flex w-full p-4 rounded self-center bg-gray-300 items-center text-lg transform lg:scale-105 lg:ml-3 my-1">
+              <div className="w-8 font-bold text-center text-xl">3</div>
+              <div className="flex-grow">{users[2].name}</div>
+              <div className="w-20 font-bold text-right">{users[2].total.toFixed(0)}</div>
+            </div>
+            {users.slice(3).map((user, i) => (
+              <div key={user.name} className="flex p-3 rounded justify-center bg-gray-100">
+                <div className="w-8 font-bold text-center">{i + 4}</div>
+                <div className="flex-grow">{user.name}</div>
+                <div className="w-20 font-bold text-right">{user.total.toFixed(0)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </Site>
   );
