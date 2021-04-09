@@ -26,9 +26,9 @@ export async function getUserFromRequest(
     id?: string;
   };
   if (jwt.id) {
-    const userCollection = await DatabaseService.getCollection(UserEntity).catch(x => {console.log("/get getCollection",x);return x});
-    const user = await userCollection.findOne({ _id: ObjectId(jwt.id) }).catch(x => {console.log("/get userone",x);return x});
-    if (!user) return null;
+    const userCollection = await DatabaseService.getCollection(UserEntity);
+    const user = await userCollection.findOne({ _id: ObjectId(jwt.id) });
+    if (!user) return undefined;
     return requireUserToBeActive && !user.active ? null : user;
   } else {
     return undefined;

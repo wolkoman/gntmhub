@@ -1,17 +1,18 @@
 import create from 'zustand';
 import {fetchJson} from './fetchJson';
 import {CandidateEntity, MessageEntity, QuestionEntity, UserEntity} from './DatabaseService';
+import {GetDto} from '../pages/api/market/get';
 
 export type State = {
-  users: UserEntity[];
-  candidates: CandidateEntity[];
-  user?: UserEntity;
-  stocks: Record<string, number>;
+  users: GetDto['users'];
+  user?: GetDto['user'];
+  candidates: GetDto['candidates'];
+  stocks: GetDto['stocks'];
+  questions: GetDto['questions'],
   messages: MessageEntity[];
   loading: boolean;
   loadingMessages: boolean,
   setAll: (any) => any;
-  questions: QuestionEntity[],
   candidate: (id: string) => CandidateEntity | undefined;
   isLoggedIn: () => boolean;
   load: () => any;
@@ -48,14 +49,9 @@ export const useStore = create<State>((set, get) => ({
   loadMessages: () => {
     if (get().loadingMessages) return;
     set({loadingMessages: true});
-    console.log('load messages');
-    fetchJson('/api/market/payouts')
-      .then(({messages}) => {
-        set({messages});
-      })
-      .catch((err) => {
-        console.log('Message error');
-      });
+    fetchJson('/api/market/messages')
+      .then(({messages}) => set({messages}))
+      .catch(() => console.log('Message error'));
   },
   setAnswer: (questionId, answerId) => {
     const myUserId = get().user._id;
