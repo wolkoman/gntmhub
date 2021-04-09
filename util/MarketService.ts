@@ -1,5 +1,6 @@
-import { DatabaseService, ObjectId, UserEntity } from "./DatabaseService";
-import {calculatePrice, isAllowedTime} from './market';
+import {DatabaseService, ObjectId, TradingBlockEntity, UserEntity} from './DatabaseService';
+import {calculatePrice} from './market';
+
 
 export class MarketService {
 
@@ -16,13 +17,19 @@ export class MarketService {
     return Object.fromEntries(data.map(({ _id, total }) => [_id, total]));
   }
 
+  static async isAllowedTime() {
+    const tradingBlockCollection = await DatabaseService.getCollection(TradingBlockEntity);
+    const tradingBlocks = await tradingBlockCollection.find({start: {$lte: new Date()}, end: {$gte: new Date()}}).toArray();
+    return tradingBlocks.length === 0;
+  }
+
   static async trade(
     userId: string,
     candidateId: string,
     amount: number,
     expectedPrice?: number
   ) {
-    if(!isAllowedTime()){
+    if(!await this.isAllowedTime()){
       throw new Error("Zurzeit besteht eine Handelssperre.");
       return;
     }
@@ -37,7 +44,7 @@ export class MarketService {
     );
     if (price !== expectedPrice)
       throw new Error("Die Preise haben sich geändert.");
-    if (user.points - price < user.points)
+    if (user.points - price < 0)
       throw new Error("Die Benutzerin oder der Benutzer hat nicht genug Geld.");
     if (user.stocks[candidateId] + amount < 0)
       throw new Error(

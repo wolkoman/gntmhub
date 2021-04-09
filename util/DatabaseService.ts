@@ -26,6 +26,11 @@ export class CandidateEntity extends Entity {
   terminated: boolean;
   imageUrl: string;
 }
+export class TradingBlockEntity extends Entity {
+  _collectionName = "tradingBlock";
+  start: Date;
+  end: Date;
+}
 export class QuestionEntity extends Entity {
   _collectionName = "questions";
   question: string;

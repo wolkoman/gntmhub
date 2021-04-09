@@ -4,6 +4,7 @@ import {CandidateEntity, MessageEntity} from './DatabaseService';
 import {GetDto} from '../pages/api/market/get';
 
 export type State = {
+  tradingBlocks: GetDto['tradingBlocks'];
   users: GetDto['users'];
   user?: GetDto['user'];
   candidates: GetDto['candidates'];
@@ -21,6 +22,7 @@ export type State = {
 };
 
 export const useStore = create<State>((set, get) => ({
+  tradingBlocks: [],
   users: [],
   candidates: [],
   user: undefined,

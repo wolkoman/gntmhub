@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
 import {
   CandidateEntity,
-  DatabaseService, QuestionEntity,
+  DatabaseService, QuestionEntity, TradingBlockEntity,
   UserEntity,
 } from '../../../util/DatabaseService';
 import {MarketService} from '../../../util/MarketService';
@@ -34,6 +34,9 @@ export const calculateGetInfo = async (user?: UserEntity) => {
   const userCollection = await DatabaseService.getCollection(UserEntity);
   const users = await userCollection.find({active: true}).toArray();
 
+  const tradingBlockCollection = await DatabaseService.getCollection(TradingBlockEntity);
+  const tradingBlocks = await tradingBlockCollection.find({end: {$gte: new Date()}}).toArray();
+
   const stocks = await MarketService.getStocks();
 
   return {
@@ -64,6 +67,9 @@ export const calculateGetInfo = async (user?: UserEntity) => {
       }))
       .sort((a, b) => b.total - a.total),
     stocks,
+    tradingBlocks: tradingBlocks
+      .map(({start, end}) => ({start, end}))
+      .sort((a,b) => b.start.getTime() - a.start.getTime()),
     user: {name: user.name, stocks: user.stocks, points: user.points, admin: user.admin},
     candidates: candidates.map(candidate => ({
       ...candidate,

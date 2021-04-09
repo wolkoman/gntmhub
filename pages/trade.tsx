@@ -1,29 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Site} from '../components/Site';
 import {Title} from '../components/Title';
 import {CandidateModal} from '../components/CandidateModal';
 import {CandidateList} from '../components/CandidateList';
 import {Portfolio} from '../components/Portfolio';
-import {isAllowedTime} from '../util/market';
+import {useStore} from '../util/store';
+import {GetDto} from './api/market/get';
 
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
-  const [tradingBlock, setTradingBlock] = useState(false);
-  const tradingBlockNotice = "Donnerstags von 20:15 - 21:00 Uhr und 21:15 - 23:05 Uhr besteht eine Handelssperre.";
+  const tradingBlocks = useStore(state => state.tradingBlocks)
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-  const updateTrading = () => setTradingBlock(!isAllowedTime());
-
-  useEffect(() => {
-    updateTrading();
-    const interval = setInterval(updateTrading, 1000);
-    return () => clearInterval(interval);
-  }, []);
   return (
     <Site>
-      {tradingBlock ? <><div className="text-5xl font-serif my-36">
-        🙁 Zurzeit besteht eine Handelssperre!
-        <div className="text-lg mt-6">{tradingBlockNotice}</div>
-      </div></> : <>
       <Portfolio onSelect={id => setActiveCandidate(id)}/>
       <Title>Kandidatinnen</Title>
       {activeCandidate ? (
@@ -32,14 +22,29 @@ export default function TradePage() {
           candidateId={activeCandidate}
         />
       ) : null}
-      <div
-        className={`p-4 mb-4 rounded pointer-events-none ${tradingBlock ? 'font-bold bg-pohutukawa-300 text-white' : 'italic text-gray-800'}`}>
-        {tradingBlockNotice}
-      </div>
-      <div className={tradingBlock ? 'pointer-events-none' : ''}>
+      <div className={false ? 'pointer-events-none' : ''}>
         <CandidateList onCandidate={id => setActiveCandidate(id)}/>
       </div>
-      </>}
+      <Title>Handelssperren</Title>
+      <div>
+        {tradingBlocks.map(tradingBlock => <div>
+          <DateSpan start={new Date(tradingBlock.start)} end={new Date(tradingBlock.end)}/>
+        </div>)}
+      </div>
     </Site>
   );
+}
+
+const DateSpan = ({start, end}: {start: Date, end: Date}) =>{
+  const sameDate = start.getFullYear() === end.getFullYear() && start.getMonth() === end.getMonth() && start.getDate() === end.getDate();
+  return <>
+    <DateFormat date={start} type="DATE"/> <DateFormat date={start} type="TIME"/> - {" "}
+    {sameDate?'':<DateFormat date={end} type="DATE"/>} <DateFormat date={end} type="TIME"/>
+  </>;
+}
+const DateFormat = ({date, type}: {date: Date, type: 'DATE'|'TIME'}) =>{
+  const pad = str => `${Array(2 - str.toString().length).fill(0).join('')}${str}`
+  return type === 'DATE'
+    ? <>{`${pad(date.getDate())}.${pad(date.getMonth()+1)}.${date.getFullYear()}`}</>
+    : <>{`${pad(date.getHours())}:${pad(date.getMinutes())}`}</>;
 }
