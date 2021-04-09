@@ -28,21 +28,17 @@ export function CandidateList({
               cursor: candidate.terminated ? 'default' : 'pointer',
               filter: candidate.terminated ? 'grayscale(1) contrast(75%)' : '',
               opacity: candidate.terminated ? 0.7 : 1,
+              backgroundImage: `url(${candidate.imageUrl})`,
+              backgroundSize: 'cover',
             }}
             onClick={() => candidate.terminated ? null : onCandidate(candidate._id)}
           >
-            <div className="h-full"
-              style={{
-                backgroundImage: `url(${candidate.imageUrl})`,
-                backgroundSize: 'cover',
-              }}
-              onClick={() => candidate.terminated ? null : onCandidate(candidate._id)}
-            />
-            <div className="flex flex-row justify-between items-center px-2 py-1">
-              <div className={'font-serif text-lg ' + (candidate.terminated ? 'line-through' : '')}>
+            <div className="h-full"/>
+            <div className="flex flex-row justify-between items-center px-2 py-1" style={{background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(5px)'}}>
+              <div className={candidate.terminated ? 'line-through' : ''}>
                 {candidate.name}
               </div>
-              <div className={'md:text-xl text-right font-bold ' + (candidate.terminated ? 'hidden' : '')}>
+              <div className={'text-xl text-right font-bold ' + (candidate.terminated ? 'hidden' : '')}>
                 {candidate.price.toFixed(2)}
               </div>
             </div>

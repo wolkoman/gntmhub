@@ -10,20 +10,15 @@ import {GetDto} from './api/market/get';
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
   const tradingBlocks = useStore(state => state.tradingBlocks)
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   return (
     <Site>
-      <Portfolio onSelect={id => setActiveCandidate(id)}/>
-      <Title>Kandidatinnen</Title>
-      {activeCandidate ? (
-        <CandidateModal
-          onClose={() => setActiveCandidate(null)}
-          candidateId={activeCandidate}
-        />
-      ) : null}
-      <div className={false ? 'pointer-events-none' : ''}>
-        <CandidateList onCandidate={id => setActiveCandidate(id)}/>
+      <div className="flex flex-col lg:flex-row">
+        <Portfolio onSelect={id => setActiveCandidate(id)}/>
+        <div>
+          <div className="text-2xl font-serif mb-4 mt-8 lg:hidden">Kandidatinnen</div>
+          <CandidateList onCandidate={id => setActiveCandidate(id)}/>
+        </div>
       </div>
       <Title>Handelssperren</Title>
       <div>
@@ -31,6 +26,13 @@ export default function TradePage() {
           <DateSpan start={new Date(tradingBlock.start)} end={new Date(tradingBlock.end)}/>
         </div>)}
       </div>
+
+      {activeCandidate ? (
+        <CandidateModal
+          onClose={() => setActiveCandidate(null)}
+          candidateId={activeCandidate}
+        />
+      ) : null}
     </Site>
   );
 }

@@ -18,12 +18,6 @@ export function Navigation() {
           gntmhub
         </div>
       </Link>
-      {isLoggedIn ? (
-        <>
-          {router.asPath === Route.TRADE ?
-        <div className="hidden md:block text-gray-700 px-1.5 rounded-xl">
-          Liquidität: {user?.points.toFixed(2)}gp
-        </div> : null }
         <div className="flex flex-col md:flex-row">
           <Link href={Route.OVERVIEW}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
@@ -46,8 +40,6 @@ export function Navigation() {
             </div>
           </Link>
         </div>
-        </>
-      ) : null}
     </div>
   );
 }

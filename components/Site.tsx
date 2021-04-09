@@ -19,7 +19,7 @@ export function Site({children, navigation = true, responsive = true}: {
       </Head>
       {loading ? <LoadingScreen/> : <>
         {navigation ? <Navigation/> : null}
-        {responsive ? <Responsive>{children}</Responsive> : children}
+        {responsive ? <Responsive><div className="my-20">{children}</div></Responsive> : children}
         {navigation ? <Footer/> : null}</>}
     </div>
   );
@@ -32,8 +32,10 @@ export const Responsive = ({children}) => {
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const interval = setInterval(() => setProgress(p => p === 3 ? 0 : p+1), 500);
+    const interval = setInterval(() => setProgress(p => p === 1 ? 0 : p+1), 700);
     return () => clearInterval(interval);
   }, [setProgress])
-  return <div className="w-screen h-screen flex justify-center items-center"><div>loading{Array(progress).fill(".")}</div></div>;
+  return <div className="w-screen h-screen flex justify-center items-center">
+    <div className={`font-serif font-bold ${progress ? 'text-2xl' : 'text-4xl'} transition-all duration-1000`}>g</div>
+  </div>;
 }
