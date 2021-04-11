@@ -55,6 +55,10 @@ export class QuestionMessageEntity extends MessageEntity {
   questionId: string;
   payout: number;
 }
+export class RefundMessageEntity extends MessageEntity {
+  type = "REFUND";
+  payout: number;
+}
 
 export class DatabaseService {
   static client: MongoClient;

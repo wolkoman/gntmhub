@@ -5,9 +5,7 @@ import {CandidateModal} from '../components/CandidateModal';
 import {CandidateList} from '../components/CandidateList';
 import {Portfolio} from '../components/Portfolio';
 import {useStore} from '../util/store';
-import {GetDto} from './api/market/get';
 import {Administrator} from '../components/Administrator';
-import Payouts from '../components/Payouts';
 
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
@@ -15,12 +13,12 @@ export default function TradePage() {
 
   return (
     <Site>
-      <div className="flex flex-row">
-        <Payouts/>
-        <div className="w-64 relative flex flex-col justify-center items-center">
+      <div className="flex flex-row justify-end mb-4">
+        <div className="bg-gray-200 px-8 py-2 rounded mr-4 flex-grow flex items-center">
+          <div className="text-lg">Aktueller Kontostand: {user?.points.toFixed(2)} gp</div>
+        </div>
+        <div className="flex flex-col justify-center items-center bg-pohutukawa-400 text-white px-8 py-2 rounded">
           <div className="font-bold text-5xl">#{users.findIndex(u => u.name === user.name)+1}</div>
-          <div className="text-lg">{user?.points.toFixed(2)} gp</div>
-          <div className="absolute top-0 -left-16 w-16 h-full bg-gradient-to-l from-white"></div>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row">

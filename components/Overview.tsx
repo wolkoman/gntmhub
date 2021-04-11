@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Title} from '../components/Title';
 import {useStore} from '../util/store';
 import {calculatePrice} from '../util/market';
-import Payouts from './Payouts';
+import Notifications from './Notifications';
 
 export default function Overview() {
   const [user, stocks, candidates] = useStore(state => [
@@ -42,7 +42,7 @@ export default function Overview() {
           </div>
         </div>
       </div>
-      <Payouts/>
+      <Notifications/>
     </div>
   );
 }
