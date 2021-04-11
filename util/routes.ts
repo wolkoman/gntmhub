@@ -3,6 +3,7 @@ export enum Route {
   TRADE = "/trade",
   LEADERBOARD = "/leaderboard",
   QUESTION = "/question",
+  NOTIFICATIONS = "/notifications",
   IMPRESSUM = "/impressum",
   LOGIN = "/me/login",
   SIGNUP = "/me/signup",

@@ -3,6 +3,7 @@ import React from "react";
 import { useStore } from "../util/store";
 import {Route} from '../util/routes';
 import {useRouter} from 'next/router';
+import FeatherIcon from 'feather-icons-react';
 
 export function Navigation() {
   const [isLoggedIn, user, loading] = useStore(state => [
@@ -32,6 +33,11 @@ export function Navigation() {
           <Link href={Route.LEADERBOARD}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
               Rangliste
+            </div>
+          </Link>
+          <Link href={Route.NOTIFICATIONS}>
+            <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
+              <FeatherIcon icon="bell" size="20" />
             </div>
           </Link>
         </div>
