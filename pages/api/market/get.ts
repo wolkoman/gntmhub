@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
 import {
   CandidateEntity,
-  DatabaseService, QuestionEntity, TradingBlockEntity,
+  DatabaseService, MessageEntity, QuestionEntity, TradingBlockEntity,
   UserEntity,
 } from '../../../util/DatabaseService';
 import {MarketService} from '../../../util/MarketService';
@@ -37,9 +37,13 @@ export const calculateGetInfo = async (user?: UserEntity) => {
   const tradingBlockCollection = await DatabaseService.getCollection(TradingBlockEntity);
   const tradingBlocks = await tradingBlockCollection.find({end: {$gte: new Date()}}).toArray();
 
+  const messageCollection = await DatabaseService.getCollection(MessageEntity);
+  const messages = await messageCollection.find({userId: user._id}).toArray();
+
   const stocks = await MarketService.getStocks();
 
   return {
+    messages: messages.reverse(),
     questions: questions.map(question => ({
       _id: question._id,
       correct: question.correct,
@@ -47,7 +51,7 @@ export const calculateGetInfo = async (user?: UserEntity) => {
       options: question.options,
       deadline: question.deadline,
       question: question.question,
-      answer: question.answers[user._id.toString()]
+      answer: question.answers[user._id.toString()],
     })),
     users: users
       .map(user => ({

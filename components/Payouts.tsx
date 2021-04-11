@@ -7,36 +7,24 @@ import Link from 'next/link';
 
 export default function Payouts() {
   const [candidates, messages] = useStore(state => [
-    state.candidates, state.messages, state.loadMessages(), state.load()
+    state.candidates, state.messages, state.load()
   ]);
   const [activePayout, setActivePayout] = useState<number>();
-  const [nextPayouts, setNextPayouts] = useState([]);
-  const [remainingPayoutTime, setRemainingPayoutTime] = useState<number>();
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNextPayouts(nextPayouts => nextPayouts.filter(date => date.getTime() >= new Date().getTime()));
-      if(nextPayouts.length === 0 && remainingPayoutTime) {
-        setRemainingPayoutTime(null);
-      }else if(nextPayouts.length > 0){
-        setRemainingPayoutTime((nextPayouts[0].getTime() - new Date().getTime()));
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [nextPayouts]);
 
   return (
-    <div className="grid md:grid-cols-2 gap-3">
-      {messages
-        .map((message, i) => <div key={i}>
-          <div className={`bg-gray-200 p-3 rounded flex justify-between ${(message.type === 'PAYOUT' ? 'cursor-pointer' : 'pointer-events-none')}`}
+    <div className="flex flex-row overflow-x-scroll my-4">
+      {messages.map((message, i) =>
+
+        <div key={i}>
+          <div className={`bg-gray-200 p-3 rounded flex flex-col ml-2 ${(message.type === 'PAYOUT' ? 'cursor-pointer' : 'pointer-events-none')}`}
                onClick={() => setActivePayout(i)}>
-            <div>{{PAYOUT: "Dividenauszahlung", QUESTION: "Bonusfrage", REFUND: "Erstattung"}[message.type]} vom <DateText date={message.date}/></div>
-            <div className="font-bold">{message.type === "PAYOUT"
+            <div className="font-bold text-lg text-center">{message.type === "PAYOUT"
               ? message['payouts'].map(payout => payout.amount).reduce((a, b) => a + b, 0).toFixed(2)
               : message['payout'].toFixed(2)
-            } gp
+            }
             </div>
+            <div className="text-sm text-center">{{PAYOUT: "Dividenden", QUESTION: "Bonusfrage", REFUND: "Erstattung"}[message.type]}</div>
+            <div className="text-center"><DateText date={message.date}/></div>
           </div>
           {activePayout === i ? <Modal disabled={false} onClose={() => setActivePayout(null)}>
             <div className="p-6">
@@ -50,13 +38,8 @@ export default function Payouts() {
               </div>
             </div>
           </Modal> : null}
-        </div>)}
-      {nextPayouts.length > 0 ? <Link href={Route.TRADE}>
-        <div className="bg-gray-400 p-3 rounded mb-4 cursor-pointer flex justify-between">
-          <div>Nächste Auszahlung</div>
-          <div className="font-bold"><TimeText time={remainingPayoutTime}/></div>
         </div>
-      </Link> : null }
+      )}
     </div>
   );
 }
@@ -64,8 +47,4 @@ export default function Payouts() {
 const DateText = ({date}: { date: string }) => {
   const d = new Date(date);
   return <span>{d.getDate()}.{d.getMonth() + 1}.{d.getFullYear()}</span>;
-}
-const TimeText = ({time}: { time: number }) => {
-  const d = new Date(time);
-  return <span>{(d.getHours()-1).toString().padStart(2, '0')}:{d.getMinutes().toString().padStart(2, '0')}:{d.getSeconds().toString().padStart(2, '0')}</span>;
 }

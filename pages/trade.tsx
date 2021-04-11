@@ -6,13 +6,23 @@ import {CandidateList} from '../components/CandidateList';
 import {Portfolio} from '../components/Portfolio';
 import {useStore} from '../util/store';
 import {GetDto} from './api/market/get';
+import {Administrator} from '../components/Administrator';
+import Payouts from '../components/Payouts';
 
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
-  const tradingBlocks = useStore(state => state.tradingBlocks)
+  const [tradingBlocks, user, users] = useStore(state => [state.tradingBlocks, state.user, state.users])
 
   return (
     <Site>
+      <div className="flex flex-row">
+        <Payouts/>
+        <div className="w-64 relative flex flex-col justify-center items-center">
+          <div className="font-bold text-5xl">#{users.findIndex(u => u.name === user.name)+1}</div>
+          <div className="text-lg">{user?.points.toFixed(2)} gp</div>
+          <div className="absolute top-0 -left-16 w-16 h-full bg-gradient-to-l from-white"></div>
+        </div>
+      </div>
       <div className="flex flex-col lg:flex-row">
         <Portfolio onSelect={id => setActiveCandidate(id)}/>
         <div>
@@ -22,10 +32,11 @@ export default function TradePage() {
       </div>
       <Title>Handelssperren</Title>
       <div>
-        {tradingBlocks.map(tradingBlock => <div>
+        {tradingBlocks.map(tradingBlock => <div key={tradingBlock.start.toString()}>
           <DateSpan start={new Date(tradingBlock.start)} end={new Date(tradingBlock.end)}/>
         </div>)}
       </div>
+      <Administrator/>
 
       {activeCandidate ? (
         <CandidateModal

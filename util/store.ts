@@ -10,14 +10,12 @@ export type State = {
   candidates: GetDto['candidates'];
   stocks: GetDto['stocks'];
   questions: GetDto['questions'],
-  messages: MessageEntity[];
+  messages: GetDto['messages'];
   loading: boolean;
-  loadingMessages: boolean,
   setAll: (any) => any;
   candidate: (id: string) => CandidateEntity | undefined;
   isLoggedIn: () => boolean;
   load: () => any;
-  loadMessages: () => any;
   setAnswer: (questionId, answerId) => void;
 };
 
@@ -31,9 +29,7 @@ export const useStore = create<State>((set, get) => ({
   stocks: {},
   loading: false,
   loadingMessages: false,
-  setAll: data => {
-    set(data);
-  },
+  setAll: data => set(data),
   candidate: id => get().candidates.find(candidate => candidate._id === id),
   isLoggedIn: () => !!get().user,
   load: () => {
@@ -47,13 +43,6 @@ export const useStore = create<State>((set, get) => ({
           console.log('Request error', err);
         });
     }
-  },
-  loadMessages: () => {
-    if (get().loadingMessages) return;
-    set({loadingMessages: true});
-    fetchJson('/api/market/messages')
-      .then(({messages}) => set({messages}))
-      .catch(() => console.log('Message error'));
   },
   setAnswer: (questionId, answerId) => {
     set({

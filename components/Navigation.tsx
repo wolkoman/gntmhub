@@ -19,11 +19,6 @@ export function Navigation() {
         </div>
       </Link>
         <div className="flex flex-col md:flex-row">
-          <Link href={Route.OVERVIEW}>
-            <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
-              Übersicht
-            </div>
-          </Link>
           <Link href={Route.TRADE}>
             <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
               Handel
