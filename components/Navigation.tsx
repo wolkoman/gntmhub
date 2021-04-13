@@ -13,7 +13,7 @@ export function Navigation() {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const router = useRouter();
   return (
-    <div className={`p-4 bg-white flex items-center justify-between top-0 z-10 ${router.asPath === Route.HOMEPAGE ? '' : 'sticky'}`}>
+    <div className={`p-4 bg-white flex items-center justify-between top-0 z-20 ${router.asPath === Route.HOMEPAGE ? '' : 'sticky'}`}>
       <Link href="/">
         <div className="text-2xl font-serif font-bold cursor-pointer hidden md:block">
           gntmhub

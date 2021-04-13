@@ -65,8 +65,8 @@ function Question({question, highlight}: { question: ArrayElement<GetDto['questi
           <div key={optionIndex}
                className={`px-4 py-1 border border-gray-400 mx-1  rounded mb-2 
                ${answerable && !loading ? ' cursor-pointer' : ''}
-               ${optionIndex === selectedOption ? ' bg-gray-600 text-white' : ''}
-               ${optionIndex === question.correct ? ' ring-4 ring-pohutukawa-400' : ''}`}
+               ${optionIndex === selectedOption ? ' ring ring-gray-400' : ''}
+               ${optionIndex === question.correct ? ' bg-green-600 text-white' : ''}`}
                onClick={() => answer(optionIndex)}>
             {option}
           </div>)}
