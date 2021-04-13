@@ -45,6 +45,7 @@ export class MessageEntity extends Entity{
   userId: string;
   type: string;
   date: string;
+  unread: boolean;
 }
 export class PayoutMessageEntity extends MessageEntity {
   type = "PAYOUT";

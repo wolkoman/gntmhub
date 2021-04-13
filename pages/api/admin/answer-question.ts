@@ -43,7 +43,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           type: 'QUESTION',
           questionId: question._id,
           date: new Date().toISOString(),
-          payout
+          payout,
+          unread: true
         }) as QuestionMessageEntity)
       );
     }

@@ -17,6 +17,7 @@ export type State = {
   isLoggedIn: () => boolean;
   load: () => any;
   setAnswer: (questionId, answerId) => void;
+  setNotificationRead: (messageId: string) => void;
 };
 
 export const useStore = create<State>((set, get) => ({
@@ -50,6 +51,16 @@ export const useStore = create<State>((set, get) => ({
         ...question,
         answer: answerId
       } : question)
+    });
+  },
+  setNotificationRead: (notificationId) => {
+    fetchJson('/api/notifications/read', {notificationId})
+      .catch(err => console.log('Request error', err));
+    set({
+      messages: get().messages.map(notification => notification._id === notificationId ? {
+        ...notification,
+        unread: false
+      } : notification)
     });
   },
 }));

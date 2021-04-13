@@ -50,9 +50,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         userId,
         type: "PAYOUT",
         date: new Date().toISOString(),
+        unread: true,
         payouts: messages
           .filter(message => message.userId === userId)
-          .map(message => ({candidateId: message.candidateId, amount: message.amount}))
+          .map(message => ({
+            candidateId: message.candidateId,
+            amount: message.amount
+          }))
       }) as PayoutMessageEntity)
     );
   }
