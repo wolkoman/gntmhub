@@ -13,29 +13,29 @@ export function Navigation() {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const router = useRouter();
   return (
-    <div className="p-4 bg-white flex items-end justify-between">
+    <div className={`p-4 bg-white flex items-center justify-between top-0 z-10 ${router.asPath === Route.HOMEPAGE ? '' : 'sticky'}`}>
       <Link href="/">
-        <div className="text-2xl font-serif font-bold cursor-pointer">
+        <div className="text-2xl font-serif font-bold cursor-pointer hidden md:block">
           gntmhub
         </div>
       </Link>
-      {isLoggedIn ? <div className="flex flex-col md:flex-row">
+      {isLoggedIn ? <div className="flex flex-row w-full md:w-auto justify-around">
         <Link href={Route.TRADE}>
-          <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
+          <div className="text-md cursor-pointer px-1 px-4 uppercase">
             Handel
           </div>
         </Link>
         <Link href={Route.QUESTION}>
-          <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
+          <div className="text-md cursor-pointer px-1 px-4 uppercase">
             Fragen
           </div>
         </Link>
         <Link href={Route.LEADERBOARD}>
-          <div className="text-md cursor-pointer px-1 md:px-4 uppercase">
+          <div className="text-md cursor-pointer px-1 px-4 uppercase">
             Rangliste
           </div>
         </Link>
-        <div className="text-md px-1 md:px-4 relative">
+        <div className="text-md px-1 px-4 relative">
           <div className="cursor-pointer" onClick={() => setNotificationOpen(x => !x)}>
             <FeatherIcon icon="bell" size="20"/>
           </div>

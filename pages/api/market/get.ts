@@ -73,7 +73,7 @@ export const calculateGetInfo = async (user?: UserEntity) => {
     stocks,
     tradingBlocks: tradingBlocks
       .map(({start, end}) => ({start, end}))
-      .sort((a,b) => b.start.getTime() - a.start.getTime()),
+      .sort((a,b) => a.start.getTime() - b.start.getTime()),
     user: {name: user.name, stocks: user.stocks, points: user.points, admin: user.admin},
     candidates: candidates.map(candidate => ({
       ...candidate,

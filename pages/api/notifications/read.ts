@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { getUserFromRequest } from "../../../util/authorization";
-import {DatabaseService, MessageEntity, ObjectId, QuestionEntity} from '../../../util/DatabaseService';
+import {NextApiRequest, NextApiResponse} from 'next';
+import {getUserFromRequest} from '../../../util/authorization';
+import {DatabaseService, MessageEntity, ObjectId} from '../../../util/DatabaseService';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.notificationId) {

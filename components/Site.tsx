@@ -19,7 +19,7 @@ export function Site({children, navigation = true, responsive = true}: {
       </Head>
       {loading ? <LoadingScreen/> : <>
         {navigation ? <Navigation/> : null}
-        {responsive ? <Responsive><div className="my-20">{children}</div></Responsive> : children}
+        {responsive ? <Responsive><div className="md:my-14">{children}</div></Responsive> : children}
         {navigation ? <Footer/> : null}</>}
     </div>
   );

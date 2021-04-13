@@ -54,7 +54,7 @@ function Question({question, highlight}: { question: ArrayElement<GetDto['questi
       .finally(() => setLoading(false));
   }
   return (
-    <div className={`mb-2 p-3 pb-1 rounded ${loading ? 'opacity-80' : ''} ${highlight ? 'bg-gray-100' : ''}`}>
+    <div className={`mb-2 p-3 pb-1 rounded ${loading ? 'opacity-80' : ''} bg-gray-100`}>
       <div className="flex flex-row flex-wrap uppercase">
         <div>Pot: {question.pot} gpoints</div>
         <div className="ml-4">Deadline: {new Date(question.deadline).toLocaleString('de-AT')}</div>
