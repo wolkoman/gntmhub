@@ -37,12 +37,6 @@ export default function TradePage() {
           <CandidateList onCandidate={id => setActiveCandidate(id)}/>
         </div>
       </div>
-      <Title>Handelssperren</Title>
-      <div>
-        {tradingBlocks.map(tradingBlock => <div key={tradingBlock.start.toString()}>
-          <DateSpan start={new Date(tradingBlock.start)} end={new Date(tradingBlock.end)}/>
-        </div>)}
-      </div>
       <Administrator/>
 
       {activeCandidate ? (
