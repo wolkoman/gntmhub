@@ -5,6 +5,8 @@ import {useRouter} from 'next/router';
 import {useStore} from '../util/store';
 import {Route} from '../util/routes';
 import {Modal} from './Modal';
+import FeatherIcon from 'feather-icons-react';
+
 
 export function CandidateModal({candidateId, onClose,}: { candidateId: string; onClose: () => void; }) {
   const [candidate, stocks, user, setAll] = useStore(state => [
@@ -54,7 +56,7 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
   return (
     <Modal disabled={formState.isLoading} onClose={onClose}>
       <div className=" flex flex-col md:flex-row">
-        <img src={candidate.imageUrl} className="hidden md:block"/>
+        <div style={{backgroundImage: `url(${candidate.imageUrl})`, backgroundSize: 'cover'}} className="w-64"/>
         <div className="p-4 flex-1 flex flex-col justify-between">
           <div className="text-4xl font-serif mb-4 flex items-center">
             <div
@@ -66,7 +68,7 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
             />
             {candidate.name}
           </div>
-          <div className="grid grid-cols-2 w-full py-4">
+          <div className="grid grid-cols-2 w-full p-4">
             {[
               ['Deine Aktien', user.stocks[candidate._id]],
               [
@@ -90,8 +92,8 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
               <button
                 disabled={formState.isLoading}
                 onClick={() => setLimitedAmount(amount - 1)}
-                className="px-3 py-2 rounded flex-1 border border-pohutukawa-400 text-pohutukawa-400"
-                children="◀"
+                className={`px-3 py-2 rounded flex-1 flex justify-center focus:outline-none ${amount === limit.min ? 'opacity-10 cursor-auto' : ''}`}
+                children={<FeatherIcon icon="minus-circle" size={30}/>}
               />
               <div className="px-6 flex-1 text-center">
                 <input
@@ -113,14 +115,14 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
               <button
                 disabled={formState.isLoading}
                 onClick={() => setLimitedAmount(amount + 1)}
-                className="px-3 py-2 rounded flex-1 border border-pohutukawa-400 text-pohutukawa-400"
-                children="▶"
+                className={`px-3 py-2 rounded flex-1 flex justify-center focus:outline-none ${amount === limit.max ? 'opacity-10 cursor-auto' : ''}`}
+                children={<FeatherIcon icon="plus-circle" size={30}/>}
               />
             </div>
-            <div>
+            {limit.min === limit.max ? null : <div>
               <input type="range" step={1} max={limit.max} min={limit.min} value={amount}
                      onChange={(e) => setLimitedAmount(e.target.value)}/>
-            </div>
+            </div>}
             <button
               disabled={disabled}
               onClick={trade}

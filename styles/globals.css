@@ -15,23 +15,25 @@ body {
 }
 
 input[type=range] {
-  width: 100%;
+  width: calc(100% - 4px);
   -webkit-appearance: none;
+  margin: 0 2px;
+  outline: none !important;
 }
 input[type=range]::-webkit-slider-runnable-track {
-  background: #ddd;
+  background: rgba(156, 163, 175, 1);
   width: 100%;
   height: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 input[type=range]::-webkit-slider-thumb {
-  width: 10px;
+  width: 60px;
   height: 10px;
-  background: #c10722;
+  background: rgba(193, 7, 34, 1);
   cursor: pointer;
   -webkit-appearance: none;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar{

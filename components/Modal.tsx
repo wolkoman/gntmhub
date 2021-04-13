@@ -1,7 +1,13 @@
+import {useEffect} from 'react';
+
 export function Modal({ onClose, children, disabled }: {onClose: () => any, children: any, disabled: boolean}) {
+  useEffect(() => {
+    document.body.style.overflowY = 'hidden';
+    return () => document.body.style.overflowY = 'auto';
+  });
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-70 bg-gray-500 z-20"
+      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-70 bg-gray-400 z-20"
       onClick={onClose}
     >
       <div
