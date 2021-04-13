@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 import {useStore} from '../util/store';
-import {MessageEntity, PayoutMessageEntity, QuestionMessageEntity, RefundMessageEntity} from '../util/DatabaseService';
+import {
+  CustomMessageEntity,
+  MessageEntity,
+  PayoutMessageEntity,
+  QuestionMessageEntity,
+  RefundMessageEntity
+} from '../util/DatabaseService';
 import {Modal} from './Modal';
 import {ArrayElement, GetDto} from '../pages/api/market/get';
 import FeatherIcon from 'feather-icons-react';
@@ -34,6 +40,11 @@ export const Notification = ({notification: n, short}: { short?: boolean, notifi
         notification: n,
         title: `Sie bekommen ${(n as RefundMessageEntity).payout.toFixed(2)}gp erstattet.`,
       });
+    case 'CUSTOM':
+      return notificationComponent({
+        notification: n,
+        title: (n as CustomMessageEntity).content,
+      });
   }
   return <>undefined</>;
 }
@@ -50,7 +61,11 @@ const FullNotification: NotificationComponent = ({title, notification, content})
   return <>
     <div className="bg-gray-200 rounded mb-4 p-4 flex">
       <div className="flex justify-center items-center w-14 border-r border-gray-400">
-        <FeatherIcon icon={{PAYOUT: "dollar-sign", QUESTION: "help-circle"}[notification.type]}/>
+        <FeatherIcon icon={{
+          PAYOUT: 'dollar-sign',
+          QUESTION: 'help-circle',
+          CUSTOM: 'message-circle'
+        }[notification.type]}/>
       </div>
       <div className="flex-grow ml-4">
         <div className="text-lg">{title}</div>

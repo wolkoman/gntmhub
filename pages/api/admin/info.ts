@@ -1,7 +1,6 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
-import {DatabaseService} from '../../../util/DatabaseService';
-import {sendBulkMessage} from '../../../util/bulkMessage';
+import {CustomMessageEntity, DatabaseService, ObjectId, UserEntity} from '../../../util/DatabaseService';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserFromRequest(req);
@@ -11,7 +10,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.body.message && req.body.message.length < 10) {
     res.status(400).json({errorMessage: 'Sie müssen eine Nachricht angeben.'});
   } else {
-    await sendBulkMessage(req.body.message)
+
+    const userCollection = await DatabaseService.getCollection(UserEntity);
+    const users = await userCollection.find({active: true}).toArray();
+
+    const collection = await DatabaseService.getCollection(CustomMessageEntity);
+    await collection.insertMany(users
+      .map(user => ({
+        userId: ObjectId(user._id.toString()),
+        type: 'CUSTOM',
+        date: new Date().toISOString(),
+        unread: true,
+        content: req.body.message
+      }) as CustomMessageEntity));
   }
 
   await DatabaseService.close();

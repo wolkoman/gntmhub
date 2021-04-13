@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Site} from '../components/Site';
-import {Title} from '../components/Title';
 import {CandidateModal} from '../components/CandidateModal';
 import {CandidateList} from '../components/CandidateList';
 import {Portfolio} from '../components/Portfolio';
@@ -21,8 +20,8 @@ export default function TradePage() {
           </div>
           <div
             className={`px-8 py-2 rounded mr-2 flex-grow flex items-center ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100'}`}>
-            <div className="text-lg">Nächste Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
-              <><DateToday date={new Date(tradingBlocks[0].start)}/> Uhr</>
+            <div className="text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
+              <><DateToday span={tradingBlocks[0]}/> Uhr</>
             }</div>
           </div>
         </div>
@@ -56,10 +55,11 @@ const DateSpan = ({start, end}: { start: Date, end: Date }) => {
     {sameDate ? '' : <DateFormat date={end} type="DATE"/>} <DateFormat date={end} type="TIME"/>
   </>;
 }
-const DateToday = ({date}: { date: Date }) => {
+const DateToday = ({span}: { span: {start: Date, end: Date} }) => {
+  const date = new Date(span.start);
   const isToday = date.toLocaleDateString() === new Date().toLocaleDateString();
   return isToday
-    ? <DateFormat date={date} type="TIME"/>
+    ? <><DateFormat date={date} type="TIME"/> - <DateFormat date={new Date(span.end)} type="TIME"/></>
     : <><DateFormat date={date} type="DATE"/> <DateFormat date={date} type="TIME"/></>;
 }
 const DateFormat = ({date, type}: { date: Date, type: 'DATE' | 'TIME' }) => {

@@ -60,6 +60,10 @@ export class RefundMessageEntity extends MessageEntity {
   type = "REFUND";
   payout: number;
 }
+export class CustomMessageEntity extends MessageEntity {
+  type = "CUSTOM";
+  content: string;
+}
 
 export class DatabaseService {
   static client: MongoClient;

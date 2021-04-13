@@ -36,8 +36,9 @@ export function Navigation() {
           </div>
         </Link>
         <div className="text-md px-1 px-4 relative">
-          <div className="cursor-pointer" onClick={() => setNotificationOpen(x => !x)}>
+          <div className="cursor-pointer relative" onClick={() => setNotificationOpen(x => !x)}>
             <FeatherIcon icon="bell" size="20"/>
+            {unreadMessages.length > 0 ? <div className="absolute top-0 right-0 w-2 h-2 bg-pohutukawa-300 rounded-3xl"/> : null}
           </div>
           {unreadMessages.length > 0 && notificationOpen ?
             <OutsideClickHandler onOutsideClick={() => setNotificationOpen(false)}>
