@@ -1,8 +1,8 @@
 import {Title} from './Title';
-import React, {useState} from 'react';
+import React from 'react';
 import {fetchJson} from '../util/fetchJson';
 import {useStore} from '../util/store';
-import {QuestionEntity} from '../util/DatabaseService';
+import {ArrayElement, GetDto} from '../pages/api/market/get';
 
 export function Administrator(){
   const [user, questions, candidates] = useStore(state => [state.user, state.questions, state.candidates]);
@@ -22,7 +22,7 @@ export function Administrator(){
     if(!confirm(`Wollen Sie wirklich ${money} gpoints senden?`)) return;
     fetchJson("/api/admin/money", {money});
   }
-  const answer = (question: QuestionEntity) => () => {
+  const answer = (question: ArrayElement<GetDto['questions']>) => () => {
     let optionId = +prompt(question.options.map((o, i) => `${i}. ${o}`).join("\n"));
     if(optionId === -1) return;
     if(!confirm(`Wollen Sie wirklich ${question.options[optionId]} als richtig auswählen?`)) return;
