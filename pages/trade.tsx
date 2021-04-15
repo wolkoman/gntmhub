@@ -17,17 +17,17 @@ export default function TradePage() {
       <div className="flex flex-row mb-4">
         <div className="flex flex-col md:flex-row justify-end flex-grow">
           <div className="bg-gray-100 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center">
-            <div className="text-lg">
+            <div className="lg:text-lg">
               Aktueller Kontostand: {user?.points.toFixed(2)} gp</div>
           </div>
           <div
             className={`px-8 py-2 rounded mr-2 flex-grow flex items-center ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100'}`}>
-            <div className="text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
+            <div className="lg:text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
               <><DateToday span={tradingBlocks[0]}/> Uhr</>
             }</div>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-center bg-gray-600 text-white px-8 py-2 rounded">
+        <div className="flex flex-col justify-center items-center bg-gray-400 text-white px-8 py-2 rounded">
           <div className="font-bold text-5xl flex items-center">
             <FeatherIcon icon="hash" size={30}/>
             {users.findIndex(u => u.name === user.name) + 1}
