@@ -11,5 +11,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const stockRecordCollection = await DatabaseService.getCollection(StockRecordEntity);
   await stockRecordCollection.insertOne({stocks, timestamp: new Date().getTime()} as StockRecordEntity);
+  await DatabaseService.close();
   res.json({status: "done"});
 }

@@ -1,7 +1,7 @@
 import {useStore} from '../util/store';
 import React, {useEffect, useState} from 'react';
 import {CandidateEntity} from '../util/DatabaseService';
-import {Title} from './Title';
+import {Pie} from 'react-chartjs-2';
 
 export function Portfolio({onSelect}: { onSelect: (id: string) => any }) {
   const [allCandidates, user] = useStore(state => [state.candidates, state.user]);
@@ -21,7 +21,23 @@ export function Portfolio({onSelect}: { onSelect: (id: string) => any }) {
 
   return candidates.length === 0 ? <></> :
     <div>
-      <div className="text-2xl font-serif mb-4">Portfolio</div>
+      <div className="text-2xl font-serif mb-4">Dein Portfolio</div>
+      <div className="w-36 h-36 mb-5 hidden lg:block">
+        <Pie width={60} height={60}
+         data={{
+          labels: candidates.map(({candidate}) => candidate.name),
+          datasets: [{
+            label: 'My First Dataset',
+            backgroundColor: Array(10).fill(["#bbb","#eee"]).flat(),
+            data: candidates.map(({amount}) => amount),
+          }]
+        }}
+         legend={{display: false}}
+         options={{
+           elements: {arc: {borderWidth: 2}}
+         }}
+        />
+      </div>
       <div className="overflow-hidden flex flex-wrap flex-row lg:flex-col lg:w-40">{
         candidates.map(({candidate, amount}) =>
           <div key={candidate._id}
