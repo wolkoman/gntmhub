@@ -13,6 +13,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongodb": "^3.6.3",
     "@types/react-outside-click-handler": "^1.3.0",
+    "@types/web-push": "^3.3.0",
     "autoprefixer": "^10.2.3",
     "aws-sdk": "^2.831.0",
     "bcryptjs": "^2.4.3",
@@ -26,6 +27,8 @@
     "react-dom": "17.0.1",
     "react-outside-click-handler": "^1.3.0",
     "tailwindcss": "^2.0.2",
+    "urlb64touint8array": "^1.0.3",
+    "web-push": "^3.4.4",
     "zustand": "^3.3.1"
   },
   "devDependencies": {

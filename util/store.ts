@@ -18,6 +18,7 @@ export type State = {
   load: () => any;
   setAnswer: (questionId, answerId) => void;
   setNotificationRead: (messageId: string) => void;
+  setPushEnabled: (value: boolean) => void;
 };
 
 export const useStore = create<State>((set, get) => ({
@@ -31,6 +32,7 @@ export const useStore = create<State>((set, get) => ({
   loading: false,
   loadingMessages: false,
   setAll: data => set(data),
+  setPushEnabled: pushEnabled => set(data => ({user: {...data.user, pushEnabled}})),
   candidate: id => get().candidates.find(candidate => candidate._id === id),
   isLoggedIn: () => !!get().user,
   load: () => {

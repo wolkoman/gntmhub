@@ -42,6 +42,7 @@ export const calculateGetInfo = async (user?: UserEntity) => {
 
   const stocks = await MarketService.getStocks();
 
+  console.log("get", user.pushSubscriptions);
   return {
     messages: messages.reverse(),
     questions: questions.map(question => ({
@@ -74,7 +75,7 @@ export const calculateGetInfo = async (user?: UserEntity) => {
     tradingBlocks: tradingBlocks
       .map(({start, end}) => ({start, end}))
       .sort((a,b) => a.start.getTime() - b.start.getTime()),
-    user: {name: user.name, stocks: user.stocks, points: user.points, admin: user.admin},
+    user: {name: user.name, stocks: user.stocks, points: user.points, admin: user.admin, pushEnabled: !!user.pushSubscriptions},
     candidates: candidates.map(candidate => ({
       ...candidate,
       _id: candidate._id.toString(),

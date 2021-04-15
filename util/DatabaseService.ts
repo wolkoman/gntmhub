@@ -15,6 +15,7 @@ export class UserEntity extends Entity {
   points: number;
   initalPoints: number;
   stocks: Record<string, number>;
+  pushSubscriptions: any;
 }
 export class FreeMoneyEntity extends Entity {
   _collectionName = "freemoney";
