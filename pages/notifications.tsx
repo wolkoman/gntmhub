@@ -44,7 +44,7 @@ export default function NotificationsPage() {
 
   return (
     <Site>
-      {user.admin ?
+      {user?.admin ?
       <div className="flex justify-end">
         {user?.pushEnabled ?
           <div className="cursor-pointer" onClick={disableNotifications}>Benachrichtigungen ausschalten</div> :
