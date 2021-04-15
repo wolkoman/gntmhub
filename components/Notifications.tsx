@@ -60,7 +60,7 @@ const FullNotification: NotificationComponent = ({title, notification, content})
   const candidates = useStore(state => state.candidates);
   return <>
     <div className="bg-gray-200 rounded mb-4 p-4 flex">
-      <div className="flex justify-center items-center w-14 border-r border-gray-400">
+      <div className="flex justify-center items-center w-14 flex-shrink-0 border-r border-gray-400 pr-2">
         <FeatherIcon icon={{
           PAYOUT: 'dollar-sign',
           QUESTION: 'help-circle',

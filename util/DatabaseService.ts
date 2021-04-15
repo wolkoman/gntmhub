@@ -21,6 +21,11 @@ export class FreeMoneyEntity extends Entity {
   _collectionName = "freemoney";
   money: number;
 }
+export class StockRecordEntity extends Entity {
+  _collectionName = "stockRecord";
+  timestamp: number;
+  stocks: Record<string, any>;
+}
 export class CandidateEntity extends Entity {
   _collectionName = "candidates";
   name: string;

@@ -1,0 +1,12 @@
+name: Trigger Stock Recording on a CRON Schedule
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+jobs:
+  build:
+    name: Trigger Stock Recording
+    runs-on: ubuntu-latest
+    steps:
+      - name: cURL request
+        run: curl -X GET https://gntmhub.com/api/market/record-stocks
