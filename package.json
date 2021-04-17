@@ -20,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "chart.js": "^2.9.4",
     "cookie": "^0.4.1",
+    "deep-equal": "^2.0.5",
     "feather-icons-react": "^0.4.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.3",

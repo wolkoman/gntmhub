@@ -36,7 +36,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           'update': {'$inc': {points: payout}}
         }
       })));
-      console.log(result);
       await messageCollection.insertMany(correctUserIds
         .map(userId => ({
           userId: ObjectId(userId),

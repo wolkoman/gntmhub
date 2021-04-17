@@ -6,6 +6,8 @@ import {Portfolio} from '../components/Portfolio';
 import {useStore} from '../util/store';
 import {Administrator} from '../components/Administrator';
 import FeatherIcon from 'feather-icons-react';
+import {Line} from 'react-chartjs-2';
+import {Title} from '../components/Title';
 
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
@@ -18,11 +20,13 @@ export default function TradePage() {
         <div className="flex flex-col md:flex-row justify-end flex-grow">
           <div className="bg-gray-100 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center">
             <div className="lg:text-lg">
-              Aktueller Kontostand: {user?.points.toFixed(2)} gp</div>
+              Punktestand: {user?.points.toFixed(2)} gp
+            </div>
           </div>
           <div
             className={`px-8 py-2 rounded mr-2 flex-grow flex items-center ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100'}`}>
-            <div className="lg:text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
+            <div
+              className="lg:text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
               <><DateToday span={tradingBlocks[0]}/> Uhr</>
             }</div>
           </div>
@@ -41,6 +45,10 @@ export default function TradePage() {
           <CandidateList onCandidate={id => setActiveCandidate(id)}/>
         </div>
       </div>
+      <div>
+        <Title>Aktienhistorie</Title>
+        <StockHistory/>
+      </div>
       <Administrator/>
 
       {activeCandidate ? (
@@ -52,6 +60,28 @@ export default function TradePage() {
     </Site>
   );
 }
+
+const StockHistory = () => {
+  const [stockRecords, candidates] = useStore(state => [state.stockRecords, state.candidates]);
+  return <>
+    <Line
+      data={{
+        labels: stockRecords.map(record => new Date(record.timestamp)).map(date => `${date.getDate()}.${date.getMonth()} ${date.getHours()}'`),
+        datasets: candidates.map((candidate, index) => ({
+          label: candidate.name,
+          data: stockRecords.map(record => record.stocks[candidate._id]),
+          borderColor: Array(10).fill(["#D4AD9E","#B9B6B5","#52382F","#B78570","#905A4D","#191814",]).flat()[index],
+          fillColor: Array(2).fill(["#D4AD9E","#B9B6B5","#52382F","#B78570","#905A4D","#191814",]).flat()[index],
+          fill: false,
+          tension: 0.25,
+
+        }))
+      }}
+      legend={{display: false}}
+      options={{datasets:{line: {borderWidth: 4}}, elements: {point: {radius: 1}}}}
+    />
+  </>;
+};
 
 const DateSpan = ({start, end}: { start: Date, end: Date }) => {
   const sameDate = start.getFullYear() === end.getFullYear() && start.getMonth() === end.getMonth() && start.getDate() === end.getDate();

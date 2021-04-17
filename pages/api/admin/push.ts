@@ -20,14 +20,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       {$project: {_id: 0, pushSubscriptions: 1}}
     ]).toArray();
 
-    await Promise.all(users.map(user => {
-      console.log(user.pushSubscriptions);
-      return webpush.sendNotification(user.pushSubscriptions, JSON.stringify({
+    await Promise.all(users.map(user =>
+      webpush.sendNotification(user.pushSubscriptions, JSON.stringify({
         notification: {
           title: 'Beispiel Titel',
           body: 'Das ist der Textkörper. Hallo!',
-          icon: "https://gntmhub.com/favicon.ico.png",
-          badge: "https://gntmhub.com/favicon.ico.png",
+          icon: 'https://gntmhub.com/favicon.ico.png',
+          badge: 'https://gntmhub.com/favicon.ico.png',
           badgeEnabled: true
         }
       })).catch(async (err) => {
@@ -35,11 +34,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           console.log('Subscription has expired or is no longer valid: ', err);
           await userCollection.updateOne({_id: Object(user._id)}, {$set: {pushSubscriptions: null}});
         } else {
-          console.log("ERR");
+          console.log('ERR');
           throw err;
         }
-      });
-    }));
+      })));
 
     res.json({status: "done"});
   }

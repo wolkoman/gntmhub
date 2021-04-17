@@ -2,11 +2,12 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
 import {
   CandidateEntity,
-  DatabaseService, MessageEntity, QuestionEntity, TradingBlockEntity,
+  DatabaseService, MessageEntity, QuestionEntity, StockRecordEntity, TradingBlockEntity,
   UserEntity,
 } from '../../../util/DatabaseService';
 import {MarketService} from '../../../util/MarketService';
-import {calculatePrice} from '../../../util/market';
+import {calculatePrice, calculateStockPrice} from '../../../util/market';
+import equal from 'deep-equal';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserFromRequest(req);
@@ -40,10 +41,22 @@ export const calculateGetInfo = async (user?: UserEntity) => {
   const messageCollection = await DatabaseService.getCollection(MessageEntity);
   const messages = await messageCollection.find({userId: user._id}).toArray();
 
+  const stockRecordCollection = await DatabaseService.getCollection(StockRecordEntity);
+  const stockRecords = await stockRecordCollection.find().toArray();
+
   const stocks = await MarketService.getStocks();
 
-  console.log("get", user.pushSubscriptions);
   return {
+    stockRecords: stockRecords
+      .map((r,i,a) => equal(r.stocks, a[i-1]?.stocks ?? "") && equal(r.stocks, a[i-2]?.stocks ?? "") ? null : r)
+      .filter(r => !!r)
+      .map(r => ({
+        ...r,
+        stocks:
+          Object.fromEntries(
+            Object.entries(r.stocks).map(([candidateId, stock]) => [candidateId, calculateStockPrice(stock + 1).toFixed(2)])
+          )
+      })),
     messages: messages.reverse(),
     questions: questions.map(question => ({
       _id: question._id,

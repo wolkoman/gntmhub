@@ -2,7 +2,7 @@ self.addEventListener('install', () => {
   //console.log("installed");
 });
 self.addEventListener('activate', () => {
-  console.log("activated 5");
+  //console.log("activated 5");
 });
 self.addEventListener('fetch',  (event) => {
   //console.log("Fetch event", event);

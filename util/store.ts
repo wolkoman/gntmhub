@@ -9,6 +9,7 @@ export type State = {
   user?: GetDto['user'];
   candidates: GetDto['candidates'];
   stocks: GetDto['stocks'];
+  stockRecords: GetDto['stockRecords'],
   questions: GetDto['questions'],
   messages: GetDto['messages'];
   loading: boolean;
@@ -25,6 +26,7 @@ export const useStore = create<State>((set, get) => ({
   tradingBlocks: [],
   users: [],
   candidates: [],
+  stockRecords: [],
   user: undefined,
   messages: [],
   questions: [],
