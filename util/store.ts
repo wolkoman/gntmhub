@@ -46,6 +46,7 @@ export const useStore = create<State>((set, get) => ({
         .then(data => set({...data, loading: false}))
         .catch((err) => {
           console.log('Request error', err);
+          window.location.assign("/");
         });
     }
   },
