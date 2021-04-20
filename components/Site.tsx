@@ -16,6 +16,7 @@ export function Site({children, navigation = true, responsive = true}: {
         <title>GntmHub</title>
         <meta name="theme-color" content="#ffffff"/>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico.png"/>
+        <link rel="manifest" href="/manifest.webmanifest"/>
       </Head>
       <div className="dark:bg-gray-900 dark:text-gray-200">
         {loading ? <LoadingScreen/> : <>
