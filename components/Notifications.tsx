@@ -59,7 +59,7 @@ const FullNotification: NotificationComponent = ({title, notification, content})
   const [active, setActive] = useState(false);
   const candidates = useStore(state => state.candidates);
   return <>
-    <div className="bg-gray-200 rounded mb-4 p-4 flex">
+    <div className="bg-gray-200 dark:bg-gray-800 rounded mb-4 p-4 flex">
       <div className="flex justify-center items-center w-14 flex-shrink-0 border-r border-gray-400 pr-2">
         <FeatherIcon icon={{
           PAYOUT: 'dollar-sign',
@@ -70,7 +70,7 @@ const FullNotification: NotificationComponent = ({title, notification, content})
       <div className="flex-grow ml-4">
         <div className="text-lg">{title}</div>
         <div className="flex justify-between">
-          <div className="text-gray-700"><DateText date={notification.date}/></div>
+          <div className="text-gray-700 dark:text-gray-400"><DateText date={notification.date}/></div>
           {content ? <div className="border border-gray-600 text-gray-600 rounded px-2 py-1 cursor-pointer"
                           onClick={() => setActive(true)}>Details ansehen</div> : null}
         </div>
@@ -85,9 +85,8 @@ const FullNotification: NotificationComponent = ({title, notification, content})
   </>;
 }
 const ShortNotification: NotificationComponent = ({title, notification, content}) => {
-  const [active, setActive] = useState(false);
   const setNotificationRead = useStore(state => state.setNotificationRead);
-  return <div className="border-l-8 border-pohutukawa-400">
+  return <div className="border-l-8 border-pohutukawa-400 w-full">
     <div className="p-4 border-b border-gray-200">
       <div className="mb-2">{title}</div>
       <div className="flex flex-row justify-between">

@@ -64,7 +64,7 @@ export function Form<F extends FormSchema>({
             />
           ))}
           <div
-            className="bg-brand text-black p-2 mt-6 w-full rounded font-bold hover:opacity-80 cursor-pointer overflow-hidden text-center"
+            className="bg-brand text-black dark:text-white p-2 mt-6 w-full rounded font-bold hover:opacity-80 cursor-pointer overflow-hidden text-center"
             style={{
               opacity: submitDisabled ? 0.5 : null,
               cursor: submitDisabled ? "auto" : null,

@@ -17,7 +17,7 @@ export default function QuestionPage() {
             return aggregate;
           }, {})).sort(([b], [a]) => a.localeCompare(b)).map(([group, questions]: [string, State['questions']], i: number) =>
           <div key={group} className="flex flex-col lg:flex-row mb-8">
-            <div className="text-xl mb-3 mt-6 w-56 flex-shrink-0 flex lg:block">
+            <div className="text-xl mb-3 mt-6 w-56 flex-shrink-0 flex lg:block dark:text-gray-200">
               <div className="lg:font-serif mr-2">Folge vom</div>
               <div className="lg:text-4xl">{new Date(group).toLocaleDateString('de')}</div>
             </div>
@@ -54,7 +54,7 @@ function Question({question, highlight}: { question: ArrayElement<GetDto['questi
       .finally(() => setLoading(false));
   }
   return (
-    <div className={`mb-2 p-3 pb-1 rounded ${loading ? 'opacity-80' : ''} bg-gray-100`}>
+    <div className={`mb-2 p-3 pb-1 rounded ${loading ? 'opacity-80' : ''} bg-gray-100 dark:bg-gray-800 dark:text-gray-200`}>
       <div className="flex flex-row flex-wrap uppercase">
         <div>Pot: {question.pot} gpoints</div>
         <div className="ml-4">Deadline: {new Date(question.deadline).toLocaleString('de-AT')}</div>
@@ -63,7 +63,7 @@ function Question({question, highlight}: { question: ArrayElement<GetDto['questi
       <div className="flex flex-row flex-wrap my-2">
         {question.options.map((option, optionIndex) =>
           <div key={optionIndex}
-               className={`px-4 py-1 border border-gray-400 mx-1  rounded mb-2 
+               className={`px-4 py-1 border border-gray-400 mx-1 rounded mb-2 
                ${answerable && !loading ? ' cursor-pointer' : ''}
                ${optionIndex === selectedOption ? ' ring ring-gray-400' : ''}
                ${optionIndex === question.correct ? ' bg-green-600 text-white' : ''}`}

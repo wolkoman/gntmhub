@@ -1,9 +1,11 @@
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 function MyApp({ Component, pageProps }) {
+  const [dark, setDark] = useState();
   useEffect(() => {
+    setDark(JSON.parse(localStorage.getItem("dark") ?? "false"));
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -16,7 +18,7 @@ function MyApp({ Component, pageProps }) {
       });
     }
   }, []);
-  return <Component {...pageProps} />;
+  return <div className={dark ? "dark" : ""}><Component {...pageProps} /></div>;
 }
 
 export default MyApp;

@@ -97,7 +97,7 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
               />
               <div className="px-6 flex-1 text-center">
                 <input
-                  className="text-lg text-center w-20"
+                  className="text-lg text-center w-20 dark:bg-gray-900"
                   type="number"
                   value={amount}
                   step="1"

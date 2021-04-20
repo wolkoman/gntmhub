@@ -8,7 +8,7 @@ import {GPoints} from '../components/GPoints';
 export default function Home() {
   return (
     <Site responsive={false}>
-      <div className="flex bg-gray-100">
+      <div className="flex bg-gray-100 dark:bg-gray-800">
         <Responsive>
         <div className="w-full max-w-2xl px-4 mt-16">
           <div className="text-5xl md:text-7xl font-bold">Wer scheidet diese Woche aus?</div>
@@ -89,7 +89,7 @@ export default function Home() {
                 ),
               },
             ].map(element => (
-              <div key={element.title} className="flex-1 p-4 bg-gray-100 rounded">
+              <div key={element.title} className="flex-1 p-4 bg-gray-100 dark:bg-gray-800 rounded">
                 <div className="text-2xl text-center pb-2 text-pohutukawa-400 font-bold font-serif">
                   {element.title}
                 </div>

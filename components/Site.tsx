@@ -17,10 +17,12 @@ export function Site({children, navigation = true, responsive = true}: {
         <meta name="theme-color" content="#ffffff"/>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico.png"/>
       </Head>
-      {loading ? <LoadingScreen/> : <>
-        {navigation ? <Navigation/> : null}
-        {responsive ? <Responsive><div className="md:my-14">{children}</div></Responsive> : children}
-        {navigation ? <Footer/> : null}</>}
+      <div className="dark:bg-gray-900 dark:text-gray-200">
+        {loading ? <LoadingScreen/> : <>
+          {navigation ? <Navigation/> : null}
+          {responsive ? <Responsive>{children}</Responsive> : children}
+          {navigation ? <Footer/> : null}</>}
+      </div>
     </div>
   );
 }
@@ -32,10 +34,10 @@ export const Responsive = ({children}) => {
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const interval = setInterval(() => setProgress(p => p === 1 ? 0 : p+1), 700);
+    const interval = setInterval(() => setProgress(p => p === 1 ? 0 : p + 1), 700);
     return () => clearInterval(interval);
   }, [setProgress])
-  return <div className="w-screen h-screen flex justify-center items-center">
+  return <div className="w-screen h-screen flex justify-center items-center dark:text-white">
     <div className={`font-serif font-bold ${progress ? 'text-2xl' : 'text-4xl'} transition-all duration-1000`}>g</div>
   </div>;
 }

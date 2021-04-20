@@ -23,7 +23,7 @@ export function CandidateList({
         .map(candidate => (
           <div key={candidate._id} className="w-1/3 md:w-40 p-1">
             <div
-              className="h-56 md:h-40 rounded flex flex-col bg-gray-200 overflow-hidden"
+              className="h-56 md:h-40 rounded flex flex-col bg-gray-200 dark:bg-gray-800 dark:text-gray-200 overflow-hidden"
               style={{
                 cursor: candidate.terminated ? 'default' : 'pointer',
                 filter: candidate.terminated ? 'grayscale(1) contrast(50%) brightness(150%)' : '',
@@ -34,8 +34,8 @@ export function CandidateList({
               onClick={() => candidate.terminated ? null : onCandidate(candidate._id)}
             >
               <div className="h-full"/>
-              <div className="flex flex-row justify-between items-center px-2 py-1"
-                   style={{background: 'rgba(255,255,255,0.6)', backdropFilter: 'blur(2px)'}}>
+              <div className="flex flex-row justify-between items-center px-2 py-1 bg-gray-200 bg-opacity-40 dark:bg-gray-800"
+                   style={{backdropFilter: 'blur(5px)'}}>
                 <div className={candidate.terminated ? 'line-through' : ''}>
                   {candidate.name}
                 </div>

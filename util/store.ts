@@ -43,7 +43,7 @@ export const useStore = create<State>((set, get) => ({
     if (!loaded) {
       set({loading: true});
       fetchJson('/api/market/get')
-        .then(data => set({...data, loading: false}))
+        .then(data => set({...data, loading: false, messages: data.messages.slice(0,6).map(m => ({...m, unread: true} as MessageEntity))}))
         .catch((err) => {
           console.log('Request error', err);
         });

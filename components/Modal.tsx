@@ -7,11 +7,11 @@ export function Modal({ onClose, children, disabled }: {onClose: () => any, chil
   });
   return (
     <div
-      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-opacity-70 bg-gray-400 z-20"
+      className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center 0 bg-opacity-70 bg-gray-400 dark:bg-gray-900 z-20"
       onClick={onClose}
     >
       <div
-        className="bg-white shadow-2xl rounded overflow-hidden w-screen max-w-2xl max-h-screen overflow-auto"
+        className="bg-white dark:bg-gray-900 shadow-2xl rounded overflow-hidden w-screen max-w-2xl max-h-screen overflow-auto"
         style={{
           filter: disabled ? "contrast(70%)" : "",
         }}

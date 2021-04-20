@@ -17,14 +17,14 @@ export default function TradePage() {
   return (
     <Site>
       <div className="flex flex-row mb-4">
-        <div className="flex flex-col md:flex-row justify-end flex-grow">
-          <div className="bg-gray-100 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center">
+        <div className="flex flex-col md:flex-row justify-end flex-grow dark:text-gray-200">
+          <div className="bg-gray-100 dark:bg-gray-800 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center">
             <div className="lg:text-lg">
               Punktestand: {user?.points.toFixed(2)} gp
             </div>
           </div>
           <div
-            className={`px-8 py-2 rounded mr-2 flex-grow flex items-center ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100'}`}>
+            className={`px-8 py-2 rounded mr-2 flex-grow flex items-center ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100 dark:bg-gray-800'}`}>
             <div
               className="lg:text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
               <><DateToday span={tradingBlocks[0]}/> Uhr</>
