@@ -1,24 +1,17 @@
 import Link from 'next/link';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useStore} from '../util/store';
 import {Route} from '../util/routes';
 import {useRouter} from 'next/router';
 import FeatherIcon from 'feather-icons-react';
 import {Notification} from './Notifications';
 import OutsideClickHandler from 'react-outside-click-handler';
+import {NavigationUserMenu} from './NavigationUserMenu';
 
 export function Navigation() {
   const [isLoggedIn, messages] = useStore(state => [state.isLoggedIn(), state.messages, state.loading]);
   const unreadMessages = messages.filter(m => m.unread);
-  const [notificationOpen, setNotificationOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [dark, _setDark] = useState(false);
   const router = useRouter();
-  const setDark = (dark: boolean) => {
-    localStorage.setItem('dark', JSON.stringify(dark));
-    location.reload();
-  }
-  useEffect(() => _setDark(JSON.parse(localStorage.getItem('dark') ?? 'false')));
   return (
     <div
       className={`p-4 bg-white dark:bg-gray-900 dark:text-gray-200 flex items-center justify-between top-0 z-20 ${router.asPath === Route.HOMEPAGE ? '' : 'sticky'}`}>
@@ -57,21 +50,13 @@ export function Navigation() {
             </Link>
           </div> : null}
         </NavigationMenu>
-
-        <NavigationMenu icon={<FeatherIcon icon="user" size="20"/>}>
-          <NavigationMenuItem icon={<FeatherIcon icon={dark ? 'sun' : 'moon'}/>} onClick={() => setDark(!dark)}>
-            {dark ? 'Helles' : 'Dunkles'} Design
-          </NavigationMenuItem>
-          <NavigationMenuItem icon={<FeatherIcon icon="send"/>} onClick={() => setDark(!dark)}>
-            Benachrichtung einschalten
-          </NavigationMenuItem>
-        </NavigationMenu>
+        <NavigationUserMenu/>
       </div> : null}
     </div>
   );
 }
 
-const NavigationMenu = ({icon, children}) => {
+export const NavigationMenu = ({icon, children}) => {
   const [open, setOpen] = useState(false);
   return <div className="text-md px-1 px-4 relative">
     <div className="cursor-pointer relative" onClick={() => setOpen(x => !x)}>
@@ -88,7 +73,7 @@ const NavigationMenu = ({icon, children}) => {
   </div>;
 }
 
-const NavigationMenuItem = ({icon, children, onClick}) => {
+export const NavigationMenuItem = ({icon, children, onClick}) => {
   return <div className="flex justify-between p-3 px-6 w-full cursor-pointer" onClick={onClick}>
     <div>{children}</div>
     <div>{icon}</div>
