@@ -2,7 +2,9 @@ import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
 import {
   CandidateEntity,
-  DatabaseService, MessageEntity, PayoutMessageEntity,
+  DatabaseService,
+  MessageEntity,
+  PayoutMessageEntity,
   UserEntity,
 } from '../../../util/DatabaseService';
 
