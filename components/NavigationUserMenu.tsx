@@ -6,7 +6,7 @@ import FeatherIcon from 'feather-icons-react';
 
 export function NavigationUserMenu() {
 
-  const [user, setPushEnabled] = useStore(state => [state.user, state.setPushEnabled, state.load()]);
+  const [user, setPushEnabled, logout] = useStore(state => [state.user, state.setPushEnabled, state.logout, state.load()]);
   const [dark, _setDark] = useState(false);
   useEffect(() => _setDark(JSON.parse(localStorage.getItem('dark') ?? 'false')));
   const setDark = (dark: boolean) => {
@@ -49,12 +49,15 @@ export function NavigationUserMenu() {
     setPushEnabled(false);
   };
 
-  return <NavigationMenu icon={<FeatherIcon icon="user" size="20"/>}>
+  return <NavigationMenu icon={<FeatherIcon icon="settings" size="20"/>}>
     <NavigationMenuItem icon={<FeatherIcon icon={dark ? 'sun' : 'moon'}/>} onClick={() => setDark(!dark)}>
       {dark ? 'Helles' : 'Dunkles'} Design
     </NavigationMenuItem>
     {user.admin ? <NavigationMenuItem icon={<FeatherIcon icon="send"/>} onClick={() => user.pushEnabled ? disableNotifications() : askPermission()}>
       Benachrichtung {user.pushEnabled ? "ausschalten":"einschalten"}
     </NavigationMenuItem> : null}
+    <NavigationMenuItem icon={<FeatherIcon icon="log-out"/>} onClick={() => logout()}>
+      Logout
+    </NavigationMenuItem>
   </NavigationMenu>;
 }

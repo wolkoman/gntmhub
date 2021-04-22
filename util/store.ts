@@ -17,11 +17,12 @@ export type State = {
   candidate: (id: string) => CandidateEntity | undefined;
   isLoggedIn: () => boolean;
   load: () => any;
+  logout: () => any;
   setAnswer: (questionId, answerId) => void;
   setNotificationRead: (messageId: string) => void;
   setPushEnabled: (value: boolean) => void;
 };
-
+const logout = () => fetch('/api/user/logout').then(() => window.location.assign("/"));
 export const useStore = create<State>((set, get) => ({
   tradingBlocks: [],
   users: [],
@@ -31,6 +32,7 @@ export const useStore = create<State>((set, get) => ({
   messages: [],
   questions: [],
   stocks: {},
+  logout,
   loading: false,
   loadingMessages: false,
   setAll: data => set(data),
@@ -46,7 +48,8 @@ export const useStore = create<State>((set, get) => ({
         .then(data => set({...data, loading: false}))
         .catch((err) => {
           console.log('Request error', err);
-          window.location.assign("/");
+          set(data => ({...data, loading: false}));
+          return logout();
         });
     }
   },

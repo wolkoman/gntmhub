@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Responsive, Site} from '../components/Site';
 import Link from 'next/link';
 import {Route} from '../util/routes';
 import {Title} from '../components/Title';
 import {GPoints} from '../components/GPoints';
+import {useRouter} from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    const isLoggedIn = !!document.cookie;
+    if(isLoggedIn) router.push(Route.TRADE);
+  },[]);
   return (
     <Site responsive={false}>
       <div className="flex bg-gray-100 dark:bg-gray-800">
@@ -140,7 +146,5 @@ export default function Home() {
         </div>
       </Responsive>
     </Site>
-
-
   );
 }

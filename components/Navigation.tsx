@@ -15,7 +15,7 @@ export function Navigation() {
   return (
     <div
       className={`p-4 bg-white dark:bg-gray-900 dark:text-gray-200 flex items-center justify-between top-0 z-20 ${router.asPath === Route.HOMEPAGE ? '' : 'sticky'}`}>
-      <Link href="/">
+      <Link href={isLoggedIn ? Route.TRADE : Route.HOMEPAGE}>
         <div className="text-2xl font-serif font-bold cursor-pointer hidden md:block">
           gntmhub
         </div>
@@ -26,7 +26,7 @@ export function Navigation() {
             [Route.TRADE]: 'Handel',
             [Route.QUESTION]: 'Fragen',
             [Route.LEADERBOARD]: 'Rangliste',
-          }).map(([href, title]) => <Link href={href}>
+          }).map(([href, title]) => <Link href={href} key={href}>
             <div className="text-md cursor-pointer px-1 px-4 uppercase">
               {title}
             </div>

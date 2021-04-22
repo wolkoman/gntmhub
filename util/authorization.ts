@@ -13,6 +13,15 @@ export function setAuthorizationCookie(res: ServerResponse, id: string) {
     })
   );
 }
+export function removeAuthorizationCookie(res: ServerResponse) {
+  res.setHeader(
+    "Set-Cookie",
+    serialize("jwt", '', {
+      path: "/",
+      maxAge: -1
+    })
+  );
+}
 
 export async function getUserFromRequest(
   req: IncomingMessage,
