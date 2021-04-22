@@ -8,7 +8,7 @@ import {
   UserEntity,
 } from '../../../util/DatabaseService';
 
-export const dividendsTotal = 60;
+export const dividendsTotal = 100;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const messageCollection = await DatabaseService.getCollection(MessageEntity);
