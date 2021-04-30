@@ -18,18 +18,15 @@ export default function TradePage() {
     <Site>
       <div className="flex flex-row mb-4">
         <div className="flex flex-col md:flex-row justify-end flex-grow dark:text-gray-200">
-          <div className="bg-gray-100 dark:bg-gray-800 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center">
-            <div className="lg:text-lg">
-              Punktestand: {user?.points.toFixed(2)} gp
-            </div>
-          </div>
           <div
-            className={`px-8 py-2 rounded mr-2 flex-grow flex items-center ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100 dark:bg-gray-800'}`}>
-            <div
-              className="lg:text-lg">{blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: {tradingBlocks.length === 0 ? 'keine' :
-              <><DateToday span={tradingBlocks[0]}/> Uhr</>
-            }</div>
+            className="bg-gray-100 dark:bg-gray-800 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center lg:text-lg">
+            Punktestand: {user?.points.toFixed(2)} gp
           </div>
+          { tradingBlocks.length === 0 ? null :
+              <div
+            className={`px-8 py-2 rounded mr-2 flex-grow flex items-center lg:text-lg ${blockActive ? 'bg-pohutukawa-400 text-white' : 'bg-gray-100 dark:bg-gray-800'}`}>
+            {blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: <DateToday span={tradingBlocks[0]}/> Uhr
+          </div>}
         </div>
         <div className="flex flex-col justify-center items-center bg-gray-400 text-white px-8 py-2 rounded">
           <div className="font-bold text-5xl flex items-center">
@@ -70,15 +67,15 @@ const StockHistory = () => {
         datasets: candidates.map((candidate, index) => ({
           label: candidate.name,
           data: stockRecords.map(record => record.stocks[candidate._id]),
-          borderColor: Array(10).fill(["#D4AD9E","#B9B6B5","#52382F","#B78570","#905A4D","#191814",]).flat()[index],
-          fillColor: Array(2).fill(["#D4AD9E","#B9B6B5","#52382F","#B78570","#905A4D","#191814",]).flat()[index],
+          borderColor: Array(10).fill(['#D4AD9E', '#B9B6B5', '#52382F', '#B78570', '#905A4D', '#191814',]).flat()[index],
+          fillColor: Array(2).fill(['#D4AD9E', '#B9B6B5', '#52382F', '#B78570', '#905A4D', '#191814',]).flat()[index],
           fill: false,
           tension: 0.25,
 
         }))
       }}
       legend={{display: false}}
-      options={{datasets:{line: {borderWidth: 4}}, elements: {point: {radius: 1}}}}
+      options={{datasets: {line: {borderWidth: 4}}, elements: {point: {radius: 1}}}}
     />
   </>;
 };
@@ -90,7 +87,7 @@ const DateSpan = ({start, end}: { start: Date, end: Date }) => {
     {sameDate ? '' : <DateFormat date={end} type="DATE"/>} <DateFormat date={end} type="TIME"/>
   </>;
 }
-const DateToday = ({span}: { span: {start: Date, end: Date} }) => {
+const DateToday = ({span}: { span: { start: Date, end: Date } }) => {
   const date = new Date(span.start);
   const isToday = date.toLocaleDateString() === new Date().toLocaleDateString();
   return isToday
