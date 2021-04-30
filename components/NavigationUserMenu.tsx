@@ -56,6 +56,9 @@ export function NavigationUserMenu() {
     <NavigationMenuItem icon={<FeatherIcon icon="send"/>} onClick={() => user.pushEnabled ? disableNotifications() : askPermission()}>
       Benachrichtung {user.pushEnabled ? "ausschalten":"einschalten"}
     </NavigationMenuItem>
+    <NavigationMenuItem icon={<FeatherIcon icon="zap"/>} onClick={() => window.open("https://github.com/wolkoman/gntmhub/issues")}>
+      Fehler melden oder Funktion vorschlagen
+    </NavigationMenuItem>
     <NavigationMenuItem icon={<FeatherIcon icon="log-out"/>} onClick={() => logout()}>
       Logout
     </NavigationMenuItem>
