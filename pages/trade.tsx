@@ -28,7 +28,7 @@ export default function TradePage() {
             {blockActive ? 'Aktuelle' : 'Nächste'} Handelssperre: <DateToday span={tradingBlocks[0]}/> Uhr
           </div>}
         </div>
-        <div className="flex flex-col justify-center items-center bg-gray-400 text-white px-8 py-2 rounded">
+        <div className="flex flex-col justify-center items-center bg-gray-400 dark:bg-gray-800 text-white px-8 py-2 rounded">
           <div className="font-bold text-5xl flex items-center">
             <FeatherIcon icon="hash" size={30}/>
             {users.findIndex(u => u.name === user.name) + 1}
