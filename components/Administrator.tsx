@@ -10,9 +10,6 @@ export function Administrator(){
     if(!confirm("Wollen Sie das wirklich tun?")) return;
     fetchJson("/api/admin/payout");
   }
-  const push = () => {
-    fetchJson("/api/admin/push");
-  }
   const sendBulk = () => {
     let message = prompt("Welche Nachricht wollen Sie senden?");
     if(message.length === 0) return;
@@ -44,7 +41,6 @@ export function Administrator(){
     <button className="bg-pohutukawa-300 p-2 m-2 text-white rounded" onClick={sendBulk}>Nachricht schicken</button>
     <button className="bg-pohutukawa-300 p-2 m-2 text-white rounded" onClick={money}>Geld ausschütten</button>
     <button className="bg-pohutukawa-300 p-2 m-2 text-white rounded" onClick={kick}>Kandidatin ausscheiden</button>
-    <button className="bg-pohutukawa-300 p-2 m-2 text-white rounded" onClick={push}>Push</button>
     {questions.filter(q => q.correct === null).map(question => <div key={question._id}>
       <button className="bg-pohutukawa-300 p-2 m-2 text-white rounded" onClick={answer(question)}>{question.question} beantworten</button>
     </div>)}
