@@ -6,6 +6,7 @@ function MyApp({ Component, pageProps }) {
   const [dark, setDark] = useState();
   useEffect(() => {
     setDark(JSON.parse(localStorage.getItem("dark") ?? "false"));
+    document.querySelector("meta[name='theme-color']").setAttribute("content", localStorage.getItem("dark") == "true" ? "#000" : "#fff");
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js').then(function(registration) {

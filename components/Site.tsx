@@ -14,7 +14,7 @@ export function Site({children, navigation = true, responsive = true}: {
     <div className="min-h-screen text-black">
       <Head>
         <title>GntmHub</title>
-        <meta name="theme-color" content={localStorage.getItem("dark") ? "#000000" : "#ffffff"}/>
+        <meta name="theme-color" content="#ffffff"/>
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico.png"/>
         <link rel="manifest" href="/manifest.webmanifest"/>
       </Head>
