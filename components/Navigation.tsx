@@ -9,8 +9,8 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import {NavigationUserMenu} from './NavigationUserMenu';
 
 export function Navigation() {
-  const [isLoggedIn, messages] = useStore(state => [state.isLoggedIn(), state.messages, state.loading]);
-  const unreadMessages = messages.filter(m => m.unread);
+  const [isLoggedIn, getMessages] = useStore(state => [state.isLoggedIn(), state.getMessages, state.loading]);
+  const unreadMessages = getMessages().filter(m => m.unread);
   const router = useRouter();
   return (
     <div

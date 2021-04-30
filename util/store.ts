@@ -1,6 +1,6 @@
 import create from 'zustand';
 import {fetchJson} from './fetchJson';
-import {CandidateEntity, MessageEntity} from './DatabaseService';
+import {CandidateEntity, CustomMessageEntity, MessageEntity} from './DatabaseService';
 import {GetDto} from '../pages/api/market/get';
 
 export type State = {
@@ -21,6 +21,7 @@ export type State = {
   setAnswer: (questionId, answerId) => void;
   setNotificationRead: (messageId: string) => void;
   setPushEnabled: (value: boolean) => void;
+  getMessages: () => GetDto['messages'];
 };
 const logout = () => fetch('/api/user/logout').then(() => window.location.assign("/"));
 export const useStore = create<State>((set, get) => ({
@@ -52,6 +53,14 @@ export const useStore = create<State>((set, get) => ({
           return logout();
         });
     }
+  },
+  getMessages: () => {
+    let messages = get().messages;
+    let unansweredQuestions = get().questions.filter(question => question.answer === undefined && question.deadline.localeCompare(new Date().toISOString()) > 0);
+    if(unansweredQuestions.length > 0){
+      messages = [...messages, {unread: true, type: 'OPEN_QUESTIONS', date: new Date().toISOString() } as MessageEntity];
+    }
+    return messages;
   },
   setAnswer: (questionId, answerId) => {
     set({

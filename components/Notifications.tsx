@@ -10,9 +10,12 @@ import {
 import {Modal} from './Modal';
 import {ArrayElement, GetDto} from '../pages/api/market/get';
 import FeatherIcon from 'feather-icons-react';
+import {useRouter} from 'next/router';
+import {Route} from '../util/routes';
 
 export const Notification = ({notification: n, short}: { short?: boolean, notification: MessageEntity }) => {
   const notificationComponent = short ? ShortNotification : FullNotification;
+  const router = useRouter();
   switch (n.type) {
     case 'PAYOUT':
       return notificationComponent({
@@ -40,6 +43,12 @@ export const Notification = ({notification: n, short}: { short?: boolean, notifi
         notification: n,
         title: `Sie bekommen ${(n as RefundMessageEntity).payout.toFixed(2)}gp erstattet.`,
       });
+    case 'OPEN_QUESTIONS':
+      return notificationComponent({
+        notification: n,
+        title: "Beantworten Sie Fragen!",
+        action: () => router.push(Route.QUESTION)
+      });
     case 'CUSTOM':
       return notificationComponent({
         notification: n,
@@ -53,6 +62,7 @@ type NotificationComponent = (args: {
   content?: ({candidates}) => React.ReactNode,
   title: string,
   notification: ArrayElement<GetDto['messages']>
+  action?: () => any
 }) => JSX.Element;
 
 const FullNotification: NotificationComponent = ({title, notification, content}) => {
@@ -84,14 +94,14 @@ const FullNotification: NotificationComponent = ({title, notification, content})
     </Modal> : null}
   </>;
 }
-const ShortNotification: NotificationComponent = ({title, notification, content}) => {
+const ShortNotification: NotificationComponent = ({title, notification, content, action}) => {
   const setNotificationRead = useStore(state => state.setNotificationRead);
   return <div className="border-l-8 border-pohutukawa-400 w-full">
     <div className="p-4 border-b border-gray-200">
       <div className="mb-2">{title}</div>
       <div className="flex flex-row justify-between">
         <div className="text-gray-500 text-sm"><DateText date={notification.date}/></div>
-        <div onClick={() => setNotificationRead(notification._id)}
+        <div onClick={() => action ? action() : setNotificationRead(notification._id)}
              className="border border-pohutukawa-400 text-pohutukawa-400 px-1.5 rounded text-sm cursor-pointer hover:bg-pohutukawa-400 hover:text-white">Okay
         </div>
       </div>
