@@ -39,7 +39,7 @@ export function CandidateList({
                 <div className={candidate.terminated ? 'line-through' : ''}>
                   {candidate.name}
                 </div>
-                <div className={'text-xl text-right font-bold ' + (candidate.terminated ? 'hidden' : '')}>
+                <div className={'text-right ' + (candidate.terminated ? '' : 'font-bold text-xl')}>
                   {candidate.price.toFixed(2)}
                 </div>
               </div>
