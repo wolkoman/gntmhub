@@ -7,6 +7,7 @@ import {
   QuestionMessageEntity,
   UserEntity,
 } from '../../../util/DatabaseService';
+import {sendPushNotification} from '../../../util/push';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body.questionId || req.body.optionId === undefined) {
@@ -20,6 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     const messageCollection = await DatabaseService.getCollection(QuestionMessageEntity);
     const userCollection = await DatabaseService.getCollection(UserEntity);
+    const users = await userCollection.find().toArray();
     const questionCollection = await DatabaseService.getCollection(QuestionEntity);
     const question = await questionCollection.findOne({_id: ObjectId(req.body.questionId)});
     let correctOptionId = +req.body.optionId;
@@ -45,6 +47,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           payout,
           unread: true
         }) as QuestionMessageEntity)
+      );
+      await Promise.all(correctUserIds
+        .map(userId => users.find(user => user._id.toString() === userId))
+        .map(user => sendPushNotification(user, 'Frage richtig beantwortet', question.question, userCollection))
       );
     }
   }

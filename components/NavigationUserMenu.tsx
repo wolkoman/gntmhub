@@ -53,9 +53,9 @@ export function NavigationUserMenu() {
     <NavigationMenuItem icon={<FeatherIcon icon={dark ? 'sun' : 'moon'}/>} onClick={() => setDark(!dark)}>
       {dark ? 'Helles' : 'Dunkles'} Design
     </NavigationMenuItem>
-    {user.admin ? <NavigationMenuItem icon={<FeatherIcon icon="send"/>} onClick={() => user.pushEnabled ? disableNotifications() : askPermission()}>
+    <NavigationMenuItem icon={<FeatherIcon icon="send"/>} onClick={() => user.pushEnabled ? disableNotifications() : askPermission()}>
       Benachrichtung {user.pushEnabled ? "ausschalten":"einschalten"}
-    </NavigationMenuItem> : null}
+    </NavigationMenuItem>
     <NavigationMenuItem icon={<FeatherIcon icon="log-out"/>} onClick={() => logout()}>
       Logout
     </NavigationMenuItem>

@@ -7,6 +7,7 @@ import {
   PayoutMessageEntity,
   UserEntity,
 } from '../../../util/DatabaseService';
+import {sendPushNotification} from '../../../util/push';
 
 export const dividendsTotal = 100;
 
@@ -17,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const candidates = await candidateCollection.find({}).toArray();
   let users = await userCollection.find({}).toArray();
   const user = await getUserFromRequest(req);
-  const messages: {userId: string, candidateId: string, amount: number}[] = [];
+  const messages: { userId: string, candidateId: string, amount: number }[] = [];
 
   if (!user.admin) {
     res.status(401).json({errorMessage: 'Sie müssen Administrator sein.'});
@@ -41,26 +42,35 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     await userCollection.bulkWrite(users.map(user => ({
       'updateOne': {
         'filter': {_id: Object(user._id)},
-        'update': {"$set": {points: user.points}}
+        'update': {'$set': {points: user.points}}
       }
     })));
 
-    await messageCollection.insertMany(messages
+    const affectedUsers = messages
       .map(message => message.userId)
       .filter((v, i, a) => a.indexOf(v) === i)
-      .map(userId => ({
-        userId,
-        type: "PAYOUT",
+      .map(userId => users.find(u => u._id === userId));
+    await messageCollection.insertMany(affectedUsers.map(user => ({
+        userId: user._id,
+        type: 'PAYOUT',
         date: new Date().toISOString(),
         unread: true,
         payouts: messages
-          .filter(message => message.userId === userId)
+          .filter(message => message.userId === user._id)
           .map(message => ({
             candidateId: message.candidateId,
             amount: message.amount
           }))
       }) as PayoutMessageEntity)
     );
+    await Promise.all(affectedUsers.map(user =>
+      sendPushNotification(user, 'Dividenden wurden ausgeschüttet', `Sie erhalten dadurch ${
+        messages
+          .filter(message => message.userId === user._id)
+          .reduce((p, c) => p + c.amount, 0)
+          .toFixed(2)
+      } gpoints.`, userCollection)
+    ));
   }
 
   await DatabaseService.close();

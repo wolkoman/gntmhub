@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
 import {getUserFromRequest} from '../../../util/authorization';
 import {CustomMessageEntity, DatabaseService, ObjectId, UserEntity} from '../../../util/DatabaseService';
+import {broadcastPushNotification} from '../../../util/push';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await getUserFromRequest(req);
@@ -23,6 +24,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         unread: true,
         content: req.body.message
       }) as CustomMessageEntity));
+
+    await broadcastPushNotification('Neue Nachricht', req.body.message);
   }
 
   await DatabaseService.close();
