@@ -45,9 +45,11 @@ export const calculateGetInfo = async (user?: UserEntity) => {
   const stockRecords = await stockRecordCollection.find().toArray();
 
   const stocks = await MarketService.getStocks();
+  const stockDeadline = new Date().getTime() - 3600 * 1000 * 24 * 9;
 
   return {
     stockRecords: stockRecords
+      .filter(record => record.timestamp > stockDeadline)
       .map((r,i,a) => equal(r.stocks, a[i-1]?.stocks ?? "") && equal(r.stocks, a[i-2]?.stocks ?? "") ? null : r)
       .filter(r => !!r)
       .map(r => ({

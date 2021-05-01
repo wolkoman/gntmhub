@@ -63,19 +63,55 @@ const StockHistory = () => {
   return <>
     <Line
       data={{
-        labels: stockRecords.map(record => new Date(record.timestamp)).map(date => `${date.getDate()}.${date.getMonth()} ${date.getHours()}'`),
+        labels: stockRecords.map(record => new Date(record.timestamp)).map(date => `${date.getDate()}.${date.getMonth()+1} ${date.getHours()}'`),
+        legendCallback: function(chart) {
+          console.log(chart.data);
+          var text = [];
+          text.push('<ul>');
+          for (var i=0; i<chart.data.datasets[0].data.length; i++) {
+            text.push('<li>');
+            text.push('<span style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '">' + chart.data.datasets[0].data[i] + '</span>');
+            if (chart.data.labels[i]) {
+              text.push(chart.data.labels[i]);
+            }
+            text.push('</li>');
+          }
+          text.push('</ul>');
+          return text.join("");
+        },
         datasets: candidates.map((candidate, index) => ({
           label: candidate.name,
           data: stockRecords.map(record => record.stocks[candidate._id]),
-          borderColor: Array(10).fill(['#D4AD9E', '#B9B6B5', '#52382F', '#B78570', '#905A4D', '#191814',]).flat()[index],
-          fillColor: Array(2).fill(['#D4AD9E', '#B9B6B5', '#52382F', '#B78570', '#905A4D', '#191814',]).flat()[index],
+          borderColor: Array(10).fill(['#693c72', '#c15050', '#d97642', '#d49d42']).flat()[index],
           fill: false,
           tension: 0.25,
 
         }))
       }}
-      legend={{display: false}}
-      options={{datasets: {line: {borderWidth: 4}}, elements: {point: {radius: 1}}}}
+      legend={{
+        display: false}}
+      options={{
+        tooltips: {
+          callbacks: {
+            title: function(tooltipItem, data) {
+              return data['labels'][tooltipItem[0]['index']];
+            },
+            label: function(tooltipItem, data) {
+              return data['datasets'][tooltipItem['datasetIndex']]['data'][tooltipItem['index']] + " " + data["datasets"][tooltipItem['datasetIndex']].label;
+            }
+          },
+          //Set the name of the custom function here
+          // custom: (...args) => {console.log(args);},
+          backgroundColor: '#FFF',
+          titleFontSize: 16,
+          titleFontColor: '#222',
+          titleFontFamily: 'Fira Sans',
+          bodyFontFamily: 'Fira Sans',
+          bodyFontColor: '#000',
+          bodyFontSize: 14,
+          displayColors: false
+        },
+        datasets: {line: {borderWidth: 2}}, elements: {point: {radius: 2}}}}
     />
   </>;
 };
