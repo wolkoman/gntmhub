@@ -34,7 +34,7 @@ export default function Impressum() {
           className="font-serif">gntmhub</span> mitzumachen erfordert <span
           className="text-pohutukawa-400 font-bold dark:text-pohutukawa-200">Ausdauer</span> (schließlich dauert das ganze schon viele Monate), <span
           className="text-pohutukawa-400 font-bold dark:text-pohutukawa-200">Mut</span> (um sich auf den Genuss einer so oberflächlichen Sendung einzulassen) und natürlich sehr viel <span
-          className="text-pohutukawa-400 font-bold dark:text-pohutukawa-200">Personality</span>. Die ersten Plätze werden als Entlohnung für ihre eindrucksvolle Hingabe auch ein kleines Geschenk enthalten. Diese werden in den nächsten Tagen persönlich per SMS verständigt. Ich hoffe dieses kleine Spiel war eine angenehme Abwechslung zu dem alltäglichen Arbeitsstress, Lernzwang und Liebeskummer.</div>
+          className="text-pohutukawa-400 font-bold dark:text-pohutukawa-200">Personality</span>. Die ersten Plätze werden als Entlohnung für ihre eindrucksvolle Hingabe auch ein kleines Geschenk erhalten. Diese werden in den nächsten Tagen persönlich per SMS verständigt. Ich hoffe dieses kleine Spiel war eine angenehme Abwechslung zu dem alltäglichen Arbeitsstress, Lernzwang und Liebeskummer.</div>
 
           <div className="font-serif text-2xl font-bold my-2 mt-10">Es kann nur eine:n geben</div>
           <div className="my-1">
