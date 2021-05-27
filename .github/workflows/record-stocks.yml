@@ -3,6 +3,8 @@ name: Trigger Stock Recording on a CRON Schedule
 on:
   schedule:
     - cron: '0 * * * *'
+    - cron: '*/10 19-23 * * THU'
+    - cron; '*/10 0-2 * * FRI'
 jobs:
   build:
     name: Trigger Stock Recording
