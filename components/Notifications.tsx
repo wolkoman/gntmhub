@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useStore} from '../util/store';
 import {
   CustomMessageEntity,
+  HoardMessageEntity,
   MessageEntity,
   PayoutMessageEntity,
   QuestionMessageEntity,
@@ -42,6 +43,11 @@ export const Notification = ({notification: n, short}: { short?: boolean, notifi
       return notificationComponent({
         notification: n,
         title: `Sie bekommen ${(n as RefundMessageEntity).payout.toFixed(2)}gp erstattet.`,
+      });
+    case 'HOARD_DEDUCTION':
+      return notificationComponent({
+        notification: n,
+        title: `Ihnen wurden ${(n as HoardMessageEntity).amount.toFixed(2)}gp abgezogen. (Horterabzug)`
       });
     case 'OPEN_QUESTIONS':
       return notificationComponent({

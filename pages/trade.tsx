@@ -8,6 +8,7 @@ import {Administrator} from '../components/Administrator';
 import FeatherIcon from 'feather-icons-react';
 import {Line} from 'react-chartjs-2';
 import {Title} from '../components/Title';
+import Link from 'next/link';
 
 export default function TradePage() {
   const [activeCandidate, setActiveCandidate] = useState<string | null>(null);
@@ -18,6 +19,12 @@ export default function TradePage() {
     <Site>
       <div className="flex flex-row mb-4">
         <div className="flex flex-col md:flex-row justify-end flex-grow dark:text-gray-200">
+          <Link href="/finale">
+            <div
+              className="bg-pohutukawa-500 text-white font-bold underline hover:no-underline cursor-pointer dark:text-white px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex items-center text-lg">
+              Spielregeln fürs Finale
+            </div>
+          </Link>
           <div
             className="bg-gray-100 dark:bg-gray-800 px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex-grow flex items-center lg:text-lg">
             Punktestand: {user?.points.toFixed(2)} gp

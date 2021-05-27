@@ -131,7 +131,8 @@ export function CandidateModal({candidateId, onClose,}: { candidateId: string; o
               {formState.isLoading ? 'loading' : 'Handeln'}
             </button>
             {formState.errorMessage ? (
-              <div className="my-2 p-2 border-red-500 border rounded text-red-500 text-xs">
+              <div className="my-2 p-2 font-bold text-pohutukawa-400 text-sm flex">
+                <FeatherIcon icon="cloud-lightning" className="mr-2"/>
                 {formState.errorMessage}
               </div>
             ) : null}

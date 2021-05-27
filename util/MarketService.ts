@@ -1,4 +1,4 @@
-import {DatabaseService, ObjectId, TradingBlockEntity, UserEntity} from './DatabaseService';
+import {DatabaseService, GeneralInformationEntity, ObjectId, TradingBlockEntity, UserEntity} from './DatabaseService';
 import {calculatePrice} from './market';
 
 
@@ -33,6 +33,9 @@ export class MarketService {
       throw new Error("Zurzeit besteht eine Handelssperre.");
       return;
     }
+    let infoCollection = await DatabaseService.getCollection(GeneralInformationEntity);
+    let tradingBlock = await infoCollection.findOne({name: "tradingBlock"});
+    if(tradingBlock.value) throw new Error("Im Moment besteht eine spontane Handelssperre.");
     let userCollection = await DatabaseService.getCollection(UserEntity);
     let user = await userCollection.findOne({ _id: ObjectId(userId) });
     if (!user || !user.active)

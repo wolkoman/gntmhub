@@ -21,6 +21,11 @@ export class FreeMoneyEntity extends Entity {
   _collectionName = "freemoney";
   money: number;
 }
+export class GeneralInformationEntity extends Entity {
+  _collectionName = "generalInformation";
+  name: string;
+  value: any;
+}
 export class StockRecordEntity extends Entity {
   _collectionName = "stockRecord";
   timestamp: number;
@@ -52,6 +57,10 @@ export class MessageEntity extends Entity{
   type: string;
   date: string;
   unread: boolean;
+}
+export class HoardMessageEntity extends MessageEntity {
+  type = "HOARD_DEDUCTION";
+  amount: number;
 }
 export class PayoutMessageEntity extends MessageEntity {
   type = "PAYOUT";
