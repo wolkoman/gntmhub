@@ -21,7 +21,7 @@ export default function TradePage() {
         <div className="flex flex-col md:flex-row justify-end flex-grow dark:text-gray-200">
           <Link href="/finale">
             <div
-              className="bg-pohutukawa-500 text-white font-bold underline hover:no-underline cursor-pointer dark:text-white px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex items-center text-lg">
+              className="bg-pohutukawa-500 text-white font-bold underline hover:no-underline cursor-pointer dark:text-white px-8 py-2 rounded mb-2 md:mb-0 mr-2 flex items-center lg:text-lg">
               Spielregeln fürs Finale
             </div>
           </Link>
