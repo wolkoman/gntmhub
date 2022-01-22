@@ -3,23 +3,15 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  previewFeatures = ["dataProxy"]
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id     String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  title  String
-  userId String @db.ObjectId
-  user   User   @relation(fields: [userId], references: [id])
-}
-
 model User {
-  id    String @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  email String
-  posts Post[]
+  mail      String   @id
+  points    Decimal
 }
