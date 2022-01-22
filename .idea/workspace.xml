@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4c29d9f5-4774-4fc5-8243-9522f8383aa2" name="Default Changelist" comment="Random update">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/record-stocks.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Administrator.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CandidateList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/CandidateModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Footer.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Form.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/GPoints.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Modal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Navigation.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/NavigationUserMenu.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Notifications.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Portfolio.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Site.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/Title.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/next-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next-env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/next.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/answer-question.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/info.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/kick.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/money.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/payout.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/push.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/admin/tradingBlock.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/market/answer-question.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/market/get.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/market/record-stocks.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/market/trade.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/notifications/read.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/user/login.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/user/logout.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/user/push.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/user/signup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/api/user/verify.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/finale.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/impressum.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/leaderboard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/me/login.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/me/signup.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/me/verify.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/notifications.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/question.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/trade.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icon-192x192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icon-256x256.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icon-384x384.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icon-512x512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.webmanifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/model.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sw.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/DatabaseService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/MarketService.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/authorization.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/bulkMessage.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/fetchJson.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/market.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/push.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/routes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/store.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/verifyMessage.ts" beforeDir="false" />
+    </list>
+    <list id="001e6c09-8108-4421-aadf-721204dd6b48" name="Add dividends" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/restyle" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="1oA5F6PPG38xNYGWcs7651BTtCL" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TF_FMT" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../owr-sued" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="D:\Program\JetBrains\apps\WebStorm\ch-0\213.6461.79\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Dokumente\Software Projects\gntmhub\pages" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\pages\api\admin" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\pages\api\user" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\components" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\pages\api\notifications" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dokumente\Software Projects\gntmhub\components" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\pages\api\admin" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\pages" />
+      <recent name="D:\Dokumente\Software Projects\gntmhub\components/Portfolio.tsx" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="D:\Dokumente\Software Projects\gntmhub\util\push.ts" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="npm install react-outside-click-handler" />
+      <command value="npm i deep-equal" />
+      <command value="git push --force" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4c29d9f5-4774-4fc5-8243-9522f8383aa2" name="Default Changelist" comment="" />
+      <created>1612716448292</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612716448292</updated>
+      <workItem from="1612716450347" duration="8000" />
+      <workItem from="1612717029173" duration="7777000" />
+      <workItem from="1612772495892" duration="1484000" />
+      <workItem from="1612807336020" duration="5408000" />
+      <workItem from="1612826077252" duration="69000" />
+      <workItem from="1612896133084" duration="6086000" />
+      <workItem from="1612905694664" duration="9686000" />
+      <workItem from="1612955101483" duration="1191000" />
+      <workItem from="1613070151428" duration="3495000" />
+      <workItem from="1613168102081" duration="87000" />
+      <workItem from="1613236940446" duration="2536000" />
+      <workItem from="1613256198198" duration="891000" />
+      <workItem from="1613341176765" duration="48000" />
+      <workItem from="1613510763398" duration="2230000" />
+      <workItem from="1613588335137" duration="20000" />
+      <workItem from="1613591622038" duration="6421000" />
+      <workItem from="1613642709787" duration="3727000" />
+      <workItem from="1613683766494" duration="959000" />
+      <workItem from="1613838767678" duration="14000" />
+      <workItem from="1614266555893" duration="1506000" />
+      <workItem from="1614271030066" duration="218000" />
+      <workItem from="1614636131425" duration="109000" />
+      <workItem from="1614639378749" duration="1454000" />
+      <workItem from="1614804279446" duration="137000" />
+      <workItem from="1615462032913" duration="10029000" />
+      <workItem from="1615501828497" duration="3948000" />
+      <workItem from="1615658984345" duration="1771000" />
+      <workItem from="1615719206374" duration="64000" />
+      <workItem from="1615928592560" duration="69000" />
+      <workItem from="1615928671886" duration="7714000" />
+      <workItem from="1615981311774" duration="649000" />
+      <workItem from="1616601344407" duration="1855000" />
+      <workItem from="1616605079312" duration="1437000" />
+      <workItem from="1616703880118" duration="766000" />
+      <workItem from="1616765639379" duration="17000" />
+      <workItem from="1617297437863" duration="1549000" />
+      <workItem from="1617301393228" duration="2046000" />
+      <workItem from="1617349120154" duration="5000" />
+      <workItem from="1617913011747" duration="64000" />
+      <workItem from="1617952196946" duration="25806000" />
+      <workItem from="1618135983974" duration="8791000" />
+      <workItem from="1618329641713" duration="12160000" />
+      <workItem from="1618414404520" duration="14000" />
+      <workItem from="1618463511242" duration="263000" />
+      <workItem from="1618480513871" duration="13852000" />
+      <workItem from="1618556850583" duration="7000" />
+      <workItem from="1618584421263" duration="55000" />
+      <workItem from="1618648151268" duration="9788000" />
+      <workItem from="1618862865327" duration="4050000" />
+      <workItem from="1618929194423" duration="6287000" />
+      <workItem from="1618948022163" duration="4000" />
+      <workItem from="1619091284987" duration="2259000" />
+      <workItem from="1619127425469" duration="1986000" />
+      <workItem from="1619158698342" duration="15000" />
+      <workItem from="1619799567797" duration="7363000" />
+      <workItem from="1619854755695" duration="2302000" />
+      <workItem from="1619862116897" duration="84000" />
+      <workItem from="1621510819580" duration="747000" />
+      <workItem from="1622099629858" duration="10459000" />
+      <workItem from="1622441900597" duration="211000" />
+      <workItem from="1622700441168" duration="150000" />
+      <workItem from="1622737263382" duration="28000" />
+      <workItem from="1633508041686" duration="6583000" />
+      <workItem from="1633517551515" duration="289000" />
+      <workItem from="1633674657176" duration="612000" />
+      <workItem from="1633676188801" duration="80000" />
+      <workItem from="1642855483043" duration="1446000" />
+      <workItem from="1642856960273" duration="265000" />
+    </task>
+    <task id="LOCAL-00064" summary="Add notifications page">
+      <created>1618164660659</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1618164660659</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Add notification to navigation">
+      <created>1618164952778</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1618164952778</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Add notifications">
+      <created>1618334417868</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1618334417869</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Add notifications">
+      <created>1618334446690</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1618334446690</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Restyle">
+      <created>1618336733120</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1618336733120</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Remove unnecessary trading block section">
+      <created>1618336990163</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1618336990164</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Update trading block ui">
+      <created>1618337911693</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1618337911693</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Fix question bug">
+      <created>1618338135049</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1618338135049</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Delete overview">
+      <created>1618338236601</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1618338236601</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Fix null users leaderboard issure">
+      <created>1618338776350</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1618338776350</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Update candidate modal">
+      <created>1618347043376</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1618347043376</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Update questions">
+      <created>1618347638668</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1618347638668</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Change hash">
+      <created>1618347833898</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1618347833898</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Mobile improvments">
+      <created>1618480986251</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1618480986252</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Add push notifications">
+      <created>1618494060041</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1618494060041</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Fix bug">
+      <created>1618494485608</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1618494485608</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Add stock recording">
+      <created>1618499460418</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1618499460418</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Add portfolio pie chart">
+      <created>1618501247230</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1618501247230</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Add stock history">
+      <created>1618673518157</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1618673518157</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Implement dark theme">
+      <created>1618934198975</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1618934198975</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Refactor navigation">
+      <created>1618935328627</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1618935328627</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Refactor navigation">
+      <created>1618935413592</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1618935413592</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Refactor navigation">
+      <created>1618935431989</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1618935431989</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Fix unauthenticated bug">
+      <created>1618935583059</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1618935583059</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Add web manifest">
+      <created>1618935716187</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1618935716187</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Restrict push notifications to admins">
+      <created>1618936264957</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1618936264957</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Extract push notification mechanism">
+      <created>1619092375124</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1619092375124</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Increase payout">
+      <created>1619092390660</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1619092390660</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Add logout">
+      <created>1619128625451</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1619128625452</updated>
+    </task>
+    <task id="LOCAL-00093" summary="feat: add push notifications">
+      <created>1619801813009</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1619801813010</updated>
+    </task>
+    <task id="LOCAL-00094" summary="chore: remove unwanted code">
+      <created>1619803266734</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1619803266734</updated>
+    </task>
+    <task id="LOCAL-00095" summary="chore: remove unwanted code">
+      <created>1619803724033</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1619803724033</updated>
+    </task>
+    <task id="LOCAL-00096" summary="refactor: restyle">
+      <created>1619804824042</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1619804824042</updated>
+    </task>
+    <task id="LOCAL-00097" summary="refactor: restyle">
+      <created>1619804846590</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1619804846590</updated>
+    </task>
+    <task id="LOCAL-00098" summary="refactor: adjust dark style theme color">
+      <created>1619806759378</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1619806759378</updated>
+    </task>
+    <task id="LOCAL-00099" summary="refactor: adjust dark style theme color">
+      <created>1619806788482</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1619806788482</updated>
+    </task>
+    <task id="LOCAL-00100" summary="feat: add open question notification">
+      <created>1619806827243</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1619806827243</updated>
+    </task>
+    <task id="LOCAL-00101" summary="feat: add alert bug button">
+      <created>1619807417009</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1619807417009</updated>
+    </task>
+    <task id="LOCAL-00102" summary="revert: readd test button">
+      <created>1619807601717</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1619807601717</updated>
+    </task>
+    <task id="LOCAL-00103" summary="feat: update graph behaviour">
+      <created>1619856823457</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1619856823457</updated>
+    </task>
+    <task id="LOCAL-00104" summary="feat: add finale update">
+      <created>1622108072197</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1622108072197</updated>
+    </task>
+    <task id="LOCAL-00105" summary="feat: improve stock history">
+      <created>1622108482066</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1622108482066</updated>
+    </task>
+    <task id="LOCAL-00106" summary="fix: correct font size">
+      <created>1622112940101</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1622112940101</updated>
+    </task>
+    <task id="LOCAL-00107" summary="feat: increase stock update interval">
+      <created>1622113386131</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1622113386131</updated>
+    </task>
+    <task id="LOCAL-00108" summary="feat: increase stock update interval">
+      <created>1622113832194</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1622113832194</updated>
+    </task>
+    <task id="LOCAL-00109" summary="fix: revert color of final notice">
+      <created>1622113901948</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1622113901948</updated>
+    </task>
+    <task id="LOCAL-00110" summary="fix: fix typo">
+      <created>1622115174215</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1622115174216</updated>
+    </task>
+    <task id="LOCAL-00111" summary="chore: disable stock recording">
+      <created>1622700584498</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1622700584498</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Random update">
+      <created>1633517598038</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1633517598038</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Implement dark theme" />
+    <MESSAGE value="Refactor navigation" />
+    <MESSAGE value="Fix unauthenticated bug" />
+    <MESSAGE value="Add web manifest" />
+    <MESSAGE value="Restrict push notifications to admins" />
+    <MESSAGE value="Extract push notification mechanism" />
+    <MESSAGE value="Increase payout" />
+    <MESSAGE value="Add logout" />
+    <MESSAGE value="feat: add push notifications" />
+    <MESSAGE value="chore: remove unwanted code" />
+    <MESSAGE value="refactor: restyle" />
+    <MESSAGE value="refactor: adjust dark style theme color" />
+    <MESSAGE value="feat: add open question notification" />
+    <MESSAGE value="feat: add alert bug button" />
+    <MESSAGE value="revert: readd test button" />
+    <MESSAGE value="feat: update graph behvaiour" />
+    <MESSAGE value="feat: update graph behaviour" />
+    <MESSAGE value="feat: add finale update" />
+    <MESSAGE value="feat: improve stock history" />
+    <MESSAGE value="fix: correct font size" />
+    <MESSAGE value="feat: increase stock update interval" />
+    <MESSAGE value="fix: revert color of final notice" />
+    <MESSAGE value="fix: fix typo" />
+    <MESSAGE value="chore: disable stock recording" />
+    <MESSAGE value="Random update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Random update" />
+  </component>
+</project>

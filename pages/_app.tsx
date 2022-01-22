@@ -1,25 +1,8 @@
-import "tailwindcss/tailwind.css";
-import "../styles/globals.css";
-import {useEffect, useState} from 'react';
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
 
-function MyApp({ Component, pageProps }) {
-  const [dark, setDark] = useState();
-  useEffect(() => {
-    setDark(JSON.parse(localStorage.getItem("dark") ?? "false"));
-    document.querySelector("meta[name='theme-color']").setAttribute("content", localStorage.getItem("dark") == "true" ? "#000" : "#fff");
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
-          // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      });
-    }
-  }, []);
-  return <div className={dark ? "dark" : ""}><Component {...pageProps} /></div>;
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
 }
 
-export default MyApp;
+export default MyApp
