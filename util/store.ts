@@ -21,7 +21,7 @@ export const useCandidateStore = create<{
 
 
 export const useUserStore = create<{
-    user: User | null,
+    user: (User & {Stock: {amount: number, candidateName: string}[]}) | null,
     loading: boolean,
     loaded: boolean,
     load: () => void,

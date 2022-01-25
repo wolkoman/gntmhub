@@ -3,11 +3,32 @@ import {ReactNode} from 'react';
 import {useUser} from '@auth0/nextjs-auth0';
 import {useCandidateStore, useUserStore} from "../util/store";
 
-export function Site(props: { children: ReactNode }) {
-
-    const [{user, isLoading: userLoading}, storeLoading] = [useUser(), useCandidateStore(store => store.loading)];
+function Navigation() {
+    const [{
+        user: authUser,
+        isLoading: userLoading
+    }, storeLoading, user] = [useUser(), useCandidateStore(store => store.loading), useUserStore(store => store.user)];
     useUserStore(store => store.load());
     const loading = userLoading || storeLoading;
+
+    return <>
+        <div className="flex">
+            <div className="font-display text-2xl font-bold">GNTMHUB</div>
+            {loading && <img src="/loader.svg" className="w-7 mt-0.5 opacity-50"/>}
+        </div>
+        {!!user && <div>
+            <div className="flex space-x-2">
+                <img src={authUser?.picture!} alt={authUser?.name!} className="rounded-3xl w-8 h-8"/>
+                <div className="flex flex-col leading-4">
+                    <div>{authUser?.name!}</div>
+                    <div className="text-primary font-bold">{user.points} g-points</div>
+                </div>
+            </div>
+        </div>}
+    </>;
+}
+
+export function Site(props: { children: ReactNode }) {
 
     return <><Head>
         <title>GNTMHUB</title>
@@ -15,22 +36,12 @@ export function Site(props: { children: ReactNode }) {
         <link rel="icon" href="/favicon.ico"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:wght@400;700;800&display=swap"
-            rel="stylesheet"/>
     </Head>
         <div className="flex flex-col px-4 lg:px-0 lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none lg:h-screen">
             <div className="bg-light p-6 flex flex-col justify-between flex-shrink-0 my-4 lg:my-0">
-                <div className="flex">
-                    <div className="font-display text-2xl font-bold">GNTMHUB</div>
-                    {loading && <img src="/loader.svg" className="w-7 mt-0.5 opacity-50"/>}
-                </div>
-                {!!user && <div className="flex space-x-2">
-                    <img src={user.picture!} alt={user.name!} className="rounded-3xl w-6"/>
-                    <p>{user.name}</p>
-                </div>}
+                <Navigation/>
             </div>
-            <div className="lg:p-6 lg:max-h-screen lg:overflow-y-auto w-full">
+            <div className="lg:max-h-screen lg:overflow-y-auto w-full">
                 {props.children}
             </div>
         </div>
