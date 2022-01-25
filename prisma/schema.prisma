@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["dataProxy"]
 }
 
@@ -12,11 +12,22 @@ datasource db {
 }
 
 model User {
-  mail      String   @id
-  points    Decimal
+  mail   String  @id
+  points Decimal
+  Stock  Stock[]
 }
 
 model Candidate {
-  name      String   @id
-  picture   String
+  name    String  @id
+  picture String
+  Stock   Stock[]
+}
+
+model Stock {
+  id            Int       @id @default(autoincrement())
+  amount        Int
+  user          User      @relation(fields: [userMail], references: [mail])
+  userMail      String
+  candidate     Candidate @relation(fields: [candidateName], references: [name])
+  candidateName String
 }

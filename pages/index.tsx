@@ -1,16 +1,25 @@
-import {useUser} from '@auth0/nextjs-auth0';
-import {PrismaClient} from '@prisma/client'
 import type {NextPage} from 'next'
 import Link from 'next/link';
-import {Site} from '../components/Site';
+import {useUser} from "@auth0/nextjs-auth0";
+import {useEffect} from "react";
+import {useRouter} from "next/router";
 
-const Home: NextPage<{ posts: any }> = (props: { posts: any }) => {
-    return <Site>
-        <main className="bg-red-400">
-            <Link href="/api/auth/login">Login</Link>
-            <Link href="/api/auth/logout">Logout</Link>
-        </main>
-    </Site>
+const Home: NextPage = () => {
+
+    const router = useRouter();
+    const {user, isLoading} = useUser();
+
+    useEffect(() => {
+        if(user) router.push("/app");
+    }, [user]);
+
+    return <div>
+        {isLoading && "wait"}
+        {user && <Link href="/api/auth/logout">Logout</Link>}
+        {!user && <Link href="/api/auth/login">Login</Link>}
+
+
+</div>
 }
 
 export default Home

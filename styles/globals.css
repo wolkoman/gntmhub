@@ -1,5 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Lat   o:wght@300;400&family=Playfair+Display:wght@400;700;800&display=swap');
+::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar {
+    width: 20px;
+}

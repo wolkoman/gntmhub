@@ -5,11 +5,12 @@ module.exports = {
   ],
   theme: {
     fontFamily:{
-      serif: ["Playfair Display"],
+      display: ["Poppins"],
       sans: ["Lato"]
     },
     colors:{
       primary: "#aa0217",
+      light: "#eee",
       dark: "#222",
       white: "#fff",
     },
