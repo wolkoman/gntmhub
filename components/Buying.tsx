@@ -1,7 +1,7 @@
-import {Candidate} from "@prisma/client";
-import {calculatePrice, calculateStockPrice} from "../util/market";
-import {useEffect, useState} from "react";
-import {useUserStore} from "../util/store";
+import {calculatePrice, calculateStockPrice, price} from '../util/market';
+import {useState} from 'react';
+import {useCandidateStore, useUserStore} from '../util/store';
+import {post} from '../util/fetch';
 
 function BuyingRect(props: { index: number, own?: boolean, selected?: boolean, onClick?: () => any, onMouseEnter: () => any, onMouseLeave: () => any }) {
     return <div
@@ -13,48 +13,68 @@ function BuyingRect(props: { index: number, own?: boolean, selected?: boolean, o
     </div>;
 }
 
-export function Buying(props: { selected?: Candidate & { stock: number } }) {
+export function Buying(props: { selected?: string, onClose: () => any }) {
 
-    const user = useUserStore(store => store.user);
-    const stockAmount = user?.Stock.find(stock => stock.candidateName === props.selected?.name)?.amount ?? 0;
+    const [user, setUserPoints, addUserCandidateStock] = useUserStore(store => [store.user, store.setPoints, store.addCandidateStock]);
+    const [candidate, setCandidateStock] = useCandidateStore(store => [props.selected ? store.getCandidate(props.selected) : undefined, store.setCandidateStock]);
+    const stockAmount = user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount ?? 0;
     const [hoveredTrade, setHoveredTrade] = useState<number>();
+    const [trading, setTrading] = useState<{ loading: boolean, error?: string }>({loading: false});
 
     function trade(amount: number) {
-        console.log("trade", amount);
-        fetch("/api/intern/trade", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                candidateName: props.selected!.name,
-                price: calculatePrice(props.selected!.stock, amount),
-                amount
+        if (!candidate || !user) return;
+        console.log('trade', amount);
+        setTrading({loading: true});
+        const price = calculatePrice(candidate?.stock!, amount);
+        post('/api/intern/trade', {candidateName: candidate?.name, price, amount})
+            .then((response: any) => {
+                setTrading({loading: false});
+                setUserPoints(response.newPoints);
+                addUserCandidateStock(candidate.name, amount);
+                setCandidateStock(candidate.name, response.newStock);
             })
-        });
+            .catch(({error, newStock}) => {
+                setTrading({loading: false, error});
+                if (newStock) {
+                    setCandidateStock(candidate.name, newStock);
+                }
+            });
     }
 
-    return <div className="flex justify-between">
+    return <div className="flex justify-between relative">
         <div>
             <div>Candidate</div>
-            <div className="font-display text-xl font-bold mb-4">{props.selected?.name}</div>
+            <div className="font-display text-xl font-bold mb-4">{candidate?.name}</div>
             <div>Market price</div>
-            <div className="font-display text-xl font-bold">{calculateStockPrice(props.selected?.stock! + 1)} g-points
+            <div className="font-display text-xl font-bold">{price(calculateStockPrice(candidate?.stock! + 1))}
             </div>
         </div>
-        {hoveredTrade}
-        {user && <div className="flex flex-wrap">
-            {Array(stockAmount)
-                .fill(0)
-                .map((rect, index) => <BuyingRect key={index} index={index} own={true}
+        <div className={`${trading.loading ? 'pointer-events-none opacity-50' : ''}`}>
+            {user && <div>
+              <div className="flex flex-wrap">
+                  {Array(stockAmount)
+                      .fill(0)
+                      .map((rect, index) => <BuyingRect key={index} index={index} own={true}
+                                                        selected={(hoveredTrade ?? 0) <= (index - stockAmount)}
+                                                        onClick={() => trade(index - stockAmount)}
+                                                        onMouseEnter={() => setHoveredTrade(index - stockAmount)}
+                                                        onMouseLeave={() => setHoveredTrade(undefined)}/>)}
+                  {Array(10)
+                      .fill(0)
+                      .map((rect, index) => <BuyingRect key={index} index={index + stockAmount}
+                                                        selected={(hoveredTrade ?? 0) >= (index + 1)}
+                                                        onClick={() => trade(index + 1)}
+                                                        onMouseEnter={() => setHoveredTrade(index + 1)}
+                                                        onMouseLeave={() => setHoveredTrade(undefined)}/>)}
 
-                                                  onMouseEnter={() => setHoveredTrade(index)}
-                                                  onMouseLeave={() => setHoveredTrade(undefined)}/>)}
-            {Array(10)
-                .fill(0)
-                .map((rect, index) => <BuyingRect key={index} index={index + stockAmount}
-                                                  selected={(hoveredTrade ?? stockAmount) >= (index + stockAmount + 1)}
-                                                  onClick={() => trade(index + 1)}
-                                                  onMouseEnter={() => setHoveredTrade(index + 1)}
-                                                  onMouseLeave={() => setHoveredTrade(undefined)}/>)}
-        </div>}
+              </div>
+              <div>{trading.error}</div>
+            </div>}
+        </div>
+        <div
+            className={`absolute left-1/2 h-12 w-12 rounded-full bg-light border-8 border-white -translate-x-1/2 transition ${props.selected ? '-top-12' : ''}`}
+            onClick={() => props.onClose()}>
+
+        </div>
     </div>;
 }

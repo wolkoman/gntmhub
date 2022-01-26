@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import {ReactNode} from 'react';
 import {useUser} from '@auth0/nextjs-auth0';
-import {useCandidateStore, useUserStore} from "../util/store";
+import {useCandidateStore, useUserStore} from '../util/store';
+import {price} from '../util/market';
 
 function Navigation() {
     const [{
@@ -17,13 +18,13 @@ function Navigation() {
             {loading && <img src="/loader.svg" className="w-7 mt-0.5 opacity-50"/>}
         </div>
         {!!user && <div>
-            <div className="flex space-x-2">
-                <img src={authUser?.picture!} alt={authUser?.name!} className="rounded-3xl w-8 h-8"/>
-                <div className="flex flex-col leading-4">
-                    <div>{authUser?.name!}</div>
-                    <div className="text-primary font-bold">{user.points} g-points</div>
-                </div>
+          <div className="flex space-x-2">
+            <img src={authUser?.picture!} alt={authUser?.name!} className="rounded-3xl w-8 h-8"/>
+            <div className="flex flex-col leading-4">
+              <div>{authUser?.name!}</div>
+              <div className="text-primary font-bold">{price(user.points as unknown as number)}</div>
             </div>
+          </div>
         </div>}
     </>;
 }
@@ -37,12 +38,14 @@ export function Site(props: { children: ReactNode }) {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
     </Head>
-        <div className="flex flex-col px-4 lg:px-0 lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none lg:h-screen">
+        <div className="flex flex-col px-4 lg:px-0 lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none h-screen">
             <div className="bg-light p-6 flex flex-col justify-between flex-shrink-0 my-4 lg:my-0">
                 <Navigation/>
             </div>
-            <div className="lg:max-h-screen lg:overflow-y-auto w-full">
-                {props.children}
+            <div className="w-full h-full relative overflow-y-hidden">
+                <div className="h-full overflow-y-auto">
+                    {props.children}
+                </div>
             </div>
         </div>
     </>;

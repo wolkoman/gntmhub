@@ -42,9 +42,10 @@ export default withApiAuthRequired(async (req, res) => {
         return;
     }
 
+    const newPoints = Math.round((user.points.toNumber() - price)*100000)/100000;
     await prisma.user.update({
         where: {mail: user.mail},
-        data: {points: {increment: price}}
+        data: {points: newPoints}
     });
     await prisma.stock.updateMany({
         where: {
@@ -54,5 +55,5 @@ export default withApiAuthRequired(async (req, res) => {
         data: {amount: {increment: reqAmount}}
     });
 
-    res.json({newStock: stocks + reqAmount});
+    res.json({newStock: stocks + reqAmount, newPoints});
 });
