@@ -26,7 +26,7 @@ const Home: NextPage = () => {
                     <div
                         className={`font-display p-4 text-lg font-bold transition  ${selected?.name === candidate.name ? 'text-xl' : ''}`}>{candidate.name}</div>
                     <div
-                        className="font-display p-4 text-5xl text-right opacity-50">{calculateStockPrice(candidate.stock)}</div>
+                        className="font-display p-4 text-5xl text-right opacity-50">{calculateStockPrice(candidate.stock+1)}</div>
                 </div>)}
             </div>
             <div

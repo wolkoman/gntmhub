@@ -30,4 +30,5 @@ model Stock {
   userMail      String
   candidate     Candidate @relation(fields: [candidateName], references: [name])
   candidateName String
+  @@unique([userMail, candidateName])
 }

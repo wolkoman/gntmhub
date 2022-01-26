@@ -1,27 +1,27 @@
 export function calculateStockPrice(stockIndex: number): number {
-    return 1+ + stockIndex / 10;
+    return 0.9 + stockIndex / 10;
 }
 
 export function calculatePrice(
-    stockTotal: any,
-    candidateId: string,
+    stockIndex: number,
     amount: number
 ) {
-    return Array(Math.abs(amount))
-        .fill(stockTotal)
-        .map((total, index) =>
-            calculateStockPrice(amount > 0 ? total + index + 1 : total - index)
+    return Math.sign(amount) * Array(Math.abs(amount))
+        .fill(0)
+        .map((_, index) =>
+            calculateStockPrice(amount > 0
+                ? stockIndex + index + 1
+                : stockIndex - index)
         )
-        .reduce((p, c) => (amount > 0 ? p + c : p - c), 0);
+        .reduce((p, c) => p + c, 0);
 }
 
 export function calculateStocksForPrice(
-    stocks: any,
-    candidateId: string,
+    stockIndex: any,
     price: number
 ) {
     let amount = 1;
-    while(calculatePrice(stocks, candidateId, amount) <= price){
+    while (calculatePrice(stockIndex, amount) <= price) {
         amount++;
     }
     return amount - 1;
