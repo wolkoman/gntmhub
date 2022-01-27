@@ -16,6 +16,7 @@
     "next": "12.0.8",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "victory": "^36.2.0",
     "zustand": "^3.6.9"
   },
   "devDependencies": {

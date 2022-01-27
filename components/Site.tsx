@@ -3,6 +3,7 @@ import {ReactNode} from 'react';
 import {useUser} from '@auth0/nextjs-auth0';
 import {useCandidateStore, useUserStore} from '../util/store';
 import {price} from '../util/market';
+import Link from 'next/link';
 
 function Navigation() {
     const [{
@@ -13,9 +14,16 @@ function Navigation() {
     const loading = userLoading || storeLoading;
 
     return <>
-        <div className="flex">
-            <div className="font-display text-2xl font-bold">GNTMHUB</div>
-            {loading && <img src="/loader.svg" className="w-7 mt-0.5 opacity-50"/>}
+        <div>
+            <div className="flex">
+                <div className="font-display text-2xl font-bold">GNTMHUB</div>
+                {loading && <img src="/loader.svg" className="w-7 mt-0.5 opacity-50"/>}
+
+            </div>
+            <div className="text-lg flex flex-col space-y-2 mt-6">
+                <a><Link href="/app">Kandidatinnen</Link></a>
+                <a><Link href="/app/questions">Fragen</Link></a>
+            </div>
         </div>
         {!!user && <div>
           <div className="flex space-x-2">
@@ -43,7 +51,7 @@ export function Site(props: { children: ReactNode }) {
                 <Navigation/>
             </div>
             <div className="w-full h-full relative overflow-y-hidden">
-                <div className="h-full overflow-y-auto">
+                <div className="h-full overflow-y-auto lg:p-6">
                     {props.children}
                 </div>
             </div>

@@ -12,15 +12,34 @@ datasource db {
 }
 
 model User {
-  mail   String  @id
-  points Decimal
-  Stock  Stock[]
+  mail        String        @id
+  points      Decimal
+  Stock       Stock[]
+  Answer      Answer[]
+  UserHistory UserHistory[]
 }
 
 model Candidate {
-  name    String  @id
-  picture String
-  Stock   Stock[]
+  name             String             @id
+  picture          String
+  Stock            Stock[]
+  terminated       Boolean            @default(false)
+  CandidateHistory CandidateHistory[]
+}
+
+model UserHistory {
+  id       Int     @id @default(autoincrement())
+  user     User    @relation(fields: [userMail], references: [mail])
+  userMail String
+  liquid   Decimal
+  stock    Decimal
+}
+
+model CandidateHistory {
+  id            Int       @id @default(autoincrement())
+  candidate     Candidate @relation(fields: [candidateName], references: [name])
+  candidateName String
+  amount        Int
 }
 
 model Stock {
@@ -30,5 +49,31 @@ model Stock {
   userMail      String
   candidate     Candidate @relation(fields: [candidateName], references: [name])
   candidateName String
+
   @@unique([userMail, candidateName])
+}
+
+model QuestionSubmission {
+  id       Int      @id @default(autoincrement())
+  text     String
+  option   String[]
+  handled  Boolean
+  accepted Boolean
+}
+
+model Question {
+  id       Int      @id @default(autoincrement())
+  text     String
+  option   String[]
+  deadline DateTime
+  answerId Int?
+  Answer   Answer[]
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  user       User     @relation(fields: [userMail], references: [mail])
+  userMail   String
 }
