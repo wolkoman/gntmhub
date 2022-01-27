@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import {ReactNode} from 'react';
 import {useUser} from '@auth0/nextjs-auth0';
-import {useCandidateStore, useUserStore} from '../util/store';
+import {useCandidateStore, useQuestionStore, useUserStore} from '../util/store';
 import {price} from '../util/market';
 import Link from 'next/link';
 
@@ -9,9 +9,9 @@ function Navigation() {
     const [{
         user: authUser,
         isLoading: userLoading
-    }, storeLoading, user] = [useUser(), useCandidateStore(store => store.loading), useUserStore(store => store.user)];
+    }, storeLoading, user, questionLoading] = [useUser(), useCandidateStore(store => store.loading), useUserStore(store => store.user), useQuestionStore(store => store.loading)];
     useUserStore(store => store.load());
-    const loading = userLoading || storeLoading;
+    const loading = userLoading || storeLoading || questionLoading;
 
     return <>
         <div>
@@ -27,7 +27,7 @@ function Navigation() {
         </div>
         {!!user && <div>
           <div className="flex space-x-2">
-            <img src={authUser?.picture!} alt={authUser?.name!} className="rounded-3xl w-8 h-8"/>
+            <img src={authUser?.picture!} alt={authUser?.name!} className="rounded-3xl w-8 h-8 overflow-hidden"/>
             <div className="flex flex-col leading-4">
               <div>{authUser?.name!}</div>
               <div className="text-primary font-bold">{price(user.points as unknown as number)}</div>
@@ -46,7 +46,7 @@ export function Site(props: { children: ReactNode }) {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
     </Head>
-        <div className="flex flex-col px-4 lg:px-0 lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none h-screen">
+        <div className="flex flex-col px-4 lg:px-0 lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none h-screen text-dark">
             <div className="bg-light p-6 flex flex-col justify-between flex-shrink-0 my-4 lg:my-0">
                 <Navigation/>
             </div>

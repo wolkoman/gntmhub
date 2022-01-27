@@ -16,7 +16,7 @@ export default withApiAuthRequired(async function test(req, res) {
     let user = await getUser();
 
     if (!user) {
-        await prisma.user.create({data: {mail: authUser.email, points: 0}});
+        await prisma.user.create({data: {mail: authUser.email, points: 0, image: 'https://images.weserv.nl/?w=100&h=100&url='+authUser.picture, rawImage: authUser.picture, admin: false}});
         const candidates = await prisma.candidate.findMany();
         await prisma.stock.createMany({
             data: candidates.map(candidate => ({amount: 0, userMail: authUser.email, candidateName: candidate.name}))

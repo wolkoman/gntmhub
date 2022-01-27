@@ -12,11 +12,15 @@ datasource db {
 }
 
 model User {
-  mail        String        @id
-  points      Decimal
-  Stock       Stock[]
-  Answer      Answer[]
-  UserHistory UserHistory[]
+  mail               String               @id
+  points             Decimal
+  Stock              Stock[]
+  Answer             Answer[]
+  UserHistory        UserHistory[]
+  QuestionSubmission QuestionSubmission[]
+  admin              Boolean
+  image              String
+  rawImage           String
 }
 
 model Candidate {
@@ -59,6 +63,8 @@ model QuestionSubmission {
   option   String[]
   handled  Boolean
   accepted Boolean
+  user     User     @relation(fields: [userMail], references: [mail])
+  userMail String
 }
 
 model Question {
@@ -71,9 +77,12 @@ model Question {
 }
 
 model Answer {
-  id         Int      @id @default(autoincrement())
-  question   Question @relation(fields: [questionId], references: [id])
-  questionId Int
-  user       User     @relation(fields: [userMail], references: [mail])
-  userMail   String
+  id          Int      @id @default(autoincrement())
+  answerIndex Int
+  question    Question @relation(fields: [questionId], references: [id])
+  questionId  Int
+  user        User     @relation(fields: [userMail], references: [mail])
+  userMail    String
+
+  @@unique([userMail, questionId])
 }
