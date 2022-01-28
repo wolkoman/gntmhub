@@ -30,3 +30,14 @@ export function calculateStocksForPrice(
 export function price(value: number, hidePoints?: boolean) {
     return Math.round(value*100)/100 + (hidePoints?"":"g-points");
 }
+
+export function payout(date = new Date()) {
+    const now = date.getTime();
+    const begin = new Date("2022-02-02T18:00:00+02:00").getTime();
+    const payoutSize = 10;
+    const passedDays = Math.floor(Math.max(0,now - begin) / (1000 * 60 * 60 * 24));
+    const weekendDays = Math.floor((passedDays+4) / 7) * 2;
+    const saturday = date.getDay() === 6 ? 1 : 0;
+    const diff = Math.min((passedDays - weekendDays + saturday) * payoutSize, 500);
+    return diff;
+}

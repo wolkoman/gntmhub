@@ -13,6 +13,8 @@ datasource db {
 
 model User {
   mail               String               @id
+  name               String?
+  username           String?
   points             Decimal
   Stock              Stock[]
   Answer             Answer[]
@@ -53,6 +55,7 @@ model Stock {
   userMail      String
   candidate     Candidate @relation(fields: [candidateName], references: [name])
   candidateName String
+  active        Boolean @default(true)
 
   @@unique([userMail, candidateName])
 }

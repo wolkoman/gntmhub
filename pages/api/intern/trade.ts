@@ -1,6 +1,6 @@
 import {getSession, withApiAuthRequired} from "@auth0/nextjs-auth0";
 import {PrismaClient} from "@prisma/client";
-import {calculatePrice, calculateStockPrice} from "../../../util/market";
+import {calculatePrice, calculateStockPrice, payout} from '../../../util/market';
 
 export default withApiAuthRequired(async (req, res) => {
 
@@ -15,6 +15,7 @@ export default withApiAuthRequired(async (req, res) => {
         where: {mail: authUser.email},
         include: {Stock: {where: {candidate: {name: reqCandidateName}}}}
     }))!;
+    const candidate = await prisma.candidate.findUnique({where: {name: reqCandidateName}, select: {terminated: true}});
     const stocksResult = await prisma.stock.groupBy({
         by: ['candidateName'],
         _sum: {amount: true},
@@ -23,13 +24,19 @@ export default withApiAuthRequired(async (req, res) => {
     const stocks = stocksResult[0]._sum.amount!;
 
     const price = calculatePrice(stocks, reqAmount);
+    if (!candidate || candidate.terminated) {
+        res
+            .status(402)
+            .json({error: "Die Aktie ist eingefroren"});
+        return;
+    }
     if (reqPrice !== price) {
         res
             .status(402)
             .json({error: "Der Preis hat sich geändert", newStock: stocks});
         return;
     }
-    if (price > user.points.toNumber()) {
+    if (price > user.points.toNumber() + payout()) {
         res
             .status(402)
             .json({error: "Zu wenig Geld für den Handel"});

@@ -1,36 +1,38 @@
+import {Question} from '@prisma/client'
 import type {NextPage} from 'next'
 import {Site} from '../../components/Site';
-import {calculateStockPrice, price} from '../../util/market';
-import {useState} from 'react';
-import {Buying} from '../../components/Buying';
-import {useCandidateStore, useRequireLogin} from '../../util/client';
+import {QuestionSubmission} from '../../components/QuestionSubmission';
+import {Question as QuestionComponent} from '../../components/Question';
+import {post, useCandidateStore, useQuestionStore, useRequireLogin, useUserStore} from '../../util/client';
+import {useLeaderboardStore} from '../../util/client/useLeaderboardStore';
+import {price} from '../../util/market';
+import {useEffect} from 'react';
 
 const Home: NextPage = () => {
     useRequireLogin();
-    const [candidates] = useCandidateStore(store => [store.candidates, store.load()]);
-    const [selected, setSelected] = useState<string | undefined>()
-
     return <Site>
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full">
-            {candidates?.map(candidate => <div
-                key={candidate.name}
-                className={`relative h-44 overflow-hidden bg-light flex flex-col justify-between cursor-pointer select-none ${selected === candidate.name ? 'bg-primary text-white' : ''}`}
-                onClick={() => setSelected(candidate.name)}
-            >
-                <div
-                    className={`bg-contain bg-no-repeat bg-top h-full absolute top-0 left-0 w-full transition  ${selected === candidate.name ? 'scale-125' : ''}`}
-                    style={{backgroundImage: `url(${candidate.picture})`}}/>
-                <div
-                    className={`font-display p-4 text-lg font-bold transition  ${selected === candidate.name ? 'text-xl' : ''}`}>{candidate.name}</div>
-                <div
-                    className="font-display p-4 text-5xl text-right opacity-50">{price(calculateStockPrice(candidate.stock + 1), true)}</div>
-            </div>)}
-        </div>
-        <div
-            className={`leading-4 absolute bottom-0 left-0 w-full transition  ${selected ? '' : 'translate-y-full'}`}>
-            <div className="lg:mx-6 bg-light border-white border-t-8 box-border p-6 ">
-                <Buying selected={selected} onClose={() => setSelected(undefined)}/>
+        <div className="max-w-xl mx-auto text-lg">
+            <div className="font-display font-bold text-primary text-3xl my-4">Hey Topmodel!</div>
+            <div className="text-xl">
+                Willkomen zu einer weiteren Staffel Topmodel und zu einem weiteren Spiel auf GNTMHUB. Die Regeln haben sich nur leicht geändert. Hier das Wichtigste:
             </div>
+            <div className="font-display font-bold mt-6">G-Points erhalten!</div>
+            <div>
+                G-Points bekommt man (1.) über klugen Handel. Kaufe Aktien von Model die noch lange dabei sind und verkaufe Aktien von Model die bald ausscheiden. (2.) Außerdem über das Beantworten von Fragen. Am Donnerstag um 18:00 Uhr sind die Fragen spätestens online. Für richtige Antworten gibts Punkte! Auch wenn man Fragen einreicht (und sie verwendet werden) gibt es Punkte.
+            </div>
+            <div className="font-display font-bold mt-6">Initiale Points!</div>
+            <div>
+                Aber moment, wie kauft man Aktien wenn man noch gar keine G-Points hat. Keine Sorge, da kann ich helfen. Ab Donnerstag 03. Feburuar 2022 werden jeweils um 18:00 Uhr wochentags 10 g-points an alle Spieler:innen ausgeschüttet. Das geht solange bis insgesamt 500 g-points ausbezahlt wurden (ca. 3 Monate).
+            </div>
+            <div className="font-display font-bold mt-6">Aktiensperren</div>
+            <div>
+                Letztes Jahr hat es während den Folgen eine Handelssperre gegeben. Ob es sie dieses Jahr wieder gibt habe ich mir noch nicht überlegt. Infos gibts spätestens am 03.02.2022 hier!
+            </div>
+            <div className="font-display font-bold mt-6">Das wars?</div>
+            <div>
+                Am Anfang gibt es nur grundlegenden Funktionen auf GNTMHUB. Im Laufe der Staffel kommen sicher noch Funktionen hinzu. Sie werden hier veröffentlicht. Für ein kleines Easter-Egg könnt ihr aber jetzt `darkmode` tippen.
+            </div>
+
         </div>
     </Site>
 }

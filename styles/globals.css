@@ -12,3 +12,17 @@
 ::-webkit-scrollbar {
     width: 20px;
 }
+.text-light{ @apply text-light-500; }
+.text-dark{ @apply text-dark-500; }
+.text-primary{ @apply text-primary-500; }
+.text-opposite{ @apply text-opposite-500; }
+
+.bg-light{ @apply bg-light-500; }
+.bg-dark{ @apply bg-dark-500; }
+.bg-primary{ @apply bg-primary-500; }
+.bg-opposite{ @apply bg-opposite-500; }
+
+.border-light{ @apply border-light-500; }
+.border-dark{ @apply border-dark-500; }
+.border-primary{ @apply border-primary-500; }
+.border-opposite{ @apply border-opposite-500; }

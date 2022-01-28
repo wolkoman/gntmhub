@@ -1,4 +1,4 @@
-import {calculatePrice, calculateStockPrice, calculateStocksForPrice, price} from '../util/market';
+import {calculatePrice, calculateStockPrice, calculateStocksForPrice, payout, price} from '../util/market';
 import {useState} from 'react';
 import {post, useCandidateStore, useUserStore} from '../util/client';
 
@@ -24,7 +24,7 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
     const stockAmount = user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount ?? 0;
     const [hoveredTrade, setHoveredTrade] = useState<number>();
     const [trading, setTrading] = useState<{ loading: boolean, error?: string }>({loading: false});
-    const payableStucks = calculateStocksForPrice(user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount, user?.points as unknown as number);
+    const payableStocks = calculateStocksForPrice(user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount, +(user?.points as unknown as number)+payout());
 
     function trade(amount: number) {
         if (!candidate || !user) return;
@@ -64,11 +64,11 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
                   {Array(stockAmount)
                       .fill(0)
                       .map((rect, index) => <BuyingRect key={index} index={index} own={true}
-                                                        hide={(stockAmount-10)>index+(10-Math.min(payableStucks,10))}
+                                                        hide={(stockAmount-10)>index+(10-Math.min(payableStocks,10))}
                                                         selected={(hoveredTrade ?? 0) <= (index - stockAmount)}
                                                         onClick={() => trade(index - stockAmount)}
                                                         onMouseEnter={() => setHoveredTrade(index - stockAmount)}/>)}
-                  {Array(payableStucks).fill(0)
+                  {Array(payableStocks).fill(0)
                       .map((rect, index) => <BuyingRect key={index} index={index + stockAmount}
                                                         hide={index>=20-Math.min(stockAmount, 10)}
                                                         selected={(hoveredTrade ?? 0) >= (index + 1)}

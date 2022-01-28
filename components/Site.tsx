@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import {ReactNode} from 'react';
-import {Navigation} from './Navigation';
+import {MobileTop, Navigation} from './Navigation';
 
 export function Site(props: { children: ReactNode }) {
 
@@ -11,15 +11,14 @@ export function Site(props: { children: ReactNode }) {
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link rel="icon" type="image/png" href="/g.png"/>
     </Head>
-        <div className="flex flex-col px-4 lg:px-0 lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none h-screen text-dark">
-            <div className="bg-light p-6 flex flex-col justify-between flex-shrink-0 my-4 lg:my-0">
-                <Navigation/>
-            </div>
+        <div className="flex flex-col-reverse lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none h-screen text-dark bg-white">
+            <Navigation/>
             <div className="w-full h-full relative overflow-y-hidden">
-                <div className="h-full overflow-y-auto lg:p-6">
+                <div className="h-full overflow-y-auto lg:p-6 px-4">
                     {props.children}
                 </div>
             </div>
+            <MobileTop/>
         </div>
     </>;
 }

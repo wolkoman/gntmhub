@@ -8,11 +8,11 @@ interface LoadingStoreAdds {
     load:() => void
 }
 
-export const load = <EntityType>(set: (partial: any) => void, get: () => LoadingStoreAdds, api: string): LoadingStoreAdds => ({
+export const load = <EntityType>(set: (partial: any) => void, get: () => LoadingStoreAdds, api: string, reload?: boolean): LoadingStoreAdds => ({
     loading: false,
     loaded: false,
     load() {
-        if (get().loading || get().loaded) return;
+        if (get().loading || (get().loaded && !reload)) return;
         set({loading: true});
         fetch(api).then(response => response.json())
             .then((entity) => set({...entity, loaded: true, loading: false}))
