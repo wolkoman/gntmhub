@@ -1,6 +1,6 @@
-import {Question} from '@prisma/client';
+import {Answer, Question} from '@prisma/client';
 import {useState} from 'react';
-import {post} from '../util/fetch';
+import {post} from '../util/client';
 
 export function Question(props: { question: Question & { Answer: Answer[] }, setAnswer: (answer: number) => void }) {
     const deadline = new Date(props.question.deadline);

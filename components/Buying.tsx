@@ -1,7 +1,6 @@
 import {calculatePrice, calculateStockPrice, calculateStocksForPrice, price} from '../util/market';
 import {useState} from 'react';
-import {useCandidateStore, useUserStore} from '../util/store';
-import {post} from '../util/fetch';
+import {post, useCandidateStore, useUserStore} from '../util/client';
 
 function BuyingRect(props: { index: number, own?: boolean, selected?: boolean, onClick?: () => any, onMouseEnter: () => any, onMouseLeave?: () => any, hide?: boolean }) {
     return props.hide ? <></> : <div

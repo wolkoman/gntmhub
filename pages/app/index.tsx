@@ -1,11 +1,9 @@
-import {Candidate} from '@prisma/client'
 import type {NextPage} from 'next'
 import {Site} from '../../components/Site';
-import {useRequireLogin} from '../../util/requireLogin';
-import {useCandidateStore} from '../../util/store';
 import {calculateStockPrice, price} from '../../util/market';
 import {useState} from 'react';
 import {Buying} from '../../components/Buying';
+import {useCandidateStore, useRequireLogin} from '../../util/client';
 
 const Home: NextPage = () => {
     useRequireLogin();

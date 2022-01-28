@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {post} from '../util/fetch';
+import {post} from '../util/client';
 
 export function QuestionSubmission() {
 
