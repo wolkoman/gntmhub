@@ -16,6 +16,7 @@ export default withApiAuthRequired(async function test(req, res) {
         option: req.body.options,
         accepted: false,
         handled: false,
+        userMail: authUser.email
     }});
 
     res.status(200).json({});
