@@ -1,22 +1,12 @@
 import create from 'zustand';
 import {Answer, Question} from '@prisma/client';
+import {load, LoadingStore} from './loadingStore';
 
-export const useQuestionStore = create<{
-    questions: (Question & { Answer: Answer[] })[],
-    loading: boolean,
-    loaded: boolean,
-    load: () => void,
+export const useQuestionStore = create<LoadingStore<{questions: (Question & { Answer: Answer[] })[]}> & {
     setMyAnswer: (questionId: number, answerIndex: number) => void,
 }>((set, get) => ({
     questions: [],
-    loading: false,
-    loaded: false,
-    load() {
-        if (get().loading || get().loaded) return;
-        set({loading: true});
-        fetch('/api/intern/questions').then(response => response.json())
-            .then(({questions}) => set({questions, loaded: true, loading: false}));
-    },
+    ...load(set, get, '/api/intern/questions'),
     setMyAnswer(questionId: number, answerIndex: number) {
         set(store => ({
             questions: store.questions.map(question => question.id === questionId
