@@ -18,7 +18,7 @@ const Home: NextPage = () => {
     }, [usersLoad]);
 
     return <Site>
-        <div className="max-w-xl mx-auto  space-y-4">
+        <div className="max-w-xl mx-auto  space-y-4 py-4">
             {users
                 .sort((a, b) => b.score - a.score).map((user, index) => <div key={user.image} className="flex">
                 <div className={`font-bold mr-2 w-16  ${index < 3 ? 'text-6xl' : 'text-5xl'} ${user.name === me?.username ? 'text-primary' : 'text-light'}`}>

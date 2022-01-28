@@ -21,12 +21,27 @@ export function Navigation() {
                 <div className="font-display text-2xl font-bold">GNTMHUB</div>
                 {loading && <img src="/loader.svg" className="w-7 mt-0.5 opacity-50"/>}
             </div>
-            <div className="text-lg flex lg:flex-col space-x-2 justify-around lg:space-x-0 lg:space-y-2 lg:mt-6">
-                <a><Link href="/app">Info</Link></a>
-                <a><Link href="/app/candidates">Kandidatinnen</Link></a>
-                <a><Link href="/app/questions">Fragen</Link></a>
-                <a><Link href="/app/leaderboard">Rangliste</Link></a>
-                {user?.admin && <a><Link href="/app/admin">Admin</Link></a>}
+            <div className="flex lg:flex-col space-x-2 justify-around lg:space-x-0 lg:space-y-2 lg:mt-6">
+                <Link href="/app"><a>
+                    <div className="hidden lg:block">Info</div>
+                    <img src="/IconInfo.svg" className="w-12 lg:hidden"/>
+                </a></Link>
+                <Link href="/app/candidates"><a>
+                    <div className="hidden lg:block">Kandidatinnen</div>
+                    <img src="/IconCandidates.svg" className="w-12 lg:hidden"/>
+                </a></Link>
+                <Link href="/app/questions"><a>
+                    <div className="hidden lg:block">Fragen</div>
+                    <img src="/IconQuestion.svg" className="w-12 lg:hidden"/>
+                </a></Link>
+                <Link href="/app/leaderboard"><a>
+                    <div className="hidden lg:block">Rangliste</div>
+                    <img src="/IconLeaderboard.svg" className="w-12 lg:hidden"/>
+                </a></Link>
+                {user?.admin && <Link href="/app/admin"><a>
+                  <div className="hidden lg:block">Admin</div>
+                  <img src="/IconSettings.svg" className="w-12 lg:hidden"/>
+                </a></Link>}
             </div>
         </div>
         <div className="hidden lg:block">
@@ -60,7 +75,7 @@ export function MobileTop() {
     useUserStore(store => store.load());
     const loading = userLoading || storeLoading || questionLoading;
 
-    return <div className="lg:hidden bg-light flex justify-between flex-shrink-0 px-4 py-2 overflow-x-hidden">
+    return <div className="lg:hidden bg-light flex justify-between flex-shrink-0 px-4 py-3 overflow-x-hidden">
         <div>
             <div className="flex">
                 <div className="font-display text-2xl font-bold">GNTMHUB</div>

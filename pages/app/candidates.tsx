@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     const [selected, setSelected] = useState<string | undefined>()
 
     return <Site>
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full  py-4">
             {candidates?.sort((a,b) => b.stock - a.stock).sort((a,b) => (a.terminated?1:0) - (b.terminated?1:0)).map(candidate => <div
                 key={candidate.name}
                 className={`relative h-44 overflow-hidden flex flex-col justify-between select-none  ${candidate.terminated ? 'pointer-events-none cursor-auto' : 'cursor-pointer'} ${!candidate.terminated && ((selected === candidate.name) ? 'bg-primary text-white' : 'bg-light text-dark')}`}
