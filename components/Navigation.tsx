@@ -6,15 +6,8 @@ import {Brand} from "./Brand";
 import {User} from "./User";
 
 export function Navigation() {
-    const [{isLoading: userLoading}, user, storeLoading, questionLoading, leaderboardLoading] = [
-        useUser(),
-        useUserStore(store => store.user),
-        useCandidateStore(store => store.loading),
-        useQuestionStore(store => store.loading),
-        useLeaderboardStore(store => store.loading)
-    ];
+    const [user] = [useUserStore(store => store.user)];
     useUserStore(store => store.load());
-    const loading = userLoading || storeLoading || questionLoading || leaderboardLoading || true;
 
     return <div className="bg-white border-light border-t lg:border-r shadow-xl p-4 lg:p-6 lg:min-w-[200px] flex flex-col justify-between flex-shrink-0 my-0">
         <div>

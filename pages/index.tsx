@@ -4,6 +4,7 @@ import {useUser} from '@auth0/nextjs-auth0';
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
+import {Brand} from "../components/Brand";
 
 const Home: NextPage = () => {
 
@@ -42,7 +43,8 @@ const Home: NextPage = () => {
             </video>
             <div
                 className="inline-block shadow-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-dark p-12 text-center relative z-10">
-                <div className="font-display font-bold text-3xl ">GNTMHUB</div>
+                <div className="flex justify-center">
+                <Brand/></div>
                 <div className="max-w-xl mx-auto font-display my-4">
                     Die virtuelle, just-for-fun Plattform zu der Casting-Serie „Germanys Next Topmodel“ mit
                     Aktienhandel,

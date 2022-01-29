@@ -1,19 +1,21 @@
 import {useUser} from "@auth0/nextjs-auth0";
 import {useCandidateStore, useQuestionStore, useUserStore} from "../util/client";
 import Link from "next/link";
+import {useLeaderboardStore} from "../util/client/useLeaderboardStore";
 
 export function Brand() {
-    const [{isLoading: userLoading}, storeLoading, user, questionLoading] = [
-        useUser(),
+    const loadings = [
         useCandidateStore(store => store.loading),
-        useUserStore(store => store.user),
-        useQuestionStore(store => store.loading)
+        useUserStore(store => store.loading),
+        useQuestionStore(store => store.loading),
+        useLeaderboardStore(store => store.loading),
     ];
     useUserStore(store => store.load());
-    const loading = userLoading || storeLoading || questionLoading;
+    const loading = loadings.reduce((p,c) => p || c, false);
 
     return <Link href="/app">
         <div className="cursor-pointer relative overflow-hidden">
+            <div className={`absolute top-1.5 h-5 w-36 bg-light`}/>
             <div className={`absolute top-1.5 h-5 w-12 bg-primary loader transition ${loading ? '' : 'opacity-0'}`}/>
             <svg width="290" height="47" viewBox="0 0 290 47" fill="none" xmlns="http://www.w3.org/2000/svg"
                  className="w-36 h-8 relative z-10">
