@@ -34,6 +34,7 @@ export function price(value: number, hidePoints?: boolean) {
 export function payout(date = new Date()) {
     const now = date.getTime();
     const begin = new Date("2022-02-02T18:00:00+02:00").getTime();
+    if(begin > now) return 0;
     const payoutSize = 10;
     const passedDays = Math.floor(Math.max(0,now - begin) / (1000 * 60 * 60 * 24));
     const weekendDays = Math.floor((passedDays+4) / 7) * 2;

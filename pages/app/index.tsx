@@ -11,8 +11,8 @@ import {useEffect} from 'react';
 const Home: NextPage = () => {
     useRequireLogin();
     return <Site>
-        <div className="max-w-xl mx-auto text-lg">
-            <div className="font-display font-bold text-primary text-3xl my-4">Hey Topmodel!</div>
+        <div className="max-w-xl mx-auto text-lg my-10">
+            <div className="font-display font-bold text-3xl my-4">Hey Topmodel!</div>
             <div className="text-xl">
                 Willkomen zu einer weiteren Staffel Topmodel und zu einem weiteren Spiel auf GNTMHUB. Die Regeln haben sich nur leicht geändert. Hier das Wichtigste:
             </div>

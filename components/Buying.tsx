@@ -80,9 +80,9 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
             </div>}
         </div>
         <div
-            className={`absolute left-1/2 h-12 w-12 rounded-full bg-white border border-light -translate-x-1/2 -translate-y-1 transition ${props.selected ? '-top-12' : ''} flex justify-center`}
+            className={`cursor-pointer absolute left-1/2 h-12 w-12 rounded-full bg-white border border-light -translate-x-1/2 -translate-y-1 transition ${props.selected ? '-top-12' : ''} flex justify-center`}
             onClick={() => props.onClose()}>
-            <img src="/IconBack.svg" className="w-2/3"/>
+            <img src="/IconBack.svg" className="w-2/3 dark:invert dark-invert"/>
         </div>
     </div>;
 }
