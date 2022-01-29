@@ -14,7 +14,10 @@ const Home: NextPage = () => {
         <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full  py-4">
             {candidates?.sort((a,b) => b.stock - a.stock).sort((a,b) => (a.terminated?1:0) - (b.terminated?1:0)).map(candidate => <div
                 key={candidate.name}
-                className={`relative h-44 overflow-hidden flex flex-col justify-between select-none  ${candidate.terminated ? 'pointer-events-none cursor-auto' : 'cursor-pointer'} ${!candidate.terminated && ((selected === candidate.name) ? 'bg-primary text-white' : 'bg-light text-dark')}`}
+                className={`
+                relative h-44 overflow-hidden flex flex-col justify-between select-none border-light border shadow-lg
+                ${candidate.terminated ? 'pointer-events-none cursor-auto' : 'cursor-pointer'}
+                ${!candidate.terminated && ((selected === candidate.name) ? 'bg-primary text-white' : 'bg-white text-dark')}`}
                 onClick={() => setSelected(candidate.name)}
             >
                 <div
@@ -33,7 +36,7 @@ const Home: NextPage = () => {
         </div>
         <div
             className={`leading-4 absolute bottom-0 left-0 w-full transition  ${selected ? '' : 'translate-y-full'}`}>
-            <div className="lg:mx-6 bg-light border-white border-t-8 box-border p-6 ">
+            <div className="lg:mx-6 bg-white border-light border drop-shadow-[0_-5px_5px_rgba(0,0,0,0.1)] p-6 ">
                 <Buying selected={selected} onClose={() => setSelected(undefined)}/>
             </div>
         </div>

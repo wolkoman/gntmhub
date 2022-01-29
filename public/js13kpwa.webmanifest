@@ -10,7 +10,7 @@
     }
   ],
   "start_url": "/app",
-  "display": "fullscreen",
-  "theme_color": "#eee",
-  "background_color": "#eee"
+  "display": "standalone",
+  "theme_color": "#fff",
+  "background_color": "#fff"
 }

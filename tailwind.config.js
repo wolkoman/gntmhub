@@ -11,13 +11,17 @@ module.exports = {
     colors: {
       primary: {500: "#aa0217"},
       opposite: {500: "#206000"},
-      light: {500: "#eee"},
+      close: {500: "#111"},
+      smudge: {500: "#f0f0f0"},
+      light: {500: "#ddd"},
       dark: {500: "#222"},
       white: "#fff",
       black: "#000",
     },
     nightwind: {
       colors: {
+        close: {500: "#f0f0f0"},
+        smudge: {500: "#111"},
         primary: {500: "#ff3a53"},
         opposite: {500: "#4caf1a"},
         light: {500: "#222"},

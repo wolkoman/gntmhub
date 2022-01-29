@@ -21,6 +21,8 @@
 .bg-dark{ @apply bg-dark-500; }
 .bg-primary{ @apply bg-primary-500; }
 .bg-opposite{ @apply bg-opposite-500; }
+.bg-close{ @apply bg-close-500; }
+.bg-smudge{ @apply bg-smudge-500; }
 
 .border-light{ @apply border-light-500; }
 .border-dark{ @apply border-dark-500; }

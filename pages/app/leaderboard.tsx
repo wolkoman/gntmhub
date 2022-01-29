@@ -21,10 +21,10 @@ const Home: NextPage = () => {
         <div className="max-w-xl mx-auto  space-y-4 py-4">
             {users
                 .sort((a, b) => b.score - a.score).map((user, index) => <div key={user.image} className="flex">
-                <div className={`font-bold mr-2 w-16  ${index < 3 ? 'text-6xl' : 'text-5xl'} ${user.name === me?.username ? 'text-primary' : 'text-light'}`}>
+                <div className={`font-bold mr-2 w-16  ${index < 3 ? 'text-6xl' : 'text-5xl'} ${user.name === me?.username ? 'text-primary' : 'text-white'}`}>
                     {index+1}
                 </div>
-                <div className={`bg-light px-4 ${index < 3 ? ' py-2' : ''} flex justify-between items-center w-full`}>
+                <div className={`bg-white border border-light px-4 ${index < 3 ? ' py-2' : ''} flex justify-between items-center w-full shadow`}>
                     <div className="flex space-x-2">
                         <img src={user.image} className="w-8 flex-shrink-0"/>
                         <div className="text-lg">{user.name}</div>
