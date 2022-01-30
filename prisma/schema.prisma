@@ -23,6 +23,17 @@ model User {
   admin              Boolean
   image              String
   rawImage           String
+  Dividend           Dividend[]
+}
+
+model Dividend {
+  id            Int       @id @default(autoincrement())
+  user          User      @relation(fields: [userMail], references: [mail])
+  userMail      String
+  candidate     Candidate @relation(fields: [candidateName], references: [name])
+  candidateName String
+  time          Int
+  points        Decimal
 }
 
 model Candidate {
@@ -31,6 +42,7 @@ model Candidate {
   Stock            Stock[]
   terminated       Boolean            @default(false)
   CandidateHistory CandidateHistory[]
+  Dividend         Dividend[]
 }
 
 model UserHistory {
@@ -48,7 +60,7 @@ model CandidateHistory {
   candidate     Candidate @relation(fields: [candidateName], references: [name])
   candidateName String
   amount        Int
-  time     Int
+  time          Int
 
   @@unique([candidateName, time])
 }
@@ -60,7 +72,7 @@ model Stock {
   userMail      String
   candidate     Candidate @relation(fields: [candidateName], references: [name])
   candidateName String
-  active        Boolean @default(true)
+  active        Boolean   @default(true)
 
   @@unique([userMail, candidateName])
 }

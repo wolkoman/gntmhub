@@ -28,7 +28,7 @@ export function calculateStocksForPrice(
 }
 
 export function price(value: number, hidePoints?: boolean) {
-    return Math.round(value*100)/100 + (hidePoints?"":"g-points");
+    return Math.round(value*100)/100 + (hidePoints?"":" g-points");
 }
 
 export function payout(date = new Date()) {

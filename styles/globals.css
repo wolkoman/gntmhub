@@ -39,18 +39,12 @@
     0% { left: -50px; }
     100% { left: 100%; }
 }
-.dark .dark-fill-black{
-    fill: black;
-}
-.dark .dark-fill-white{
-    fill: white;
-}
-.dark .dark-stroke-black{
-    stroke: black;
-}
-.dark .dark-stroke-white{
-    stroke: white;
-}
-.dark .dark-invert{
-    @apply invert;
+.dark .dark-fill-black{fill: black;}
+.dark .dark-fill-white{fill: white;}
+.dark .dark-stroke-black{stroke: black;}
+.dark .dark-stroke-white{stroke: white;}
+.dark .dark-invert{@apply invert;}
+
+.overflow-y-overlay{
+    overflow-y: overlay;
 }

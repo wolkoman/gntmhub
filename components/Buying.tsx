@@ -1,6 +1,7 @@
 import {calculatePrice, calculateStockPrice, calculateStocksForPrice, payout, price} from '../util/market';
 import {useState} from 'react';
 import {post, useCandidateStore, useUserStore} from '../util/client';
+import {accessTokenFactory} from '@auth0/nextjs-auth0/dist/session';
 
 function BuyingRect(props: { index: number, own?: boolean, selected?: boolean, onClick?: () => any, onMouseEnter: () => any, onMouseLeave?: () => any, hide?: boolean }) {
     return props.hide ? <></> : <div
@@ -24,7 +25,7 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
     const stockAmount = user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount ?? 0;
     const [hoveredTrade, setHoveredTrade] = useState<number>();
     const [trading, setTrading] = useState<{ loading: boolean, error?: string }>({loading: false});
-    const payableStocks = calculateStocksForPrice(user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount, +(user?.points as unknown as number)+payout());
+    const payableStocks = calculateStocksForPrice(user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount, +(user?.points as unknown as number) + payout());
 
     function trade(amount: number) {
         if (!candidate || !user) return;
@@ -45,7 +46,7 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
             });
     }
 
-    return <div className="flex flex-col lg:flex-row justify-between items-start relative">
+    return <div className="flex flex-col lg:flex-row justify-between items-start relative space-y-4 lg:space-y-0">
         <div className="flex-shrink-0">
             <div>Kandidatin</div>
             <div className="font-display text-xl font-bold mb-4">{candidate?.name}</div>
@@ -53,31 +54,45 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
             <div className="font-display text-xl font-bold">{price(calculateStockPrice(candidate?.stock! + 1))}
             </div>
         </div>
-        <div className={trading.loading ? 'pointer-events-none opacity-50' : ''}>
-            <div className="flex justify-between">
-                <div className="mb-2">Handel</div>
-                <div className={`mb-2 font-bold ${(hoveredTrade ?? 0) < 0 ? "text-opposite" : "text-primary"}`}>{hoveredTrade ? price(-calculatePrice(candidate?.stock!,hoveredTrade)) : <></>}</div>
+        <div className={`flex-shrink-0 ${candidate?.dividends.length || 'hidden'}`}>
+            <div>Dividenden</div>
+            <div className="font-display text-xl  mb-42">
+                {candidate?.dividends.map(dividend => <div key={dividend.time} className="flex">
+                <div className="w-16 font-bold">{new Date(dividend.time*3600000).toLocaleDateString().substring(0,5)}</div>
+                <div className="">{price(dividend.points)}</div>
+                </div>)}
             </div>
+        </div>
+        <div className={trading.loading ? 'pointer-events-none opacity-50' : 'w-full lg:w-auto'}>
+            <div className="flex flex-row lg:flex-row-reverse justify-between">
+                <div className="mb-2">Aktienhandel</div>
+                <div className={`mb-2 font-bold ${(hoveredTrade ?? 0) < 0 ? 'text-opposite' : 'text-primary'}`}>
+                    {hoveredTrade ? price(-calculatePrice(candidate?.stock!, hoveredTrade)) : <></>}</div>
+            </div>
+            <div className={stockAmount === 0 && payableStocks === 0 ? 'font-display font-bold text-xl' : 'hidden'}>
+                Kein Handel möglich
+            </div>
+            <div className="grid grid-cols-5 gap-10 lg:gap-2" onMouseLeave={() => setHoveredTrade(undefined)}>
+                {Array(stockAmount)
+                    .fill(0)
+                    .map((rect, index) => <BuyingRect
+                        key={index}
+                        index={index} own={true}
+                        hide={(stockAmount - 10) > index + (10 - Math.min(payableStocks, 10))}
+                        selected={(hoveredTrade ?? 0) <= (index - stockAmount)}
+                        onClick={() => trade(index - stockAmount)}
+                        onMouseEnter={() => setHoveredTrade(index - stockAmount)}/>)}
+                {Array(payableStocks).fill(0)
+                    .map((rect, index) => <BuyingRect
+                        key={index}
+                        index={index + stockAmount}
+                        hide={index >= 20 - Math.min(stockAmount, 10)}
+                        selected={(hoveredTrade ?? 0) >= (index + 1)}
+                        onClick={() => trade(index + 1)}
+                        onMouseEnter={() => setHoveredTrade(index + 1)}/>)}
 
-            {user && <div>
-              <div className="grid grid-cols-5 gap-1" onMouseLeave={() => setHoveredTrade(undefined)}>
-                  {Array(stockAmount)
-                      .fill(0)
-                      .map((rect, index) => <BuyingRect key={index} index={index} own={true}
-                                                        hide={(stockAmount-10)>index+(10-Math.min(payableStocks,10))}
-                                                        selected={(hoveredTrade ?? 0) <= (index - stockAmount)}
-                                                        onClick={() => trade(index - stockAmount)}
-                                                        onMouseEnter={() => setHoveredTrade(index - stockAmount)}/>)}
-                  {Array(payableStocks).fill(0)
-                      .map((rect, index) => <BuyingRect key={index} index={index + stockAmount}
-                                                        hide={index>=20-Math.min(stockAmount, 10)}
-                                                        selected={(hoveredTrade ?? 0) >= (index + 1)}
-                                                        onClick={() => trade(index + 1)}
-                                                        onMouseEnter={() => setHoveredTrade(index + 1)}/>)}
-
-              </div>
-              <div>{trading.error}</div>
-            </div>}
+            </div>
+            <div className="my-3 font-bold text-primary">{trading.error}</div>
         </div>
         <div
             className={`cursor-pointer absolute left-1/2 h-12 w-12 rounded-full bg-white border border-light -translate-x-1/2 -translate-y-1 transition ${props.selected ? '-top-12' : ''} flex justify-center`}

@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         if (user) router.push('/app');
-    }, [user]);
+    }, [user, router]);
 
     return <>
         <Head>

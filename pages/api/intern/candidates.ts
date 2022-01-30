@@ -3,14 +3,18 @@ import {PrismaClient} from '@prisma/client';
 
 export default withApiAuthRequired(async function test(req, res) {
 
-    //const { user } = getSession(req, res)!;
+    const { user } = getSession(req, res)!;
     const prisma = new PrismaClient();
     const candidates = await prisma.candidate.findMany();
     const stocks = await prisma.stock.groupBy({by: ['candidateName'], _sum: {amount: true}});
+    const dividends = await prisma.dividend.findMany({where: {userMail: user.email}})
     res.json({
         candidates: candidates.map(candidate => ({
             ...candidate,
-            stock: stocks.find(stock => stock.candidateName === candidate.name)!._sum.amount
+            stock: stocks.find(stock => stock.candidateName === candidate.name)!._sum.amount,
+            dividends: dividends
+                .filter(dividend => dividend.candidateName === candidate.name)
+                .map(dividend => ({...dividend, points: +dividend.points}))
         }))
     });
 });

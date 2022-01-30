@@ -17,7 +17,7 @@ export function Site(props: { children: ReactNode }) {
         <div className="flex flex-col-reverse lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none h-screen text-dark bg-smudge">
             <Navigation/>
             <div className="w-full h-full relative overflow-y-hidden">
-                <div className="h-full overflow-y-auto lg:p-6 px-4">
+                <div className="h-full overflow-y-overlay overlay lg:p-6 px-4">
                     {props.children}
                 </div>
             </div>

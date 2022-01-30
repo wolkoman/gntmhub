@@ -3,8 +3,8 @@ import create from 'zustand';
 import {LoadingStore, load} from './loadingStore';
 
 
-export const useCandidateStore = create<LoadingStore<{candidates: (Candidate & { stock: number })[]}> & {
-    getCandidate: (name: string) => (Candidate & { stock: number }),
+export const useCandidateStore = create<LoadingStore<{candidates: (Candidate & { stock: number, dividends: {time: number, points: number}[] })[]}> & {
+    getCandidate: (name: string) => (Candidate & { stock: number, dividends: {time: number, points: number}[] }),
     setCandidateStock: (name: string, stock: number) => any,
 }>((set, get) => ({
     candidates: [],
