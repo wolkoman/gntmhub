@@ -3,7 +3,7 @@
 
 generator client {
   provider        = "prisma-client-js"
-//  previewFeatures = ["dataProxy"]
+  previewFeatures = ["dataProxy"]
 }
 
 datasource db {
@@ -37,8 +37,10 @@ model UserHistory {
   id       Int     @id @default(autoincrement())
   user     User    @relation(fields: [userMail], references: [mail])
   userMail String
-  liquid   Decimal
-  stock    Decimal
+  points   Decimal
+  time     Int
+
+  @@unique([userMail, time])
 }
 
 model CandidateHistory {
@@ -46,6 +48,9 @@ model CandidateHistory {
   candidate     Candidate @relation(fields: [candidateName], references: [name])
   candidateName String
   amount        Int
+  time     Int
+
+  @@unique([candidateName, time])
 }
 
 model Stock {

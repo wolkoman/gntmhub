@@ -1,6 +1,7 @@
 import {getSession, withApiAuthRequired} from "@auth0/nextjs-auth0";
 import {PrismaClient} from "@prisma/client";
-import {calculatePrice, calculateStockPrice, payout} from '../../../util/market';
+import {calculatePrice, payout} from '../../../util/market';
+import {getCurrentTimeBlock} from "../../../util/timeBlock";
 
 export default withApiAuthRequired(async (req, res) => {
 
@@ -16,14 +17,14 @@ export default withApiAuthRequired(async (req, res) => {
         include: {Stock: {where: {candidate: {name: reqCandidateName}}}}
     }))!;
     const candidate = await prisma.candidate.findUnique({where: {name: reqCandidateName}, select: {terminated: true}});
-    const stocksResult = await prisma.stock.groupBy({
+    const stocks = await prisma.stock.groupBy({
         by: ['candidateName'],
         _sum: {amount: true},
         where: {candidateName: reqCandidateName}
     });
-    const stocks = stocksResult[0]._sum.amount!;
+    const stockAmount = stocks[0]._sum.amount!;
+    const price = calculatePrice(stockAmount, reqAmount);
 
-    const price = calculatePrice(stocks, reqAmount);
     if (!candidate || candidate.terminated) {
         res
             .status(402)
@@ -33,7 +34,7 @@ export default withApiAuthRequired(async (req, res) => {
     if (reqPrice !== price) {
         res
             .status(402)
-            .json({error: "Der Preis hat sich geändert", newStock: stocks});
+            .json({error: "Der Preis hat sich geändert", newStock: stockAmount});
         return;
     }
     if (price > user.points.toNumber() + payout()) {
@@ -49,18 +50,28 @@ export default withApiAuthRequired(async (req, res) => {
         return;
     }
 
-    const newPoints = Math.round((user.points.toNumber() - price)*100000)/100000;
+    const newPoints = user.points.toNumber() - price;
+    const newStock = stockAmount + reqAmount;
     await prisma.user.update({
         where: {mail: user.mail},
         data: {points: newPoints}
     });
-    await prisma.stock.updateMany({
-        where: {
-            candidate: {name: reqCandidateName},
-            user: {mail: user.mail}
-        },
+    await prisma.stock.update({
+        where: {userMail_candidateName: {userMail: user.mail, candidateName: reqCandidateName}},
         data: {amount: {increment: reqAmount}}
     });
 
-    res.json({newStock: stocks + reqAmount, newPoints});
+    const time = getCurrentTimeBlock();
+    await prisma.candidateHistory.upsert({
+        where: {candidateName_time: {candidateName: reqCandidateName, time}},
+        create: {candidateName: reqCandidateName, amount: newStock, time},
+        update: {amount: newStock, time}
+    });
+    await prisma.userHistory.upsert({
+        where: {userMail_time: {userMail: user.mail, time}},
+        create: {userMail: user.mail, time, points: newPoints},
+        update: {points: newPoints}
+    });
+
+    res.json({newStock, newPoints});
 });
