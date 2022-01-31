@@ -24,6 +24,7 @@ model User {
   image              String
   rawImage           String
   Dividend           Dividend[]
+  Membership         Membership[]
 }
 
 model Dividend {
@@ -43,6 +44,23 @@ model Candidate {
   terminated       Boolean            @default(false)
   CandidateHistory CandidateHistory[]
   Dividend         Dividend[]
+}
+
+model Leaderboard {
+  id         Int          @id @default(autoincrement())
+  name       String
+  code       String      @default("TEST") @unique
+  Membership Membership[]
+}
+
+model Membership {
+  User          User        @relation(fields: [userMail], references: [mail])
+  userMail      String
+  Leaderboard   Leaderboard @relation(fields: [leaderboardId], references: [id])
+  leaderboardId Int
+  owner         Boolean     @default(false)
+
+  @@id([userMail, leaderboardId])
 }
 
 model UserHistory {
