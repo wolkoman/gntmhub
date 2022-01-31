@@ -1,5 +1,4 @@
 import type {NextPage} from 'next'
-import {useEffect} from 'react';
 import {Site} from '../../../components';
 import {post, useRequireLogin, useUserStore} from '../../../util/client';
 import {useLeaderboardStore} from '../../../util/client/useLeaderboardStore';
@@ -8,7 +7,7 @@ import {useRouter} from 'next/router';
 const Home: NextPage = () => {
     useRequireLogin();
     const router = useRouter();
-    const [load, loading, leaderboards] = useLeaderboardStore(store => [store.load, store.loading, store.leaderboards]);
+    const [load] = useLeaderboardStore(store => [store.load]);
 
     function create() {
         const name = prompt("Wie heißt die neue Rangliste?");
@@ -17,12 +16,18 @@ const Home: NextPage = () => {
             return;
         }
         post("/api/intern/create-leaderboard", {name})
-            .then(() => router.push("/app/leaderboard"));
+            .then(() => {
+                load();
+                router.push('/app/leaderboard');
+            });
     }
     function join() {
         const code = prompt("Gib den Ranglisten Code ein");
         post("/api/intern/join-leaderboard", {code})
-            .then(() => router.push("/app/leaderboard"))
+            .then(() => {
+                load();
+                router.push('/app/leaderboard');
+            })
             .catch(({err}) => alert("Diese Rangliste existert nicht"));
     }
 
