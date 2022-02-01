@@ -9,11 +9,11 @@ module.exports = {
       sans: ["Lato"]
     },
     colors: {
-      primary: {500: "#aa0217"},
+      primary: {500: "#CB1634"},
       opposite: {500: "#206000"},
       close: {500: "#111"},
-      smudge: {500: "#f0f0f0"},
-      light: {500: "#ddd"},
+      smudge: {500: "#fafafa"},
+      light: {500: "#eeeeee"},
       dark: {500: "#222"},
       white: "#fff",
       black: "#000",
@@ -23,7 +23,7 @@ module.exports = {
         close: {500: "#f0f0f0"},
         smudge: {500: "#111"},
         primary: {500: "#ff3a53"},
-        opposite: {500: "#4caf1a"},
+        opposite: {500: "#CB1634"},
         light: {500: "#222"},
         dark: {500: "#eee"},
         white: "#000",

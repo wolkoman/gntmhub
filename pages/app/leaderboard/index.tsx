@@ -13,8 +13,12 @@ const Home: NextPage = () => {
     const [leaderboards, loaded, load, selected, setSelected, loadSelected] = useLeaderboardStore(store => [store.leaderboards, store.loaded, store.load, store.preferencedBoard, store.savePreference, store.loadPreference])
     const [me] = useUserStore(store => [store.user, store.load()]);
 
-    useEffect(() => {load();}, [load]);
-    useEffect(() => {loadSelected();}, [loadSelected]);
+    useEffect(() => {
+        load();
+    }, [load]);
+    useEffect(() => {
+        loadSelected();
+    }, [loadSelected]);
     useEffect(() => {
         if (loaded && leaderboards.length === 0) router.push('/app/leaderboard/join');
     }, [loaded, leaderboards, router]);
@@ -24,13 +28,14 @@ const Home: NextPage = () => {
         <div className="mx-auto max-w-xl">
             <div className="flex my-3 space-x-2">
                 {leaderboards.map(leaderboard => <div
-                    className={`text-sm px-3 py-0.5 cursor-pointer border border-light ${leaderboard.name === selected ? ' bg-primary text-white' : 'bg-white'}`}
+                    className={`text-sm px-3 py-0.5 cursor-pointer border border-light rounded-lg ${leaderboard.name === selected ? ' bg-primary text-white' : 'bg-white'}`}
                     key={leaderboard.name}
                     onClick={() => setSelected(leaderboard.name)}>{leaderboard.name}</div>)}
             </div>
 
+            <div className="flex flex-col space-y-2">
             {selected && <>
-                {selectedBoard?.users.sort((a,b) => b.score - a.score).map((user, index) => <div
+                {selectedBoard?.users.sort((a, b) => b.score - a.score).map((user, index) => <div
                     key={user.image}
                     className="flex"
                 >
@@ -39,7 +44,7 @@ const Home: NextPage = () => {
                         {index + 1}
                     </div>
                     <div
-                        className={`bg-white border border-light px-4 ${index < 3 ? ' py-2' : ''} flex justify-between items-center w-full shadow`}>
+                        className={`bg-white border border-light px-4 ${index < 3 ? ' py-2' : ''} flex justify-between items-center w-full shadow rounded-xl`}>
                         <div className="flex space-x-2">
                             <img src={user.image} className="w-8 flex-shrink-0"/>
                             <div className="text-lg">{user.name}</div>
@@ -48,11 +53,12 @@ const Home: NextPage = () => {
                     </div>
                 </div>)}
                 {selectedBoard && <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
-                <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
-                  weitere Infos
-                </div>
-              </Link>}
+                    <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
+                        weitere Infos
+                    </div>
+                </Link>}
             </>}
+            </div>
         </div>
     </Site>
 }

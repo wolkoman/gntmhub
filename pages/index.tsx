@@ -42,7 +42,7 @@ const Home: NextPage = () => {
                 <source src="https://data.eni.wien/storage/uploads/2022/01/29/gntm_uid_61f56bcd970bb.mp4" />
             </video>
             <div
-                className="inline-block shadow-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-dark p-12 text-center relative z-10">
+                className="inline-block shadow-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-dark p-12 text-center relative z-10 rounded-3xl">
                 <div className="flex justify-center">
                 <Brand/></div>
                 <div className="max-w-xl mx-auto font-display my-4">

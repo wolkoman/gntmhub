@@ -15,19 +15,19 @@ export function QuestionSubmission() {
         });
     }
 
-    return <div className={`border-2 border-light p-4 ${loading && 'pointer-events-none opacity-50'}`}>
+    return <div className={`border border-light bg-white rounded-xl shadow p-4 ${loading && 'pointer-events-none opacity-50'}`}>
         <div className="text-sm">Schlage eine Frage vor und erhalte g-points:</div>
         <div className="flex mt-1 space-x-2">
             <div className="w-full">
                 <input
-                    className="px-1 py-1 outline-none w-full"
+                    className="px-1 py-1 outline-none w-full bg-white"
                     placeholder="Wer hat die schönsten Haare?"
                     value={question}
                     onChange={({target}: { target: HTMLInputElement }) => setQuestion(target.value)}/>
                 <div className={`flex flex-wrap ${question.length === 0 && 'hidden'}`}>
                     {options.map((option, index) => <input
                         key={index}
-                        className="px-1 py-0.5 text-sm outline-none mt-1 mr-1"
+                        className="px-1 py-0.5 text-sm outline-none mt-1 mr-1 bg-white"
                         value={option}
                         onChange={({target}: { target: HTMLInputElement }) => setOptions(x => {
                             return x.map((o, i) => i === index ? target.value : o).filter(o => o !== '');
