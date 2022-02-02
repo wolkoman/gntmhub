@@ -3,11 +3,14 @@ import create from 'zustand';
 import {LoadingStore, load} from './loadingStore';
 
 
-export const useCandidateStore = create<LoadingStore<{candidates: (Candidate & { stock: number, dividends: {time: number, points: number}[] })[]}> & {
+export const useCandidateStore = create<LoadingStore<{
+    lockups: {start: number, end: number}[],
+    candidates: (Candidate & { stock: number, dividends: {time: number, points: number}[] })[]}> & {
     getCandidate: (name: string) => (Candidate & { stock: number, dividends: {time: number, points: number}[] }),
     setCandidateStock: (name: string, stock: number) => any,
 }>((set, get) => ({
     candidates: [],
+    lockups: [],
     ...load(set, get, '/api/intern/candidates'),
     getCandidate(name) {
         return get().candidates?.find(candidate => candidate.name === name)!;

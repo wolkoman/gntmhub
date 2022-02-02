@@ -1,12 +1,6 @@
-import {Question} from '@prisma/client'
 import type {NextPage} from 'next'
 import {Site} from '../../components/Site';
-import {QuestionSubmission} from '../../components/QuestionSubmission';
-import {Question as QuestionComponent} from '../../components/Question';
-import {post, useCandidateStore, useQuestionStore, useRequireLogin, useUserStore} from '../../util/client';
-import {useLeaderboardStore} from '../../util/client/useLeaderboardStore';
-import {price} from '../../util/market';
-import {useEffect} from 'react';
+import {post, useCandidateStore, useQuestionStore, useRequireLogin} from '../../util/client';
 
 const Home: NextPage = () => {
     useRequireLogin();
@@ -16,6 +10,10 @@ const Home: NextPage = () => {
     function terminate(name: string) {
         if (!confirm(`${name} TERMINIEREN?`)) return;
         post('/api/admin/terminate', {name}).then()
+    }
+    function answer(questionId: number, answerIndex: number) {
+        if (!confirm(`${answerIndex} BEANTWORTEN?`)) return;
+        post('/api/admin/answer', {questionId, answerIndex}).then()
     }
 
     return <Site>
@@ -33,7 +31,7 @@ const Home: NextPage = () => {
             <div className="font-bold text-2xl uppercase my-4">Fragen</div>
             {questions.map(question => <div key={question.id}>
                 <div>{question.text}</div>
-                {question.option.map(option => <div key={option}>{option}</div>)}
+                {question.option.map((option, i) => <div key={option} onClick={() => answer(question.id, i)}>{option}</div>)}
             </div>)}
         </div>
     </Site>

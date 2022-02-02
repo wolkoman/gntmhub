@@ -16,6 +16,8 @@ export default withApiAuthRequired(async (req, res) => {
         where: {mail: authUser.email},
         include: {Stock: {where: {candidate: {name: reqCandidateName}}}}
     }))!;
+    const now = new Date();
+    const lockup = await prisma.lockup.findMany({where: {AND:{start: {lt: now}, end: {gt: now}}}});
     const candidate = await prisma.candidate.findUnique({where: {name: reqCandidateName}, select: {terminated: true}});
     const stocks = await prisma.stock.groupBy({
         by: ['candidateName'],
@@ -29,6 +31,12 @@ export default withApiAuthRequired(async (req, res) => {
         res
             .status(402)
             .json({error: "Die Aktie ist eingefroren"});
+        return;
+    }
+    if (lockup.length > 0) {
+        res
+            .status(402)
+            .json({error: "Es besteht eine Aktiensperre", newStock: stockAmount});
         return;
     }
     if (reqPrice !== price) {

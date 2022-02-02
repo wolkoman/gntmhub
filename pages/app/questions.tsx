@@ -8,15 +8,28 @@ import {useQuestionStore, useRequireLogin} from '../../util/client';
 const Home: NextPage = () => {
     useRequireLogin();
     const [questions, setAnswer] = useQuestionStore(store => [store.questions, store.setMyAnswer, store.load()])
+    const activeQuestions = questions
+        .filter(question => new Date(question.deadline).getTime() > new Date().getTime())
+        .filter(question => question.Answer.length === 0);
 
     return <Site>
-        <div className="py-4">
+        {activeQuestions.length === 0 && <div className="py-4">
             <div className="font-display w-60 mx-auto my-24 text-center">
-                Die ersten Fragen werden am Donnerstag um spätestens 18:00 Uhr veröffentlicht.
+                Weitere Fragen werden am nächsten Donnerstag um spätestens 18:00 Uhr veröffentlicht.
             </div>
-            {questions.map(question => <QuestionComponent key={question.id} question={question} setAnswer={(answerId) => setAnswer(question.id, answerId)}/>)}
-        </div>
+        </div>}
+
+        {activeQuestions.map(question => <QuestionComponent
+                key={question.id}
+                question={question}
+                setAnswer={(answer) => setAnswer(question.id, answer)}
+            />)}
         <QuestionSubmission/>
+        {questions.filter(question => !activeQuestions.map(q => q.id).includes(question.id)).map(question => <QuestionComponent
+            key={question.id}
+            question={question}
+            setAnswer={(answer) => setAnswer(question.id, answer)}
+        />)}
     </Site>
 }
 

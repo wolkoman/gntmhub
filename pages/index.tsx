@@ -32,7 +32,7 @@ const Home: NextPage = () => {
 
     return <>
         <Head>
-            <title>GNTMHUB</title>
+            <title>gntmhub</title>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com"/>
             <link rel="icon" type="image/png" href="/g.png"/>

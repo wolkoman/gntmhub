@@ -46,10 +46,16 @@ model Candidate {
   Dividend         Dividend[]
 }
 
+model Lockup {
+  id    Int      @id @default(autoincrement())
+  start DateTime
+  end   DateTime
+}
+
 model Leaderboard {
   id         Int          @id @default(autoincrement())
   name       String
-  code       String      @default("TEST") @unique
+  code       String       @unique @default("TEST")
   Membership Membership[]
 }
 

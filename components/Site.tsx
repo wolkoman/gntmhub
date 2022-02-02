@@ -5,7 +5,7 @@ import {MobileTop, Navigation} from './Navigation';
 export function Site(props: { children: ReactNode }) {
 
     return <><Head>
-        <title>GNTMHUB</title>
+        <title>gntmhub</title>
         <meta name="description" content="Hub for Germany's Next Topmodel"/>
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eee"/>
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#222"/>

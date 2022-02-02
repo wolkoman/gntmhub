@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         post("/api/intern/create-leaderboard", {name})
             .then(() => {
                 load();
-                router.push('/app/leaderboard');
+                setTimeout(() => router.push('/app/leaderboard'), 1000);
             });
     }
     function join() {
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         post("/api/intern/join-leaderboard", {code})
             .then(() => {
                 load();
-                router.push('/app/leaderboard');
+                setTimeout(() => router.push('/app/leaderboard'), 1000);
             })
             .catch(({err}) => alert("Diese Rangliste existert nicht"));
     }
