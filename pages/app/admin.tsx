@@ -29,7 +29,7 @@ const Home: NextPage = () => {
                 </div>)
             }
             <div className="font-bold text-2xl uppercase my-4">Fragen</div>
-            {questions.map(question => <div key={question.id}>
+            {questions.filter(q => q.answerId === null).map(question => <div key={question.id}>
                 <div>{question.text}</div>
                 {question.option.map((option, i) => <div key={option} onClick={() => answer(question.id, i)}>{option}</div>)}
             </div>)}

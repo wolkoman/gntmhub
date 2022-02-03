@@ -26,6 +26,7 @@ export function Question(props: { question: Question & { Answer: Answer[] }, set
             {props.question.option.map((option, index) => <div
                 key={index}
                 className={`m-1 px-3 py-1 border-light bg-white border inline-block rounded
+                ${props.question.answerId === index && 'ring-4 ring-opposite-500'}
                 ${active && 'hover:bg-light cursor-pointer'}
                 ${index === answerIndex && 'bg-primary text-white'}`}
                 onClick={() => active ? answer(index) : {}}>
