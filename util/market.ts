@@ -21,7 +21,7 @@ export function calculateStocksForPrice(
     price: number
 ) {
     let amount = 1;
-    while (calculatePrice(stockIndex, amount) <= price) {
+    while (calculatePrice(stockIndex, amount) <= price || amount === 11) {
         amount++;
     }
     return amount - 1;

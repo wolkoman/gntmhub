@@ -11,7 +11,7 @@ export default withApiAuthRequired(async function test(req, res) {
         return;
     }
 
-    const leaderboard = await prisma.leaderboard.findUnique({where: {code: req.body.code}});
+    const leaderboard = await prisma.leaderboard.findUnique({where: {code: req.body.code.toUpperCase()}});
 
     if(!leaderboard){
         res.status(400).json({error: 'Diese Rangliste existiert nicht!'});

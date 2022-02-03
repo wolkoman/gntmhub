@@ -55,7 +55,7 @@ const Home: NextPage = () => {
                     <div className="bg-dark text-white font-display font-bold px-4 py-2 inline-block opacity-50"> Start
                         in {timeLeft}</div>}
                 {open && <Link href="/api/auth/login"><a
-                    className="bg-primary text-white font-display font-bold px-4 py-2 inline-block">Login</a></Link>}
+                    className="bg-primary text-white font-display font-bold px-4 py-2 inline-block rounded-lg hover:bg-dark-500">Login</a></Link>}
             </div>
         </div>
     </>

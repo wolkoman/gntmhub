@@ -13,17 +13,25 @@ const Home: NextPage = () => {
     const [selected, setSelected] = useState<string | undefined>();
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            const now = new Date().getTime();
+        const action = () => {
+            const now = new Date();
             setLockupsData({
-                upcoming: lockups.filter(lockup => lockup.start > now && lockup.start - 3600*1000*10 < now),
-                active: lockups.filter(lockup => lockup.start < now && lockup.end > now),
+                upcoming: lockups.filter(lockup => new Date(lockup.start) > now && new Date(lockup.start).getTime() - 3600*1000*10 < new Date(now).getTime()),
+                active: lockups.filter(lockup => new Date(lockup.start) < now && new Date(lockup.end) > now),
             });
-        }, 10000);
+        };
+        action();
+        const interval = setInterval(() => action(), 10000);
         return () => clearInterval(interval);
-    }, [setLockupsData]);
+    }, [lockups, setLockupsData]);
 
     return <Site>
+        {lockupsData.upcoming.map(data => <div key={data.start} className="p-2 px-4 bg-white italic opacity-50">
+            Die nächste Aktiensperre dauert von {new Date(data.start).toTimeString().substring(0,5)} bis {new Date(data.end).toTimeString().substring(0,5)} Uhr.
+        </div>)}
+        {lockupsData.active.map(data => <div key={data.start} className="p-2 px-4 bg-white font-bold rounded-lg bg-primary text-white">
+            Es ist eine Aktiensperre aktiv! Sie dauert bis {new Date(data.end).toTimeString().substring(0,5)} Uhr.
+        </div>)}
         <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full  py-4">
             {candidates
                 ?.sort((a, b) => b.stock - a.stock)
