@@ -33,12 +33,12 @@ export function price(value: number, hidePoints?: boolean) {
 
 export function payout(date = new Date()) {
     const now = date.getTime();
-    const begin = new Date("2022-02-02T18:00:00+02:00").getTime();
+    const begin = new Date("2022-02-02T18:00:00+01:00").getTime();
     if(begin > now) return 0;
     const payoutSize = 10;
     const passedDays = Math.floor(Math.max(0,now - begin) / (1000 * 60 * 60 * 24));
-    const weekendDays = Math.floor((passedDays+4) / 7) * 2;
-    const saturday = date.getDay() === 6 ? 1 : 0;
-    const diff = Math.min((passedDays - weekendDays + saturday) * payoutSize, 500);
+    const saturdaysPassed = Math.floor((passedDays+4) / 7);
+    const sundaysPassed = Math.floor((passedDays+3) / 7);
+    const diff = Math.min((passedDays - (saturdaysPassed + sundaysPassed)) * payoutSize, 500);
     return diff;
 }

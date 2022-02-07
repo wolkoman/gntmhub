@@ -50,12 +50,12 @@ export default withApiAuthRequired(async function test(req, res) {
         create: {userMail: user.mail, time: getCurrentTimeBlock(), points: user.points },
         update: {points: user.points}
     })));
-    await prisma.$transaction(userPayout.map(payout => prisma.dividend.create({
+    await prisma.$transaction(dividends.map(dividend => prisma.dividend.create({
         data: {
-            userMail: payout.userMail,
-            candidateName: payout.candidateName,
+            userMail: dividend.userMail,
+            candidateName: dividend.candidateName,
             time: getCurrentTimeBlock(),
-            points: payout.total
+            points: dividend.dividend
         }
     })));
 

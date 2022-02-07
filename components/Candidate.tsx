@@ -13,7 +13,7 @@ export function Candidate(props: { candidate: any, selected: boolean, onClick: (
             className={`font-display p-4 text-lg font-bold transition ${props.selected ? "text-xl" : ""}`}>
             {props.candidate.name}
         </div>
-        {props.candidate.terminated && <div className="absolute top-5 left-1/2 -translate-x-1/2 text-5xl">
+        {props.candidate.terminated && <div className="absolute top-11 lg:top-5 left-1/2 -translate-x-1/2 text-5xl">
             ☹️
         </div>}
 

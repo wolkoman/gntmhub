@@ -45,7 +45,7 @@ export default withApiAuthRequired(async (req, res) => {
             .json({error: "Der Preis hat sich geändert", newStock: stockAmount});
         return;
     }
-    if (price > user.points.toNumber() + payout()) {
+    if (price - (user.points.toNumber() + payout()) > 0.0001) {
         res
             .status(402)
             .json({error: "Zu wenig Geld für den Handel"});

@@ -44,7 +44,3 @@
 .dark .dark-stroke-black{stroke: black;}
 .dark .dark-stroke-white{stroke: white;}
 .dark .dark-invert{@apply invert;}
-
-.overflow-y-overlay{
-    overflow-y: overlay;
-}
