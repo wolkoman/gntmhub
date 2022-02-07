@@ -15,7 +15,7 @@ export function Brand() {
 
     return <Link href="/app">
         <div className="cursor-pointer relative overflow-hidden">
-            <div className={`absolute top-1 h-8 w-36 bg-black`}/>
+            <div className={`absolute left-1 top-1 h-8 w-[135px] bg-black`}/>
             <div className={`absolute top-1 h-8 w-16 bg-primary loader transition ${loading ? '' : 'opacity-0'}`}/>
             <img src="/NameLogo.svg" className="relative z-10 w-36 dark-invert"/>
         </div>

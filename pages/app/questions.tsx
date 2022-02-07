@@ -13,6 +13,7 @@ const Home: NextPage = () => {
         .filter(question => question.Answer.length === 0);
 
     return <Site>
+        <div className="mx-auto max-w-xl">
         {activeQuestions.length === 0 && <div className="py-4">
             <div className="font-display w-60 mx-auto my-24 text-center">
                 Weitere Fragen werden am nächsten Donnerstag um spätestens 18:00 Uhr veröffentlicht.
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
             question={question}
             setAnswer={(answer) => setAnswer(question.id, answer)}
         />)}
+        </div>
     </Site>
 }
 

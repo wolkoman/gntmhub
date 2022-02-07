@@ -4,7 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body{
+    height: 100%;
+}
 ::-webkit-scrollbar-thumb {
+    border-radius: 15px;
     background-color: #ddd;
     border: 6px solid transparent;
     background-clip: content-box;
@@ -12,6 +16,10 @@
 ::-webkit-scrollbar {
     width: 20px;
 }
+.fullheight {
+    height: calc(var(--vh, 1vh) * 100);
+}
+
 .text-light{ @apply text-light-500; }
 .text-dark{ @apply text-dark-500; }
 .text-primary{ @apply text-primary-500; }

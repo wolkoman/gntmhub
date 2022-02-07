@@ -19,10 +19,10 @@ const Home: NextPage = () => {
     return <Site>
         <div className="max-w-xl mx-auto">
             <div className="font-bold text-2xl uppercase my-4">Terminieren</div>
-            {candidates.filter(candidate => !candidate.terminated).map((candidate, index) =>
+            {candidates.filter(candidate => !candidate.terminated).map((candidate) =>
                 <div
                     key={candidate.name}
-                    className="inline-block px-4 px-2 m-2 cursor-pointer border border-light"
+                    className="inline-block px-4 py-2 m-1 cursor-pointer border border-light rounded"
                     onClick={() => terminate(candidate.name)}
                 >
                     {candidate.name}

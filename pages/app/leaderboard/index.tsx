@@ -28,36 +28,39 @@ const Home: NextPage = () => {
         <div className="mx-auto max-w-xl">
             <div className="flex my-3 space-x-2">
                 {leaderboards.map(leaderboard => <div
-                    className={`text-sm px-3 py-0.5 cursor-pointer border border-light rounded-lg ${leaderboard.name === selected ? ' bg-primary text-white' : 'bg-white'}`}
+                    className={`text-sm px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
+                    ${leaderboard.name === selected ? ' bg-primary text-white' : 'bg-white'}
+                    `}
                     key={leaderboard.name}
                     onClick={() => setSelected(leaderboard.name)}>{leaderboard.name}</div>)}
             </div>
 
             <div className="flex flex-col space-y-2">
-            {selected && <>
-                {selectedBoard?.users.sort((a, b) => b.score - a.score).map((user, index) => <div
-                    key={user.image}
-                    className="flex"
-                >
-                    <div
-                        className={`font-bold mr-2 w-16  ${index < 3 ? 'text-6xl' : 'text-5xl'} ${user.image === me?.image ? 'text-primary' : 'text-white'}`}>
-                        {index + 1}
-                    </div>
-                    <div
-                        className={`bg-white border border-light px-4 ${index < 3 ? ' py-2' : ''} flex justify-between items-center w-full shadow rounded-xl`}>
-                        <div className="flex space-x-2">
-                            <img src={user.image} className="w-8 flex-shrink-0"/>
-                            <div className="text-lg">{user.name}</div>
+                {selected && <>
+                    {selectedBoard?.users.sort((a, b) => b.score - a.score).map((user, index) => <div
+                        key={user.image}
+                        className="flex items-center"
+                    >
+                        <div className={`mr-2 w-16 text-4xl
+                        ${user.image === me?.image ? 'text-primary' : 'text-dark opacity-30'}
+                        `}>
+                            {index + 1}
                         </div>
-                        <div className="font-bold font-display">{price(user.score)}</div>
-                    </div>
-                </div>)}
-                {selectedBoard && <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
-                    <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
+                        <div
+                            className={`bg-white border border-light px-4 py-2 flex justify-between items-center w-full shadow-sm rounded-xl`}>
+                            <div className="flex space-x-2">
+                                <img src={user.image} className="w-8 flex-shrink-0 rounded-full" alt="user image"/>
+                                <div className="text-lg">{user.name}</div>
+                            </div>
+                            <div className="font-bold font-display">{price(user.score)}</div>
+                        </div>
+                    </div>)}
+                    {selectedBoard && <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
+                      <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
                         weitere Infos
-                    </div>
-                </Link>}
-            </>}
+                      </div>
+                    </Link>}
+                </>}
             </div>
         </div>
     </Site>
