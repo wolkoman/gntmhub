@@ -8,6 +8,7 @@ export function Site(props: { children: ReactNode }) {
         function setDocHeight() {
             document.documentElement.style.setProperty('--vh', `${window.innerHeight/100}px`);
         }
+        setTimeout(setDocHeight, 500);
         window.addEventListener('resize', setDocHeight);
         window.addEventListener('orientationchange', setDocHeight);
         return () => {

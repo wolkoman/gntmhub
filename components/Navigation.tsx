@@ -2,6 +2,7 @@ import {useUserStore} from '../util/client';
 import Link from 'next/link';
 import {Brand} from './Brand';
 import {User} from './User';
+import {useRouter} from 'next/router';
 
 export function Navigation() {
     const [user] = [useUserStore(store => store.user)];
@@ -29,9 +30,11 @@ export function Navigation() {
 }
 
 function NavigationLink(props: {label: string, image: string, link: string}) {
-    return <Link href={props.link}><a>
-        <div className="hidden lg:block hover:bg-light-500 px-4 py-2 rounded-lg">{props.label}</div>
-        <img src={props.image} className="w-12 lg:hidden dark:invert dark-invert"/>
+    const {route} = useRouter();
+    const active = route === props.link;
+    return <Link href={props.link}><a className={`my-1 rounded-lg select-none ${active ? 'bg-primary text-white' : ' hover:bg-light-500'}`}>
+        <div className="hidden lg:block px-4 py-2 rounded-lg">{props.label}</div>
+        <img src={props.image} className={`w-12 lg:hidden ${active ? 'invert' : 'dark:invert dark-invert'}`}/>
     </a></Link>;
 }
 
