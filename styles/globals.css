@@ -52,3 +52,20 @@ html, body{
 .dark .dark-stroke-black{stroke: black;}
 .dark .dark-stroke-white{stroke: white;}
 .dark .dark-invert{@apply invert;}
+
+@layer utilities {
+    .text-stroke {
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7) /* fallback */
+    }
+    @supports (-webkit-text-stroke: 1px rgba(255, 255, 255, 0.5)) {
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.5);
+            text-shadow: initial;
+        }    
+    }
+
+    .text-stroke-none {
+        -webkit-text-stroke: initial;
+        text-shadow: initial;
+    }
+}
