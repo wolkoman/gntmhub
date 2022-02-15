@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         {lockupsData.active.map(data => <div key={data.start} className="p-2 px-4 bg-white font-bold rounded-lg bg-primary text-white">
             Es ist eine Aktiensperre aktiv! Sie dauert bis {new Date(data.end).toTimeString().substring(0,5)} Uhr.
         </div>)}
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full  py-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2 lg:gap-4 w-full  py-4">
             {candidates
                 ?.sort((a, b) => b.stock - a.stock)
                 .sort((a, b) => (a.terminated ? 1 : 0) - (b.terminated ? 1 : 0))
@@ -48,7 +48,7 @@ const Home: NextPage = () => {
         <div
             className={`leading-4 absolute bottom-0 left-0 w-full transition  ${selected ? '' : 'translate-y-full'}`}>
             <div
-                className="lg:mx-6 bg-white border-light border drop-shadow-[0_-5px_5px_rgba(0,0,0,0.05)] p-6 rounded-t-xl ">
+                className="lg:mx-6 bg-white border-light border p-6 rounded-t-xl ">
                 <Buying selected={selected} onClose={() => setSelected(undefined)}/>
             </div>
         </div>

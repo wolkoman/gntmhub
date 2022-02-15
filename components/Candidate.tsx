@@ -2,8 +2,8 @@ import {calculateStockPrice, price} from "../util/market";
 
 export function Candidate(props: { candidate: any, selected: boolean, onClick: () => void, ownedStocks: number }) {
     return <div
-        className={`relative h-44 overflow-hidden flex flex-col justify-between select-none rounded-xl transition
-                    ${props.candidate.terminated ? "pointer-events-none cursor-auto" : `cursor-pointer  border-light border shadow-lg ${(props.selected ? "bg-primary text-white" : "bg-white text-dark")}`}`}
+        className={`relative h-44 overflow-hidden flex flex-col justify-between select-none rounded-lg transition
+                    ${props.candidate.terminated ? "pointer-events-none cursor-auto" : `cursor-pointer  border-light border ${(props.selected ? "bg-primary text-white" : "bg-white text-dark")}`}`}
         onClick={props.onClick}
     >
         <div

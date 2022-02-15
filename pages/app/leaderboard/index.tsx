@@ -64,7 +64,7 @@ const Home: NextPage = () => {
                 </div>
                 <div>
                     <Link href="/app/leaderboard/join">
-                        <div className="text-sm px-4 py-1 cursor-pointer border border-light rounded-lg font-bold">
+                        <div className="text-sm px-4 py-1 cursor-pointer bg-white border border-light rounded-lg font-bold">
                             +
                         </div>
                     </Link>
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                                 {index + 1}
                             </div>
                             <div
-                                className={`bg-white border border-light px-4 py-2 flex justify-between items-center w-full shadow-sm rounded-xl`}>
+                                className={`bg-white border border-light px-4 py-2 flex justify-between items-center w-full rounded-xl`}>
                                 <div className="flex space-x-2">
                                     <img src={user.image} className="w-8 flex-shrink-0 rounded-full" alt="user image"/>
                                     <div className="text-lg">{user.name}</div>

@@ -9,7 +9,7 @@ export function Navigation() {
     useUserStore(store => store.load());
 
     return <div
-        className="bg-white border-light border-t lg:border-r shadow-xl p-4 lg:p-6 lg:min-w-[250px] flex flex-col justify-between flex-shrink-0 my-0">
+        className="bg-white border-light border-t lg:border-r p-4 lg:p-6 lg:min-w-[250px] flex flex-col justify-between flex-shrink-0 my-0">
         <div>
             <div className="hidden lg:flex">
                 <Brand/>
@@ -32,7 +32,7 @@ export function Navigation() {
 function NavigationLink(props: {label: string, image: string, link: string}) {
     const {route} = useRouter();
     const active = route === props.link;
-    return <Link href={props.link}><a className={`my-1 rounded-lg select-none ${active ? 'bg-primary text-white' : ' hover:bg-light-500'}`}>
+    return <Link href={props.link}><a className={`my-1 rounded-lg select-none ${active ? 'bg-primary text-white' : ' hover:bg-smudge-500'}`}>
         <div className="hidden lg:block px-4 py-2 rounded-lg">{props.label}</div>
         <img src={props.image} className={`w-12 lg:hidden ${active ? 'invert' : 'dark:invert dark-invert'}`}/>
     </a></Link>;
@@ -40,7 +40,7 @@ function NavigationLink(props: {label: string, image: string, link: string}) {
 
 
 export function MobileTop() {
-    return <div className="lg:hidden bg-white border-b border-light shadow flex justify-between flex-shrink-0 px-4 py-3 overflow-x-hidden">
+    return <div className="lg:hidden bg-white border-b border-light flex justify-between flex-shrink-0 px-4 py-3 overflow-x-hidden">
         <Brand/>
         <User mobile={true}/>
     </div>;
