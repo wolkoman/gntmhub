@@ -41,10 +41,10 @@ const Home: NextPage = () => {
     return <Site>
         <div className="mx-auto max-w-xl">
 
-            <div className="flex my-4 justify-between">
-                <div className="flex space-x-2">
+            <div className="flex justify-between my-4">
+                <div className="flex flex-wrap">
                     <div
-                        className={`text-sm px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
+                        className={`text-sm my-1 mr-1 px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
                     ${"GLOBAL" === selected ? ' bg-primary text-white' : 'bg-white'}
                     `}
                         onClick={() => setSelected("GLOBAL")}
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
                     </div>
 
                     {leaderboards.map(leaderboard => <div
-                        className={`text-sm px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
+                        className={`text-sm my-1 mr-1 px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
                     ${leaderboard.name === selected ? ' bg-primary text-white' : 'bg-white'}
                     `}
                         key={leaderboard.name}
@@ -62,11 +62,13 @@ const Home: NextPage = () => {
                         {leaderboard.name}
                     </div>)}
                 </div>
-                <Link href="/app/leaderboard/join">
-                    <div className="text-sm px-4 py-1 cursor-pointer border border-light rounded-lg font-bold">
-                        +
-                    </div>
-                </Link>
+                <div>
+                    <Link href="/app/leaderboard/join">
+                        <div className="text-sm px-4 py-1 cursor-pointer border border-light rounded-lg font-bold">
+                            +
+                        </div>
+                    </Link>
+                </div>
             </div>
 
             <div className="flex flex-col space-y-2">
@@ -89,7 +91,9 @@ const Home: NextPage = () => {
                                     <img src={user.image} className="w-8 flex-shrink-0 rounded-full" alt="user image"/>
                                     <div className="text-lg">{user.name}</div>
                                 </div>
-                                <div className="font-bold font-display">{price(user.score)}</div>
+                                <div className="font-bold font-display">{price(user.score, true)}
+                                    <div className="hidden lg:inline"> g-points</div>
+                                </div>
                             </div>
                         </div>)}
                     {selectedBoard && selected !== "GLOBAL" &&
