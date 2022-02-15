@@ -34,24 +34,24 @@ export default withApiAuthRequired(async function test(req, res) {
         include: {Membership: {include: {Leaderboard: {include: {Membership: {include: {User: {select: {image: true}}}}}}}}}
     });
 
-    res.json({leaderboards: leaderboards!.Membership.map(membership => ({
-        owner: membership.owner,
-        name: membership.Leaderboard.name,
-        code: membership.Leaderboard.code,
-        users: membership.Leaderboard.Membership.map(membership => {
-                const user = users.find(u => membership.User.image === u.image)!;
-                return ({
-                    name: user.username,
-                    image: user.image,
-                    score: user.points.toNumber() + user.Stock.filter(stock => stock.active)
-                        .map(stock => -calculatePrice(
-                            candidatesStock.find(candidatesStock => candidatesStock.name === stock.candidate.name)!.stock,
-                            -stock.amount
-                        ))
-                        .reduce((x, a) => x + a, 0)
-                });
-            }
-        )
-    }))});
+    res.json({
+        users: users.map(user => ({
+                name: user.username,
+                image: user.image,
+                score: user.points.toNumber() + user.Stock.filter(stock => stock.active)
+                    .map(stock => -calculatePrice(
+                        candidatesStock.find(candidatesStock => candidatesStock.name === stock.candidate.name)!.stock,
+                        -stock.amount
+                    ))
+                    .reduce((x, a) => x + a, 0)
+            })
+        ),
+        leaderboards: leaderboards!.Membership.map(membership => ({
+            owner: membership.owner,
+            name: membership.Leaderboard.name,
+            code: membership.Leaderboard.code,
+            users: membership.Leaderboard.Membership.map(membership => ({image: membership.User.image}))
+        }))
+    });
 
 });

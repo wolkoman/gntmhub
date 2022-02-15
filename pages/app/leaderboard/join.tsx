@@ -37,8 +37,8 @@ const Home: NextPage = () => {
             <img src="/FillerLeaderboard.svg"/>
             <div className="text-lg">Trete einer Rangliste bei<br/> um dich mit deinen Freunden zu vergleichen!</div>
             <div className="flex space-x-4 my-4">
-                <div className="cursor-pointer px-3 py-1 bg-primary text-white font-display" onClick={join}>Beitreten</div>
-                <div className="cursor-pointer px-3 py-1 bg-white font-display" onClick={create}>Erstellen</div>
+                <div className="cursor-pointer px-4 py-2 rounded-lg font-bold bg-primary text-white font-display" onClick={join}>Beitreten</div>
+                <div className="cursor-pointer px-4 py-2 rounded-lg font-bold bg-white font-display" onClick={create}>Erstellen</div>
             </div>
 
         </div>

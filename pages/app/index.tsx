@@ -1,12 +1,6 @@
-import {Question} from '@prisma/client'
 import type {NextPage} from 'next'
 import {Site} from '../../components/Site';
-import {QuestionSubmission} from '../../components/QuestionSubmission';
-import {Question as QuestionComponent} from '../../components/Question';
-import {post, useCandidateStore, useQuestionStore, useRequireLogin, useUserStore} from '../../util/client';
-import {useLeaderboardStore} from '../../util/client/useLeaderboardStore';
-import {price} from '../../util/market';
-import {useEffect} from 'react';
+import {useRequireLogin} from '../../util/client';
 
 const Home: NextPage = () => {
     useRequireLogin();

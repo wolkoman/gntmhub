@@ -4,17 +4,19 @@ import {load, LoadingStore} from './loadingStore';
 
 const preferenceKey = 'GNTMHUB_PREFERENCE_BOARD';
 export const useLeaderboardStore = create<LoadingStore<{
+    users:{
+        name: string,
+        image: string,
+        score: number
+    }[],
     leaderboards: {
         owner: boolean,
         name: string,
         code: string;
-        users:{
-            name: string,
-            image: string,
-            score: number
-        }[]
+        users: { image: string }[]
     }[]
 }> & {preferencedBoard?: string, savePreference: (board: string) => void, loadPreference: () => void}>((set, get) => ({
+    users: [],
     leaderboards: [],
     preferencedBoard: undefined,
     ...load(set,get, '/api/intern/leaderboard', true),
