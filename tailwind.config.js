@@ -32,4 +32,5 @@ module.exports = {
     },
   },
   plugins: [require("nightwind")],
+  darkMode: 'class'
 }

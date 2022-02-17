@@ -19,12 +19,12 @@ export function Candidate(props: { candidate: any, selected: boolean, onClick: (
 
         <div className="flex justify-between items-end relative">
             <div className={props.ownedStocks && !props.candidate.terminated
-                ? `m-4 px-2 text-xl font-bold ${props.selected ? "text-white" : "text-primary"}`
+                ? `m-4 px-2 text-xl font-bold ${props.selected ? "text-white" : "text-primary text-stroke"} dark:text-stroke-none`
                 : "opacity-0"
             }>
                 {props.ownedStocks}
             </div>
-            <div className="font-display p-4 text-5xl opacity-70">
+            <div className={`font-display p-4 text-5xl opacity-70 ${!props.selected && "text-stroke"} dark:text-stroke-none`}>
                 {!props.candidate.terminated && <>
                     {price(calculateStockPrice(props.candidate.stock + 1), true)}
                     <span className="hidden lg:inline">gp</span></>
