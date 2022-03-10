@@ -18,6 +18,7 @@
     "nightwind": "^1.1.12",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "recharts": "^2.1.9",
     "victory": "^36.2.0",
     "zustand": "^3.6.9"
   },
