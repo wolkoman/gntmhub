@@ -7,11 +7,6 @@ import {getCurrentTimeBlock} from '../../../util/timeBlock';
 
 export default withApiAuthRequired(async function test(req, res) {
 
-    if (req.body.name === undefined) {
-        res.status(400).json({});
-        return;
-    }
-
     const {user: authUser} = getSession(req, res)!;
     const prisma = new PrismaClient();
 
@@ -22,12 +17,8 @@ export default withApiAuthRequired(async function test(req, res) {
         return;
     }
 
-    // terminate candidate
-    await prisma.candidate.update({where: {name: req.body.name}, data: {terminated: true}});
-    await prisma.stock.updateMany({where: {candidateName: req.body.name}, data: {active: false}});
-
     // calculate dividends and user payout
-    const dividendPot = 5;
+    const dividendPot = 2;
     const activeStocks = await prisma.stock.findMany({where: {active: {equals: true}, amount: {gt: 0}},});
     const totalStocks = sumCollection(activeStocks, 'candidateName', 'amount');
     const dividends = activeStocks.map(stock => {
@@ -60,5 +51,15 @@ export default withApiAuthRequired(async function test(req, res) {
     })));
 
     res.status(200).json({});
-
 });
+
+
+
+function sumCollection<Item extends Record<any, any>,
+    Sum extends Item[Sum] extends number ? keyof Item : never>
+(collection: Item[], crit: keyof Item, sum: Sum) {
+    return collection.reduce<(Item & { total: number })[]>((agg, item) => [
+        ...agg.filter(item2 => item2[crit] !== item[crit]),
+        {...item, total: (agg.find(item2 => item2[crit] === item[crit])?.total ?? 0) + (item[sum] as number)}
+    ], []);
+}

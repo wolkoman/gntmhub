@@ -49,7 +49,7 @@ const Home: NextPage = () => {
         <div
             className={`leading-4 absolute bottom-0 left-0 w-full transition  ${selected ? '' : 'translate-y-full'}`}>
             <div
-                className="lg:mx-6 bg-white border-light border drop-shadow-[0_-5px_5px_rgba(0,0,0,0.05)] p-6 rounded-t-xl ">
+                className="lg:mx-6 bg-white border-light border p-6 rounded-t-xl ">
                 <Buying selected={selected} onClose={() => setSelected(undefined)}/>
             </div>
         </div>

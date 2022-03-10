@@ -15,7 +15,7 @@ export function QuestionSubmission() {
         });
     }
 
-    return <div className={`border border-light bg-white rounded-xl shadow p-4 ${loading && 'pointer-events-none opacity-50'}`}>
+    return <div className={`border border-light bg-white rounded-xl p-4 ${loading && 'pointer-events-none opacity-50'}`}>
         <div className="text-sm">Schlage eine Frage vor und erhalte g-points:</div>
         <div className="flex mt-1 space-x-2">
             <div className="w-full">

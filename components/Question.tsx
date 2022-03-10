@@ -17,7 +17,7 @@ export function Question(props: { question: Question & { Answer: Answer[] }, set
     }
 
     return <div
-        className={`p-4 my-4 ${active && unanswered ? `bg-white border border-light shadow rounded-xl py-24 text-center` : ``} ${loading && 'pointer-events-none opacity-50'}`}
+        className={`p-4 my-4 ${active && unanswered ? `bg-white border border-light rounded-xl py-24 text-center` : ``} ${loading && 'pointer-events-none opacity-50'}`}
     >
         <div className="font-display text-xl font-bold">{props.question.text}</div>
         <div className="opacity-50 text-sm italic">Deadline: {deadline.toLocaleString()}</div>

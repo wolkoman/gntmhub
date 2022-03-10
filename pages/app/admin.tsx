@@ -9,11 +9,16 @@ const Home: NextPage = () => {
 
     function terminate(name: string) {
         if (!confirm(`${name} TERMINIEREN?`)) return;
-        post('/api/admin/terminate', {name}).then()
+        post('/api/admin/terminate', {name});
     }
     function answer(questionId: number, answerIndex: number) {
         if (!confirm(`${answerIndex} BEANTWORTEN?`)) return;
-        post('/api/admin/answer', {questionId, answerIndex}).then()
+        post('/api/admin/answer', {questionId, answerIndex});
+    }
+
+    function payout() {
+        if (!confirm(`AUSZAHLUNG?`)) return;
+        post('/api/admin/payout', {});
     }
 
     return <Site>
@@ -28,10 +33,16 @@ const Home: NextPage = () => {
                     {candidate.name}
                 </div>)
             }
-            <div className="font-bold text-2xl uppercase my-4">Fragen</div>
+            <div className="font-bold text-2xl uppercase my-4">DIVIDENDEN</div>
+            <div
+                className="inline-block px-4 py-2 m-1 cursor-pointer border border-light rounded"
+                onClick={() => payout()}
+            >
+                Auszahlungen
+            </div>            <div className="font-bold text-2xl uppercase my-4">Fragen</div>
             {questions.filter(q => q.answerId === null).map(question => <div key={question.id}>
                 <div>{question.text}</div>
-                {question.option.map((option, i) => <div key={option} onClick={() => answer(question.id, i)}>{option}</div>)}
+                {question.option.map((option, i) => <div key={option} className="inline-block px-4 py-2 m-1 cursor-pointer border border-light rounded" onClick={() => answer(question.id, i)}>{option}</div>)}
             </div>)}
         </div>
     </Site>

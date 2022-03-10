@@ -10,7 +10,7 @@ module.exports = {
     },
     colors: {
       primary: {500: "#CB1634"},
-      opposite: {500: "#206000"},
+      opposite: {500: "#7EA700"},
       close: {500: "#111"},
       smudge: {500: "#fafafa"},
       light: {500: "#eeeeee"},
@@ -23,7 +23,7 @@ module.exports = {
         close: {500: "#f0f0f0"},
         smudge: {500: "#111"},
         primary: {500: "#ff3a53"},
-        opposite: {500: "#CB1634"},
+        opposite: {500: "#7EA700"},
         light: {500: "#222"},
         dark: {500: "#eee"},
         white: "#000",
