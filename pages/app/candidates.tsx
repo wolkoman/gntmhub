@@ -3,12 +3,12 @@ import {Site} from '../../components/Site';
 import {useEffect, useState} from 'react';
 import {Buying} from '../../components/Buying';
 import {useCandidateStore, useRequireLogin, useUserStore} from '../../util/client';
-import {Candidate} from "../../components/Candidate";
+import {Candidate, CandidateShadow} from '../../components/Candidate';
 
 const Home: NextPage = () => {
     useRequireLogin();
     const [user] = useUserStore(store => [store.user, store.load()]);
-    const [candidates, lockups] = useCandidateStore(store => [store.candidates, store.lockups, store.load()]);
+    const [candidates, lockups, loading] = useCandidateStore(store => [store.candidates, store.lockups, store.loading, store.load()]);
     const [lockupsData, setLockupsData] = useState<{upcoming: any[], active: any[]}>({upcoming: [], active: []});
     const [selected, setSelected] = useState<string | undefined>();
 
@@ -33,6 +33,7 @@ const Home: NextPage = () => {
             Es ist eine Aktiensperre aktiv! Sie dauert bis {new Date(data.end).toTimeString().substring(0,5)} Uhr.
         </div>)}
         <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full  py-4">
+            {loading && Array(20).fill(0).map((_,index) => <CandidateShadow key={index}/>)}
             {candidates
                 ?.sort((a, b) => b.stock - a.stock)
                 .sort((a, b) => (a.terminated ? 1 : 0) - (b.terminated ? 1 : 0))

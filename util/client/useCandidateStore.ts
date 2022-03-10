@@ -5,8 +5,8 @@ import {LoadingStore, load} from './loadingStore';
 
 export const useCandidateStore = create<LoadingStore<{
     lockups: {start: string, end: string}[],
-    candidates: (Candidate & { stock: number, dividends: {time: number, points: number}[] })[]}> & {
-    getCandidate: (name: string) => (Candidate & { stock: number, dividends: {time: number, points: number}[] }),
+    candidates: (Candidate & { stock: number, dividends: {id: number, time: number, points: number}[], history: {amount: number}[] })[]}> & {
+    getCandidate: (name: string) => (Candidate & { stock: number, dividends: {id: number, time: number, points: number}[] }),
     setCandidateStock: (name: string, stock: number) => any,
 }>((set, get) => ({
     candidates: [],

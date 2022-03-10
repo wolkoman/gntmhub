@@ -1,7 +1,7 @@
 import {calculatePrice, calculateStockPrice, calculateStocksForPrice, payout, price} from '../util/market';
 import {useState} from 'react';
 import {post, useCandidateStore, useUserStore} from '../util/client';
-import {accessTokenFactory} from '@auth0/nextjs-auth0/dist/session';
+import {Scatter, ScatterChart, XAxis, YAxis} from 'recharts';
 
 function BuyingRect(props: { index: number, own?: boolean, mobile: boolean, selected?: boolean, onClick?: () => any, onMouseEnter?: () => any, onMouseLeave?: () => any, hide?: boolean }) {
     return props.hide ? <></> : <div
@@ -9,8 +9,8 @@ function BuyingRect(props: { index: number, own?: boolean, mobile: boolean, sele
         onMouseLeave={props.onMouseLeave}
         onClick={props.onClick}
         className={`cursor-pointer rounded ${props.mobile
-                ? 'h-10 w-full'
-                : 'w-8 h-8'
+            ? 'h-10 w-full'
+            : 'w-8 h-8'
         } ${props.selected
             ? (props.own
                 ? 'bg-primary text-white'
@@ -31,6 +31,13 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
     const [hoveredTrade, setHoveredTrade] = useState<number>();
     const [trading, setTrading] = useState<{ loading: boolean, error?: string }>({loading: false});
     const payableStocks = calculateStocksForPrice(user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount, +(user?.points as unknown as number) + payout());
+    const data02 = [
+        {x: 30, y: 20},
+        {x: 50, y: 180},
+        {x: 75, y: 240},
+        {x: 100, y: 100},
+        {x: 120, y: 190},
+    ];
 
     function trade(amount?: number) {
         if (!candidate || !user || !amount) return;
@@ -59,12 +66,20 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
             <div className="font-display text-xl font-bold">{price(calculateStockPrice(candidate?.stock! + 1))}
             </div>
         </div>
+        <div className="hidden lg:block">
+            <div>Wertverlauf</div>
+            <ScatterChart width={400} height={150}>
+                <Scatter data={candidate?.history} fill="#8884d8" line={{className: "line"}} shape={<></>}/>
+                <YAxis type="number" dataKey="x" name="weight"/>
+            </ScatterChart>
+        </div>
         <div className={`flex-shrink-0 ${candidate?.dividends.length || 'hidden'}`}>
             <div>Dividenden</div>
             <div className="font-display text-xl  mb-42">
-                {candidate?.dividends.map(dividend => <div key={dividend.time} className="flex">
-                <div className="w-16 font-bold">{new Date(dividend.time*3600000).toLocaleDateString().substring(0,5)}</div>
-                <div className="">{price(dividend.points)}</div>
+                {candidate?.dividends.map(dividend => <div key={dividend.id} className="flex">
+                    <div
+                        className="w-16 font-bold">{new Date(dividend.time * 3600000).toLocaleDateString().substring(0, 5)}</div>
+                    <div className="">{price(dividend.points)}</div>
                 </div>)}
             </div>
         </div>
@@ -119,9 +134,13 @@ export function Buying(props: { selected?: string, onClose: () => any }) {
                         onMouseEnter={() => setHoveredTrade(index + 1)}/>)}
 
             </div>
-            <div className="lg:hidden bg-black text-white p-4 rounded-lg font-bold font-display text-xl text-center mt-4" onClick={() => trade(hoveredTrade)}>Trade</div>
+            <div
+                className="lg:hidden bg-black text-white p-4 rounded-lg font-bold font-display text-xl text-center mt-4"
+                onClick={() => trade(hoveredTrade)}>Trade
+            </div>
 
-            {trading.error && <div className="my-3 font-bold text-primary border-2 border-primary p-2 rounded">{trading.error}</div>}
+            {trading.error &&
+              <div className="my-3 font-bold text-primary border-2 border-primary p-2 rounded">{trading.error}</div>}
         </div>
         <div
             className={`cursor-pointer absolute left-1/2 h-12 w-12 rounded-full bg-white border border-light -translate-x-1/2 -translate-y-1 transition ${props.selected ? '-top-12' : ''} flex justify-center`}

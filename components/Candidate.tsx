@@ -33,3 +33,7 @@ export function Candidate(props: { candidate: any, selected: boolean, onClick: (
         </div>
     </div>;
 }
+
+export function CandidateShadow(){
+    return <div className="h-44 rounded-xl shimmer shadow-lg"/>;
+}
