@@ -27,7 +27,7 @@ export default withApiAuthRequired(async function test(req, res) {
     await prisma.stock.updateMany({where: {candidateName: req.body.name}, data: {active: false}});
 
     // calculate dividends and user payout
-    const dividendPot = 1;
+    const dividendPot = 5;
     const activeStocks = await prisma.stock.findMany({where: {active: {equals: true}, amount: {gt: 0}},});
     const totalStocks = sumCollection(activeStocks, 'candidateName', 'amount');
     const dividends = activeStocks.map(stock => {

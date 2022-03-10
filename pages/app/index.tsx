@@ -12,6 +12,14 @@ const Home: NextPage = () => {
     useRequireLogin();
     return <Site>
         <div className="max-w-xl mx-auto text-xl my-10">
+            <div className=" bg-white shadow-xl rounded-lg p-5">
+                <div className="font-display font-bold text-3xl my-4">PSA 10.03.: Preisgeld Änderung</div>
+                <div className="text-md">
+                    Ab heute werden pro richtiger Frage 4 g-points ausgeschüttet.<br/>
+                    Der Dividendenpot der pro Model ausgeschüttet wird, beträgt 5 gpoints.
+
+                </div>
+            </div>
             <div className="font-display font-bold text-3xl my-4">Hey Topmodel!</div>
             <div className="text-xl">
                 Willkomen zu einer weiteren Staffel Topmodel und zu einem weiteren Spiel auf GNTMHUB. Hier das Wichtigste:

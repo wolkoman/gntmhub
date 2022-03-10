@@ -26,7 +26,7 @@ export default withApiAuthRequired(async function test(req, res) {
     await prisma.question.update({where: {id: req.body.questionId}, data:{ answerId: req.body.answerIndex}});
 
     // give price
-    const price = 1;
+    const price = 4;
     const correctAnswers = await prisma.answer.findMany({where: {questionId: req.body.questionId, answerIndex: req.body.answerIndex}});
     const users = await prisma.$transaction(correctAnswers.map(answer => prisma.user.update({
         where: {mail: answer.userMail},
