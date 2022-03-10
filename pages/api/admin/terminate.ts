@@ -4,6 +4,7 @@ import is from '@sindresorhus/is';
 import undefined = is.undefined;
 import {payout} from '../../../util/market';
 import {getCurrentTimeBlock} from '../../../util/timeBlock';
+import {sumCollection} from './payout';
 
 export default withApiAuthRequired(async function test(req, res) {
 

@@ -55,7 +55,7 @@ export default withApiAuthRequired(async function test(req, res) {
 
 
 
-function sumCollection<Item extends Record<any, any>,
+export function sumCollection<Item extends Record<any, any>,
     Sum extends Item[Sum] extends number ? keyof Item : never>
 (collection: Item[], crit: keyof Item, sum: Sum) {
     return collection.reduce<(Item & { total: number })[]>((agg, item) => [
