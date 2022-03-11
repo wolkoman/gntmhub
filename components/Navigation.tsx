@@ -1,15 +1,16 @@
-import {useUserStore} from '../util/client';
+import {useCandidateStore, useQuestionStore, useUserStore} from '../util/client';
 import Link from 'next/link';
 import {Brand} from './Brand';
 import {User} from './User';
 import {useRouter} from 'next/router';
+import {useLeaderboardStore} from '../util/client/useLeaderboardStore';
 
 export function Navigation() {
     const [user] = [useUserStore(store => store.user)];
     useUserStore(store => store.load());
 
     return <div
-        className="bg-white border-light border-t lg:border-r p-4 lg:p-6 lg:min-w-[250px] flex flex-col justify-between flex-shrink-0 my-0">
+        className="bg-white border-light border-t lg:border-r p-4 lg:p-6 lg:min-w-[250px] flex flex-col justify-between flex-shrink-0 my-0 relative">
         <div>
             <div className="hidden lg:flex">
                 <Brand/>
@@ -39,8 +40,22 @@ function NavigationLink(props: {label: string, image: string, link: string}) {
 }
 
 
+export function LoadingBar() {
+
+    const loadings = [
+        useCandidateStore(store => store.loading),
+        useUserStore(store => store.loading),
+        useQuestionStore(store => store.loading),
+        useLeaderboardStore(store => store.loading),
+    ];
+    useUserStore(store => store.load());
+    const loading = loadings.reduce((p, c) => p || c, false);
+
+    return <div className={`w-1/4 bg-primary h-1 absolute transition left-0 top-0 loader z-40 ${loading ? '' : 'opacity-0'}`}/>;
+}
+
 export function MobileTop() {
-    return <div className="lg:hidden bg-white border-b border-light flex justify-between flex-shrink-0 px-4 py-3 overflow-x-hidden">
+    return <div className="lg:hidden bg-white border-b border-light flex justify-between flex-shrink-0 px-4 py-3 overflow-x-hidden relative">
         <Brand/>
         <User mobile={true}/>
     </div>;

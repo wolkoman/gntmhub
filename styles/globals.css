@@ -45,12 +45,12 @@ html, body{
 
 .loader{
     animation-name: load2;
-    animation-duration: .8s;
+    animation-duration: 2.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
 @keyframes load2 {
-    0% { left: -50px; }
+    0% { left: -25%; }
     100% { left: 100%; }
 }
 
