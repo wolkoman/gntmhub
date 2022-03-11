@@ -37,7 +37,7 @@ export function BuyingPanel({candidate}: { candidate?: ExtendedCandidate }) {
     }
 
 
-    return <div className={`w-full lg:w-auto ${request.loading ? 'pointer-events-none opacity-50' : ''}`}>
+    return <div className={`w-full lg:w-auto  shrink-0 ${request.loading ? 'pointer-events-none opacity-50' : ''}`}>
         <div className="flex flex-row lg:flex-row-reverse justify-between">
             <div className="mb-2">Aktienhandel</div>
             <div className={`mb-2 font-bold ${(activeTrade ?? 0) < 0 ? 'text-opposite' : 'text-primary'}`}>

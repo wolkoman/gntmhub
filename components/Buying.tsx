@@ -21,7 +21,7 @@ export function Buying(props: { selected: string, onClose: () => any }) {
                         {price(calculateStockPrice(candidate?.stock! + 1))}
                     </div>
                 </div>
-                <div style={{ backgroundImage: `url(${candidate.picture})`}} className="w-full bg-cover bg-top h-52 bg-smudge shadow rounded-lg"/>
+                <div style={{ backgroundImage: `url(${candidate.picture})`}} className="lg:hidden w-full bg-cover bg-top h-52 bg-smudge shadow rounded-lg"/>
             </div>
             <div className="hidden lg:block">
                 <div>Wertverlauf</div>
@@ -32,7 +32,7 @@ export function Buying(props: { selected: string, onClose: () => any }) {
             </div>
             <div className={`flex-shrink-0 ${candidate?.dividends.length || 'hidden'}`}>
                 <div>Dividenden</div>
-                <div className="font-display text-xl  mb-42">
+                <div className="font-display text-xl mb-42 w-full">
                     {candidate?.dividends.map(dividend => <div key={dividend.id} className="flex">
                         <div className="w-16 font-bold">
                             {new Date(dividend.time * 3600000).toLocaleDateString().substring(0, 5)}
