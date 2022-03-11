@@ -10,9 +10,9 @@ export function Navigation() {
     useUserStore(store => store.load());
 
     return <div
-        className="bg-white border-light border-t lg:border-r p-4 lg:p-6 lg:min-w-[250px] flex flex-col justify-between flex-shrink-0 my-0 relative">
+        className="bg-white border-light border-t lg:border-r p-1 lg:p-3 flex flex-col justify-between flex-shrink-0 my-0 relative">
         <div>
-            <div className="hidden lg:flex">
+            <div className="hidden lg:flex text-3xl rotate-180" style={{textOrientation: "mixed", writingMode: "vertical-lr"}}>
                 <Brand/>
             </div>
             <div className="flex lg:flex-col space-x-2 justify-around lg:space-x-0 lg:mt-6">
@@ -34,8 +34,7 @@ function NavigationLink(props: {label: string, image: string, link: string}) {
     const {route} = useRouter();
     const active = route === props.link;
     return <Link href={props.link}><a className={`my-1 rounded-lg select-none ${active ? 'bg-primary text-white' : ' hover:bg-smudge-500'}`}>
-        <div className="hidden lg:block px-4 py-2 rounded-lg">{props.label}</div>
-        <img src={props.image} className={`w-12 lg:hidden ${active ? 'invert' : 'dark:invert dark-invert'}`}/>
+        <img src={props.image} className={`w-12 ${active ? 'invert' : 'dark:invert dark-invert'}`}/>
     </a></Link>;
 }
 
@@ -56,7 +55,7 @@ export function LoadingBar() {
 
 export function MobileTop() {
     return <div className="lg:hidden bg-white border-b border-light flex justify-between flex-shrink-0 px-4 py-3 overflow-x-hidden relative">
-        <Brand/>
+        <div className="text-3xl"><Brand/></div>
         <User mobile={true}/>
     </div>;
 }

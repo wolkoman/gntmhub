@@ -56,7 +56,7 @@ html, body{
 
 .shimmer{
     animation: shimmer 2s linear infinite;
-    background: linear-gradient(90deg,#f5f5f5 4%,#e8e8e8 25%,#f5f5f5 36%);
+    background: linear-gradient(90deg,#fff 4%,#e8e8e8 25%,#fff 36%);
     background-size: 1000px 100%;
 }
 .line{

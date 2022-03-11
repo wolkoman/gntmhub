@@ -25,6 +25,7 @@ export default withApiAuthRequired(async function test(req, res) {
             dividends: dividends
                 .filter(dividend => dividend.candidateName === candidate.name)
                 .map(dividend => ({...dividend, points: +dividend.points}))
+                .slice(-3)
         }))
     });
 });

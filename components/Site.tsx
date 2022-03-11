@@ -27,12 +27,12 @@ export function Site(props: { children: ReactNode }) {
         <link rel="icon" type="image/png" href="/g.png"/>
         <link rel="manifest" href="js13kpwa.webmanifest"/>
     </Head>
-<div className="relative bg-primary overflow-x-hidden">
+<div className="relative overflow-x-hidden">
         <LoadingBar/>
         <div className="flex flex-col-reverse lg:flex-row mx-auto max-w-[800px] lg:mx-0 lg:max-w-none fullheight text-dark bg-white">
             <Navigation/>
             <div className="w-full h-full relative overflow-y-hidden bg-smudge">
-                <div className="h-full overflow-y-auto lg:p-6 px-4">
+                <div className="h-full overflow-y-auto lg:p-6 px-4 ">
                     {props.children}
                 </div>
             </div>
