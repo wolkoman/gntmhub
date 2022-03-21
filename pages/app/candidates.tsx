@@ -39,7 +39,7 @@ function Lockup() {
 const Home: NextPage = () => {
     useRequireLogin();
     const [user] = useUserStore(store => [store.user, store.load()]);
-    const [candidates, lockups, loading] = useCandidateStore(store => [store.candidates, store.lockups, store.loading, store.load()]);
+    const [candidates, loading] = useCandidateStore(store => [store.candidates, store.loading, store.load()]);
     const [selected, setSelected] = useState<string | undefined>();
 
 
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
             {loading && Array(20).fill(0).map((_, index) => <CandidateShadow key={index}/>)}
             {candidates
                 ?.sort((a, b) => b.stock - a.stock)
-                .filter(candidate => !candidate.terminated)
+                ?.sort((a, b) => (a.terminated?1:0) - (b.terminated?1:0))
                 .map(candidate => {
                     return <Candidate
                         key={candidate.name}

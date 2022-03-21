@@ -4,13 +4,13 @@ import {useUser} from '@auth0/nextjs-auth0';
 import {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import {Brand} from "../components/Brand";
+import {Brand} from '../components/Brand';
 
 const Home: NextPage = () => {
 
     const router = useRouter();
     const {user} = useUser();
-    const [timeLeft, setTimeLeft] = useState("");
+    const [timeLeft, setTimeLeft] = useState('');
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -39,12 +39,13 @@ const Home: NextPage = () => {
         </Head>
         <div className="h-screen w-screen">
             <video autoPlay={true} muted className="object-cover absolute top-0 left-0 w-screen h-screen" loop={true}>
-                <source src="https://data.eni.wien/storage/uploads/2022/01/29/gntm_uid_61f56bcd970bb.mp4" />
+                <source src="https://data.eni.wien/storage/uploads/2022/01/29/gntm_uid_61f56bcd970bb.mp4"/>
             </video>
             <div
-                className="inline-block shadow-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-dark p-12 text-center relative z-10 rounded-3xl">
-                <div className="flex justify-center">
-                <Brand/></div>
+                className="inline-block shadow-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/40 backdrop-blur-xl text-dark p-10 text-center relative z-10 rounded-3xl w-80">
+                <div className="flex justify-center text-3xl">
+                    <Brand/>
+                </div>
                 <div className="max-w-xl mx-auto font-display my-4">
                     Die virtuelle, just-for-fun Plattform zu der Casting-Serie „Germanys Next Topmodel“ mit
                     Aktienhandel,
@@ -52,10 +53,10 @@ const Home: NextPage = () => {
                 </div>
 
                 {!open &&
-                    <div className="bg-dark text-white font-display font-bold px-4 py-2 inline-block opacity-50"> Start
-                        in {timeLeft}</div>}
+                  <div className="bg-dark text-white font-display font-bold px-4 py-2 inline-block opacity-50"> Start
+                    in {timeLeft}</div>}
                 {open && <Link href="/api/auth/login"><a
-                    className="bg-primary text-white font-display font-bold px-4 py-2 inline-block rounded-lg hover:bg-dark-500">Login</a></Link>}
+                  className="bg-primary text-white w-full font-display font-bold px-4 py-2 inline-block rounded-lg hover:bg-dark-500">Login</a></Link>}
             </div>
         </div>
     </>

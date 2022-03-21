@@ -1,11 +1,27 @@
 import type {NextPage} from 'next'
-import {useEffect, useState} from 'react';
+import {ReactNode, useEffect, useState} from 'react';
 import {Site} from '../../../components';
 import {useRequireLogin, useUserStore} from '../../../util/client';
 import {useLeaderboardStore} from '../../../util/client/useLeaderboardStore';
 import {useRouter} from 'next/router';
-import {price} from '../../../util/market';
+import {payout, price} from '../../../util/market';
 import Link from 'next/link';
+
+function UserCard(props: { index: number, user: any }) {
+    return <div
+        className={`bg-white border border-light px-4 py-7 w-full rounded-xl space-y-3 text-center h-full`}>
+        <div className="font-bold">
+            {props.index + 1}
+        </div>
+        <div className="flex space-x-2 justify-center">
+            <img src={props.user.image} className="w-8 flex-shrink-0 rounded-full" alt="user image"/>
+            <div className="text-2xl font-bold">{props.user.name}</div>
+        </div>
+        <div className="">{price(props.user.score + payout(), true)}
+            <div className="hidden lg:inline"> g-points</div>
+        </div>
+    </div>;
+}
 
 const Home: NextPage = () => {
     useRequireLogin();
@@ -30,82 +46,93 @@ const Home: NextPage = () => {
         if (loaded && leaderboards.length === 0) router.push('/app/leaderboard/join');
     }, [loaded, leaderboards, router]);
 
-    const selectedBoard = selected === "GLOBAL"
-        ? {
-            owner: false,
-            name: "GLOBAL",
-            code: "",
-            users
-        }
+    const isGlobal = selected === 'GLOBAL';
+    const selectedBoard = isGlobal
+        ? {owner: false, name: 'GLOBAL', code: '', users}
         : leaderboards.find(board => board.name === selected);
+    const boardUser = selectedBoard?.users
+        .map(user => users.find(u => u.image === user.image)!)
+        .sort((a, b) => b.score - a.score);
+
     return <Site>
         <div className="mx-auto max-w-xl">
 
             <div className="flex justify-between my-4">
                 <div className="flex flex-wrap">
-                    <div
-                        className={`text-sm my-1 mr-1 px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
-                    ${"GLOBAL" === selected ? ' bg-primary text-white' : 'bg-white'}
-                    `}
-                        onClick={() => setSelected("GLOBAL")}
-                    >
+                    <LeaderboardButton selected={selectedBoard?.name === "GLOBAL"} onClick={() => setSelected('GLOBAL')}>
                         🌐 Global
-                    </div>
+                    </LeaderboardButton>
 
-                    {leaderboards.map(leaderboard => <div
-                        className={`text-sm my-1 mr-1 px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
-                    ${leaderboard.name === selected ? ' bg-primary text-white' : 'bg-white'}
-                    `}
-                        key={leaderboard.name}
-                        onClick={() => setSelected(leaderboard.name)}
-                    >
-                        {leaderboard.name}
-                    </div>)}
+                    {leaderboards.map(leaderboard => <LeaderboardButton
+                        selected={leaderboard.name === selectedBoard?.name}
+                            key={leaderboard.name}
+                            onClick={() => setSelected(leaderboard.name)}
+                        >
+                            {leaderboard.name}
+                        </LeaderboardButton>
+                    )}
                 </div>
-                <div>
-                    <Link href="/app/leaderboard/join">
-                        <div className="text-sm px-4 py-1 cursor-pointer bg-white border border-light rounded-lg font-bold">
-                            +
-                        </div>
-                    </Link>
-                </div>
+                <LeaderboardButton onClick={() => router.push('/app/leaderboard/join')}>
+                    +
+                </LeaderboardButton>
             </div>
 
             <div className="flex flex-col space-y-2">
                 {selected && <>
-                    {selectedBoard?.users
-                        .map(user => users.find(u => u.image === user.image)!)
-                        .sort((a, b) => b.score - a.score)
-                        .map((user, index) => <div
-                            key={user.image}
-                            className="flex items-center"
-                        >
-                            <div className={`mr-4 w-16 text-4xl font-bold text-right
-                        ${user.image === me?.image ? 'text-primary' : 'text-dark opacity-30'}
-                        `}>
-                                {index + 1}
-                            </div>
-                            <div
-                                className={`bg-white border border-light px-4 py-2 flex justify-between items-center w-full rounded-xl`}>
-                                <div className="flex space-x-2">
-                                    <img src={user.image} className="w-8 flex-shrink-0 rounded-full" alt="user image"/>
-                                    <div className="text-lg">{user.name}</div>
-                                </div>
-                                <div className="font-bold font-display">{price(user.score, true)}
-                                    <div className="hidden lg:inline"> g-points</div>
-                                </div>
-                            </div>
-                        </div>)}
-                    {selectedBoard && selected !== "GLOBAL" &&
-                        <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
-                            <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
-                                teile diese Rangliste mit anderen
-                            </div>
-                        </Link>}
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="mt-12"><UserCard index={2} user={boardUser?.[2]}/></div>
+                    <div className="mt-0"><UserCard index={0} user={boardUser?.[0]}/></div>
+                    <div className="mt-6"><UserCard index={1} user={boardUser?.[1]}/></div>
+                  </div>
+                  <br/>
+                    {boardUser?.slice(3).map((user, index) =>
+                        <UserEntry key={user.image} user={user} index={index} me={user.image === me?.image}/>
+                    )}
+
+                    {selectedBoard && selected !== 'GLOBAL' &&
+                      <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
+                        <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
+                          teile diese Rangliste mit anderen
+                        </div>
+                      </Link>}
                 </>}
             </div>
         </div>
     </Site>
+}
+
+function UserEntry(props: { user: any, me: boolean, index: number }) {
+    return <div
+
+        className="flex items-center"
+    >
+        <div className={`mr-4 w-16 text-4xl font-bold text-right `}>
+            <div className={props.me ? 'text-primary' : 'text-dark opacity-30'}>
+                {props.index + 4}
+            </div>
+        </div>
+        <div
+            className={`bg-white border border-light px-4 py-2 flex justify-between items-center w-full rounded-xl`}>
+            <div className="flex space-x-2">
+                <img src={props.user.image} className="w-8 flex-shrink-0 rounded-full" alt="user image"/>
+                <div className="text-lg">{props.user.name}</div>
+            </div>
+            <div className="font-bold font-display">{price(props.user.score + payout(), true)}
+                <div className="hidden lg:inline"> g-points</div>
+            </div>
+        </div>
+    </div>;
+}
+
+function LeaderboardButton(props: { selected?: boolean, onClick: () => any, children: ReactNode }) {
+    return <div
+        className={`text-sm my-1 mr-1 px-4 py-1 cursor-pointer border border-light rounded-lg font-bold
+                    ${props.selected ? ' bg-primary text-white' : 'bg-white'}
+                    `}
+        onClick={props.onClick}
+    >
+        {props.children}
+    </div>
 }
 
 export default Home
