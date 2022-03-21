@@ -10,6 +10,7 @@ export default withApiAuthRequired(async function test(req, res) {
 
     const users = await prisma.user.findMany({
         select: {
+            winnerPhrase: true,
             username: true,
             image: true,
             points: true,
@@ -37,6 +38,7 @@ export default withApiAuthRequired(async function test(req, res) {
     res.json({
         users: users.map(user => ({
                 name: user.username,
+                winnerPhrase: user.winnerPhrase,
                 image: user.image,
                 score: user.points.toNumber() + user.Stock.filter(stock => stock.active)
                     .map(stock => -calculatePrice(

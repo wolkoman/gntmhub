@@ -23,6 +23,7 @@ model User {
   admin              Boolean
   image              String
   rawImage           String
+  winnerPhrase       String?
   Dividend           Dividend[]
   Membership         Membership[]
 }
