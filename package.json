@@ -9,7 +9,7 @@
     "studio": "prisma studio",
     "db-format": "prisma format",
     "generate-db-client": "cross-env PRISMA_CLIENT_ENGINE_TYPE='dataproxy' npx prisma generate",
-    "push-db": "cross-env DATABASE_URL=\"\" npx prisma db push"
+    "push-db": "cross-env DATABASE_URL=\"postgresql://app:app@91.194.90.214:5432/gntmhub\" npx prisma db push"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.7.0",

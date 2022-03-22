@@ -2,7 +2,7 @@ import {useUserStore} from '../util/client';
 import {payout, price} from '../util/market';
 
 export function User(props: { mobile?: boolean }) {
-    const [user] = useUserStore(store => [store.user, store.load()]);
+    const [user] = useUserStore(store => [store.user]);
     return <>
         {!!user && <div>
           <div className={`flex ${props.mobile ? 'flex-row-reverse text-right space-x-2' : 'flex-col'}`}>

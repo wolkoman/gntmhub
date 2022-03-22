@@ -38,7 +38,7 @@ function Lockup() {
 
 const Home: NextPage = () => {
     useRequireLogin();
-    const [user] = useUserStore(store => [store.user, store.load()]);
+    const [user] = useUserStore(store => [store.user]);
     const [candidates, loading] = useCandidateStore(store => [store.candidates, store.loading, store.load()]);
     const [selected, setSelected] = useState<string | undefined>();
 

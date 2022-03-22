@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         store.preferencedBoard,
         store.savePreference,
         store.loadPreference])
-    const [me] = useUserStore(store => [store.user, store.load()]);
+    const [me] = useUserStore(store => [store.user]);
 
     useEffect(() => {
         load();
@@ -113,7 +113,7 @@ function UserCard(props: { index: number, user?: any, me?: boolean, winnerPhrase
             <div className="hidden lg:inline"> g-points</div>
         </div>
         {props.winnerPhrase && <>
-          <div className="italic text-primary font-bold">{props.user.winnerPhrase}</div>
+          <div className="italic text-primary font-bold break-all">{props.user.winnerPhrase}</div>
             {props.me && <div className="text-xs mt-2 px-1 rounded bg-light cursor-pointer" onClick={() => setPhrase()}>
               change phrase
             </div>}

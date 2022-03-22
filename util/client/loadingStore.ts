@@ -12,6 +12,7 @@ export const load = <EntityType>(set: (partial: any) => void, get: () => Loading
     loading: false,
     loaded: false,
     load() {
+        console.log("LOAD ", api)
         if (get().loading || (get().loaded && !reload)) return;
         set({loading: true});
         fetch(api).then(response => response.json())

@@ -4,10 +4,11 @@ import {Brand} from './Brand';
 import {User} from './User';
 import {useRouter} from 'next/router';
 import {useLeaderboardStore} from '../util/client/useLeaderboardStore';
+import {useEffect} from "react";
 
 export function Navigation() {
-    const [user] = [useUserStore(store => store.user)];
-    useUserStore(store => store.load());
+    const [user, load] = useUserStore(store => [store.user, store.load]);
+    useEffect(() => { load(); }, [load]);
 
     return <div
         className="bg-white border-light border-t lg:border-r p-1 lg:p-3 flex flex-col justify-between flex-shrink-0 my-0 relative">
@@ -47,7 +48,6 @@ export function LoadingBar() {
         useQuestionStore(store => store.loading),
         useLeaderboardStore(store => store.loading),
     ];
-    useUserStore(store => store.load());
     const loading = loadings.reduce((p, c) => p || c, false);
 
     return <div className={`w-1/4 bg-primary h-1 absolute transition left-0 top-0 loader z-40 ${loading ? '' : 'opacity-0'}`}/>;
