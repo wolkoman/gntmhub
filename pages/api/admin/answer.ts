@@ -1,9 +1,8 @@
 import {getSession, withApiAuthRequired} from '@auth0/nextjs-auth0';
 import {PrismaClient} from '@prisma/client';
 import is from '@sindresorhus/is';
-import undefined = is.undefined;
-import {payout} from '../../../util/market';
 import {getCurrentTimeBlock} from '../../../util/timeBlock';
+import undefined = is.undefined;
 
 export default withApiAuthRequired(async function test(req, res) {
 
@@ -26,7 +25,7 @@ export default withApiAuthRequired(async function test(req, res) {
     await prisma.question.update({where: {id: req.body.questionId}, data:{ answerId: req.body.answerIndex}});
 
     // give price
-    const price = 4;
+    const price = 5;
     const correctAnswers = await prisma.answer.findMany({where: {questionId: req.body.questionId, answerIndex: req.body.answerIndex}});
     const users = await prisma.$transaction(correctAnswers.map(answer => prisma.user.update({
         where: {mail: answer.userMail},

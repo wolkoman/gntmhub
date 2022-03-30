@@ -21,12 +21,12 @@ module.exports = {
     nightwind: {
       colors: {
         close: {500: "#f0f0f0"},
-        smudge: {500: "#000"},
+        smudge: {500: "#070707"},
         primary: {500: "#ff3a53"},
         opposite: {500: "#7EA700"},
-        light: {500: "#222"},
+        light: {500: "#252525"},
         dark: {500: "#eee"},
-        white: "#111",
+        white: "#171717",
         black: "#fff",
       },
     },

@@ -37,7 +37,7 @@ const Home: NextPage = () => {
             <link rel="preconnect" href="https://fonts.gstatic.com"/>
             <link rel="icon" type="image/png" href="/g.png"/>
         </Head>
-        <div className="h-screen w-screen">
+        <div className="w-screen" style={{height: "calc(var(--vh, 1vh) * 100)"}}>
             <video autoPlay={true} muted className="object-cover absolute top-0 left-0 w-screen h-screen" loop={true}>
                 <source src="https://data.eni.wien/storage/uploads/2022/01/29/gntm_uid_61f56bcd970bb.mp4"/>
             </video>

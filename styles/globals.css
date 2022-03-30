@@ -17,7 +17,7 @@ html, body{
     width: 20px;
 }
 .fullheight {
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 }
 
 .text-light{ @apply text-light-500; }
@@ -55,7 +55,7 @@ html, body{
 }
 
 .shimmer{
-    animation: shimmer 2s linear infinite;
+    animation: shimmer 5s linear infinite;
     background: linear-gradient(90deg,#eee 4%,#ddd 25%,#eee 36%);
     background-size: 1000px 100%;
 }

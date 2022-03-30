@@ -1,6 +1,6 @@
 import {getSession, withApiAuthRequired} from '@auth0/nextjs-auth0';
 import {PrismaClient} from '@prisma/client';
-import {calculatePrice, calculateStockPrice} from '../../../util/market';
+import {calculateStockPrice} from '../../../util/market';
 
 export default withApiAuthRequired(async function test(req, res) {
 

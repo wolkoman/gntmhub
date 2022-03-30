@@ -1,8 +1,6 @@
 import {getSession, withApiAuthRequired} from '@auth0/nextjs-auth0';
 import {PrismaClient} from '@prisma/client';
 import is from '@sindresorhus/is';
-import undefined = is.undefined;
-import {payout} from '../../../util/market';
 import {getCurrentTimeBlock} from '../../../util/timeBlock';
 
 export default withApiAuthRequired(async function test(req, res) {
@@ -18,7 +16,7 @@ export default withApiAuthRequired(async function test(req, res) {
     }
 
     // calculate dividends and user payout
-    const dividendPot = 5;
+    const dividendPot = 12;
     const activeStocks = await prisma.stock.findMany({where: {active: {equals: true}, amount: {gt: 0}},});
     const totalStocks = sumCollection(activeStocks, 'candidateName', 'amount');
     const dividends = activeStocks.map(stock => {

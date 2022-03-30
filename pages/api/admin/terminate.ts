@@ -2,9 +2,6 @@ import {getSession, withApiAuthRequired} from '@auth0/nextjs-auth0';
 import {PrismaClient} from '@prisma/client';
 import is from '@sindresorhus/is';
 import undefined = is.undefined;
-import {payout} from '../../../util/market';
-import {getCurrentTimeBlock} from '../../../util/timeBlock';
-import {sumCollection} from './payout';
 
 export default withApiAuthRequired(async function test(req, res) {
 

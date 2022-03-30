@@ -46,7 +46,7 @@ const Home: NextPage = () => {
     return <Site>
         <div className="">
         <Lockup/>
-        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 w-full py-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 w-full py-4">
             {loading && Array(20).fill(0).map((_, index) => <CandidateShadow key={index}/>)}
             {candidates
                 ?.sort((a, b) => b.stock - a.stock)
