@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                     </div>
                     <div className="flex my-4">
                         <div className="text-primary font-bold text-4xl font-display px-4 py-2">3</div>
-                        <div><span className="font-display">Performance-Fokus.</span> In der letzten Folge während
+                        <div><span className="font-display">Performance-Fokus.</span> In der letzten Folge werden
                             ausnahmsweise keine Fragen gestellt, sodass der Fokus einzig und allein der Performance der
                             Kandidatinnen gewidment werden kann.
                         </div>
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
                 <div className="font-display font-bold text-xl">Das Ende einer Ära/Staffel</div>
                 <div>
                     Nachdem das Finale endet und die Siegerin oder der Sieger feststeht, kehren wir zurück in unsere
-                    triesten, langweiligen Leben. Das ganze <span
+                    trieten, langweiligen Leben. Das ganze <span
                     className="font-display font-bold">GNTMHUB</span>-Team bedankt sich herzlichst für die gemeinsame
                     Zeit, die wir nicht nur dieser kurzweiligen Sendung geschenkt haben, sondern vor allem der
                     Gemeinschaft an Menschen, die über diese Plattform zueinander gefunden hat.<br/>
