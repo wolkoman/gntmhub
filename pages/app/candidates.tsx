@@ -53,6 +53,7 @@ const Home: NextPage = () => {
                 ?.sort((a, b) => (a.terminated?1:0) - (b.terminated?1:0))
                 .map(candidate => {
                     return <Candidate
+                        remaining={candidates.filter(c => !c.terminated).length}
                         key={candidate.name}
                         candidate={candidate}
                         selected={selected === candidate.name}

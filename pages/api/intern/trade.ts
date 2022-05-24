@@ -22,13 +22,14 @@ export default withApiAuthRequired(async (req, res) => {
         where: {name: reqCandidateName},
         select: {terminated: true, locked: true}
     });
+    const remaining = (await prisma.candidate.findMany({where: {terminated: false}})).length;
     const stocks = await prisma.stock.groupBy({
         by: ['candidateName'],
         _sum: {amount: true},
         where: {candidateName: reqCandidateName}
     });
     const stockAmount = stocks[0]._sum.amount!;
-    const price = calculatePrice(stockAmount, reqAmount);
+    const price = calculatePrice(stockAmount, reqAmount, remaining);
 
     if (!candidate || candidate.terminated) {
         res
@@ -51,7 +52,7 @@ export default withApiAuthRequired(async (req, res) => {
     if (reqPrice !== price) {
         res
             .status(402)
-            .json({error: "Der Preis hat sich geändert", newStock: stockAmount});
+            .json({error: "Der Preis hat sich geändert", newStock: stockAmount, reqPrice, price});
         return;
     }
     if (price - (user.points.toNumber() + payout()) > 0.0001) {

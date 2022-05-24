@@ -12,6 +12,7 @@ export default withApiAuthRequired(async function test(req, res) {
     const dividends = await prisma.dividend.findMany({where: {userMail: user.email}});
     const now = new Date();
     const lockups = await prisma.lockup.findMany({where: {end: {gt: now}}});
+    const remaining = candidates.filter(c => !c.terminated).length;
 
     res.json({
         lockups,
@@ -20,7 +21,7 @@ export default withApiAuthRequired(async function test(req, res) {
             history: candidateHistory
                 .filter(history => history.candidateName === candidate.name)
                 .sort((a, b) => a.time - b.time)
-                .map(history => ({x: calculateStockPrice(history.amount), y: history.time - 456640})),
+                .map(history => ({x: calculateStockPrice(history.amount, remaining), y: history.time - 456640})),
             stock: stocks.find(stock => stock.candidateName === candidate.name)!._sum.amount,
             dividends: dividends
                 .filter(dividend => dividend.candidateName === candidate.name)

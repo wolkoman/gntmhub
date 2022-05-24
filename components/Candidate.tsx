@@ -1,6 +1,6 @@
 import {calculateStockPrice, price} from '../util/market';
 
-export function Candidate(props: { candidate: any, selected: boolean, onClick: () => void, ownedStocks: number }) {
+export function Candidate(props: { candidate: any, selected: boolean, onClick: () => void, ownedStocks: number, remaining: number }) {
     return <div
         className={`relative h-56 overflow-hidden flex flex-col justify-between select-none shadow rounded transition
                     cursor-pointer border-light border ${(props.candidate.terminated && 'opacity-20 ')} ${(props.selected
@@ -26,7 +26,7 @@ export function Candidate(props: { candidate: any, selected: boolean, onClick: (
             </div>
             <div className="font-display p-4 text-5xl opacity-70">
                 {!props.candidate.terminated && <>
-                    {price(calculateStockPrice(props.candidate.stock + 1), true)}
+                    {price(calculateStockPrice(props.candidate.stock + 1, props.remaining), true)}
                     <span className="hidden lg:inline">gp</span></>
                 }
             </div>

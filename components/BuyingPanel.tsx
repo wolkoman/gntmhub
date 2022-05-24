@@ -11,15 +11,20 @@ export function BuyingPanel({candidate}: { candidate?: ExtendedCandidate }) {
     const [candidates, setCandidateStock] = useCandidateStore(store => [store.candidates, store.setCandidateStock]);
     const [request, setRequest] = useState<{ loading: boolean, error?: string }>({loading: false});
     const stockAmount = user?.Stock.find(stock => stock.candidateName === candidate?.name)?.amount ?? 0;
+    const remaining = candidates.filter(c => !c.terminated).length;
 
-    const payableStocks = calculateStocksForPrice(candidates.find(c => c.name === candidate?.name)?.stock, +(user?.points as unknown as number) + payout());
+    const payableStocks = calculateStocksForPrice(
+        candidates.find(c => c.name === candidate?.name)?.stock,
+        +(user?.points as unknown as number) + payout(),
+        remaining
+    );
 
     function trade(amount?: number) {
         if (!candidate || !user || !amount) return;
         setRequest({loading: true});
         post('/api/intern/trade', {
             candidateName: candidate?.name,
-            price: calculatePrice(candidate?.stock!, amount),
+            price: calculatePrice(candidate?.stock!, amount, remaining),
             amount
         })
             .then((response: any) => {
@@ -41,7 +46,7 @@ export function BuyingPanel({candidate}: { candidate?: ExtendedCandidate }) {
         <div className="flex flex-row lg:flex-row-reverse justify-between">
             <div className="mb-2">Aktienhandel</div>
             <div className={`mb-2 font-bold ${(activeTrade ?? 0) < 0 ? 'text-opposite' : 'text-primary'}`}>
-                {activeTrade ? price(-calculatePrice(candidate?.stock!, activeTrade)) : <></>}</div>
+                {activeTrade ? price(-calculatePrice(candidate?.stock!, activeTrade, remaining)) : <></>}</div>
         </div>
         <div
             className={stockAmount === 0 && payableStocks === 0 ? 'font-display font-bold text-xl' : 'hidden'}>

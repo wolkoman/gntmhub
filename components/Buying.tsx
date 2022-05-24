@@ -5,7 +5,8 @@ import {BuyingPanel} from './BuyingPanel';
 
 export function Buying(props: { selected: string, onClose: () => any }) {
 
-    const candidate = useCandidateStore(store => store.getCandidate(props.selected));
+    const [candidate, candidates] = useCandidateStore(store => [store.getCandidate(props.selected), store.candidates]);
+    const remaining = candidates.filter(c => !c.terminated).length;
 
     return <div className="relative h-full flex p-6">
         <div className="flex flex-col grow lg:flex-row justify-end lg:justify-between items-start space-y-4 lg:space-y-0 w-full h-full overflow-y-scroll lg:space-x-5">
@@ -17,7 +18,7 @@ export function Buying(props: { selected: string, onClose: () => any }) {
                     </div>
                     <div>Marktpreis</div>
                     <div className="font-display text-xl font-bold">
-                        {price(calculateStockPrice(candidate?.stock! + 1))}
+                        {price(calculateStockPrice(candidate?.stock! + 1, remaining))}
                     </div>
                 </div>
                 <div style={{ backgroundImage: `url(${candidate.picture})`}} className="lg:hidden w-full bg-cover bg-top h-52 bg-smudge shadow rounded-lg"/>

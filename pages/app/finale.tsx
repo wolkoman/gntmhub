@@ -14,7 +14,7 @@ const Home: NextPage = () => {
                     <span>Es kann nur <span className="text-primary">Eine</span> geben</span>
                 </div>
                 <div className="">
-                    {candidates.filter(c => !c.terminated).map(candidate => <div
+                    {candidates.filter(c => !c.terminated).map(candidate => <div key={candidate.name}
                         className="w-14 md:w-20 h-96 inline-block relative">
                         <img src={candidate.picture} className="w-64 max-w-none absolute left-1/2 -translate-x-1/2"/>
                     </div>)}

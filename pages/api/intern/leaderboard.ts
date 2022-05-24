@@ -18,6 +18,8 @@ export default withApiAuthRequired(async function test(req, res) {
         }
     });
 
+    const remaining = (await prisma.candidate.findMany({where: {terminated: true}})).length;
+
     const candidates = users[0].Stock.map(stock => stock.candidate.name)!;
     const stocks = users.reduce<{ name: string, amount: number }[]>((stocks, user) => [...stocks, ...user.Stock.filter(stock => stock.active).map(stock => ({
         amount: stock.amount,
@@ -43,7 +45,8 @@ export default withApiAuthRequired(async function test(req, res) {
                 score: user.points.toNumber() + user.Stock.filter(stock => stock.active)
                     .map(stock => -calculatePrice(
                         candidatesStock.find(candidatesStock => candidatesStock.name === stock.candidate.name)!.stock,
-                        -stock.amount
+                        -stock.amount,
+                        remaining
                     ))
                     .reduce((x, a) => x + a, 0)
             })
