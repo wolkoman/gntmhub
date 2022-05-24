@@ -18,7 +18,8 @@ export function Navigation() {
             </div>
             <div className="flex lg:flex-col space-x-2 justify-around lg:space-x-0 lg:mt-6">
                 <NavigationLink link="/app/candidates" image="/IconCandidates.svg" label="Kandidatinnen"/>
-                <NavigationLink link="/app/questions" image="/IconQuestion.svg" label="Fragen"/>
+                {/*<NavigationLink link="/app/questions" image="/IconQuestion.svg" label="Fragen"/>*/}
+                <NavigationLink link="/app/finale" image="/IconFinale.svg" label="Finale"/>
                 <NavigationLink link="/app/leaderboard" image="/IconLeaderboard.svg" label="Rangliste"/>
                 {user?.admin &&
                   <NavigationLink link="/app/admin" image="/IconSettings.svg" label="Admin"/>

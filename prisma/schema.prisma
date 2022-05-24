@@ -43,6 +43,7 @@ model Candidate {
   picture          String
   Stock            Stock[]
   terminated       Boolean            @default(false)
+  locked           Boolean            @default(false)
   CandidateHistory CandidateHistory[]
   Dividend         Dividend[]
 }

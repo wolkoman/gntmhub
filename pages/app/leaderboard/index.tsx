@@ -43,8 +43,9 @@ const Home: NextPage = () => {
 
             <div className="flex justify-between my-4">
                 <div className="flex flex-wrap">
-                    <LeaderboardButton selected={selectedBoard?.name === 'GLOBAL'}
-                                       onClick={() => setSelected('GLOBAL')}>
+                    <LeaderboardButton
+                        selected={selectedBoard?.name === 'GLOBAL'}
+                        onClick={() => setSelected('GLOBAL')}>
                         🌐 Global
                     </LeaderboardButton>
 
@@ -64,27 +65,32 @@ const Home: NextPage = () => {
 
             <div className="flex flex-col space-y-2">
                 {selected && <>
-                  <div className="grid lg:grid-cols-3 gap-3">
-                    <div className="lg:mt-12 hidden lg:block"><UserCard index={2} user={boardUser?.[2]}/></div>
-                    <div className=""><UserCard index={0} user={boardUser?.[0]} winnerPhrase={true}
-                                                me={boardUser?.[0]?.image === me?.image}/></div>
-                    <div className="grid grid-cols-2 gap-5 lg:hidden">
-                      <UserCard index={1} user={boardUser?.[1]}/>
-                      <UserCard index={2} user={boardUser?.[2]}/>
+                    <div className="grid lg:grid-cols-3 gap-3">
+                        <div className="lg:mt-12 hidden lg:block"><UserCard index={2} user={boardUser?.[2]}/></div>
+                        <div className="">
+                            <UserCard
+                                index={0} user={boardUser?.[0]}
+                                winnerPhrase={true}
+                                me={boardUser?.[0]?.image === me?.image}
+                            />
+                        </div>
+                        <div className="grid grid-cols-2 gap-5 lg:hidden">
+                            <UserCard index={1} user={boardUser?.[1]}/>
+                            <UserCard index={2} user={boardUser?.[2]}/>
+                        </div>
+                        <div className="hidden lg:block mt-6"><UserCard index={1} user={boardUser?.[1]}/></div>
                     </div>
-                    <div className="hidden lg:block mt-6"><UserCard index={1} user={boardUser?.[1]}/></div>
-                  </div>
-                  <br/>
+                    <br/>
                     {boardUser?.slice(3).map((user, index) =>
                         <UserEntry key={user.image} user={user} index={index} me={user.image === me?.image}/>
                     )}
 
                     {selectedBoard && selected !== 'GLOBAL' &&
-                      <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
-                        <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
-                          teile diese Rangliste mit anderen
-                        </div>
-                      </Link>}
+                        <Link href={`/app/leaderboard/info?board=${selectedBoard?.code}`}>
+                            <div className={'mt-2 opacity-50 text-xs italic text-right underline cursor-pointer'}>
+                                teile diese Rangliste mit anderen
+                            </div>
+                        </Link>}
                 </>}
             </div>
         </div>
@@ -113,9 +119,10 @@ function UserCard(props: { index: number, user?: any, me?: boolean, winnerPhrase
             <div className="hidden lg:inline"> g-points</div>
         </div>
         {props.winnerPhrase && <>
-          <div className="italic text-primary font-bold break-all">{props.user.winnerPhrase}</div>
+            <div className="italic text-primary font-bold break-all">{props.user.winnerPhrase}</div>
+            {props.user.winnerPhrase === "@Manuel, kommen noch fragen?" && <div className="italic font-bold">@Florian Schaut eher schlechter aus..</div>}
             {props.me && <div className="text-xs mt-2 px-1 rounded bg-light cursor-pointer" onClick={() => setPhrase()}>
-              change phrase
+                change phrase
             </div>}
         </>}
     </div>;

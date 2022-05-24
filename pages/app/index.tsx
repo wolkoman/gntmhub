@@ -2,8 +2,12 @@ import type {NextPage} from 'next'
 import {Site} from '../../components/Site';
 import {useRequireLogin} from '../../util/client';
 import {ReactNode} from "react";
+import {useRouter} from "next/router";
 
 function Info(props: {children: ReactNode, title: string, className?: string}) {
+
+    const router = useRouter();
+
     return <div className={` bg-white shadow-xl rounded-lg p-5 my-8 ${props.className}`}>
         <div className="font-display font-bold text-3xl my-4">{props.title}</div>
         <div className="text-md">
@@ -57,6 +61,15 @@ const Home: NextPage = () => {
 
         </div>
     </Site>
+}
+
+export function getStaticProps(){
+    return {
+        redirect: {
+            destination: '/app/finale',
+            permanent: false,
+        },
+    }
 }
 
 export default Home
