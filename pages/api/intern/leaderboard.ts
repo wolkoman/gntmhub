@@ -18,7 +18,7 @@ export default withApiAuthRequired(async function test(req, res) {
         }
     });
 
-    const remaining = (await prisma.candidate.findMany({where: {terminated: true}})).length;
+    const remaining = (await prisma.candidate.findMany({where: {terminated: false}})).length;
 
     const candidates = users[0].Stock.map(stock => stock.candidate.name)!;
     const stocks = users.reduce<{ name: string, amount: number }[]>((stocks, user) => [...stocks, ...user.Stock.filter(stock => stock.active).map(stock => ({
