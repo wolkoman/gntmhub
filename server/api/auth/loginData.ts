@@ -2,11 +2,10 @@ import { defineEventHandler } from "h3";
 import { fido } from "~~/utils/fido";
 import { supabase } from "~~/utils/supabase";
 import { getRandomValues } from "./registerData";
+import { webAuthn } from '../../../utils/fido';
 
 export default defineEventHandler(async (event) => {
-    const authnOptions = await fido.assertionOptions();
-    const challenge = Buffer.from(authnOptions.challenge).toString('base64');
-    const myId = Buffer.from(getRandomValues(12)).toString('base64');
-    await supabase.from('registrations').insert({id: myId, challenge})
-    return {authnOptions, challenge, myId};
+    const challenge = await webAuthn.createAuthenticationChallenge();
+    await supabase.from('registrations').insert({id: challenge.challengeId, challenge: challenge.challenge})
+    return challenge;
 });

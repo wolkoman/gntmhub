@@ -1,35 +1,18 @@
 import { AssertionResult, ExpectedAssertionResult } from "fido2-lib";
 import { defineEventHandler } from "h3";
 import { fido } from "~~/utils/fido";
+import { AuthenticationCredentials } from "~~/utils/web-authn";
 import { supabase } from '../../../utils/supabase';
+import { webAuthn } from '../../../utils/fido';
 
 export default defineEventHandler(async (event) => {
-    const response = await readBody(event);
+    const response = await readBody<AuthenticationCredentials>(event);
 
-    const clientAssertionResponse: AssertionResult = {
-        id: response.id,
-        rawId: new Uint8Array(Buffer.from(response.rawId, 'base64')).buffer,
-        response: {
-            authenticatorData: response.response.authenticatorData,
-            clientDataJSON: response.response.clientDataJSON,
-            signature: response.response.signature,
-            userHandle: response.response.userHandle,
-        }
-    }
-
-    const { data: [login] } = await supabase.from('registrations').select('*').eq('id', response.myId);
+    const { data: [login] } = await supabase.from('registrations').delete().eq('id', response.challengeId);
     const { data: [user] } = await supabase.from('users').select('*').eq('credId', response.rawId);
     console.log({login, user});
 
-    const assertionExpectations: ExpectedAssertionResult = {
-        challenge: login.challenge,
-        origin: "http://localhost:3000",
-        factor: "either",
-        publicKey: user.publicKey,
-        prevCounter: 0,
-        userHandle: user.userHandle
-    };
-    const authnResult = await fido.assertionResult(clientAssertionResponse, assertionExpectations); // will throw on error
+    const authnResult = await webAuthn.verifyAuthenticationCredentials(response, login.challenge, user.credId, user.publicKey, user.userHandle, "http://localhost:3000");
     console.log({authnResult});
     return { authnResult };
 });

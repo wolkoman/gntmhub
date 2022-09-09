@@ -1,52 +1,23 @@
-<script setup>
-import { base64ToArrayBuffer, arrayBufferToBase64 } from '../utils/base64';
+<script setup lang="ts">
+import { arrayBufferToBase64, base64ToArrayBuffer } from '../utils/base64';
+import { AuthenticationChallenge } from '../utils/web-authn';
+import { WebAuthnClient } from '../utils/web-authn-client';
 
 const state = reactive({ loading: false, username: 'wolkoman' });
 
 const login = async () => {
-  const { authnOptions, challenge, myId } = await $fetch('/api/auth/loginData');
-  const response = await navigator.credentials.get({ publicKey: { ...authnOptions, challenge: base64ToArrayBuffer(challenge) } });
-  console.log(response);
-  await $fetch('/api/auth/login', {
-    body: {
-      myId, id: response.id,
-      rawId: arrayBufferToBase64(response.rawId), response: {
-        authenticatorData: arrayBufferToBase64(response.response.authenticatorData),
-        clientDataJSON: arrayBufferToBase64(response.response.clientDataJSON),
-        signature: arrayBufferToBase64(response.response.signature),
-        userHandle: arrayBufferToBase64(response.response.userHandle),
-      }
-    }, method: 'POST',
-  });
+  const challenge = await $fetch('/api/auth/loginData');
+  const credentials = await WebAuthnClient.authenticate(challenge);
+  await $fetch('/api/auth/login', { body: credentials, method: 'POST', });
 
 }
 
 const register = async () => {
   state.loading = true;
-  const { options, challenge, id } = await $fetch('/api/auth/registerData', {
-    body: { username: state.username }, method: 'POST',
-  });
-  const response = await navigator.credentials.create({
-    publicKey: {
-      ...options,
-      challenge: base64ToArrayBuffer(challenge),
-      user: { ...options.user, id: base64ToArrayBuffer(id) }
-    }
-  });
+  const challenge = await $fetch('/api/auth/registerData', { body: { username: state.username }, method: 'POST' });
+  const credentials = await WebAuthnClient.register(challenge);
   await $fetch('/api/auth/register', {
-    body: {
-      response: {
-        ...response,
-        authenticatorAttachment: response.authenticatorAttachment,
-        id: response.id,
-        type: response.type,
-        rawId: arrayBufferToBase64(response.rawId),
-        response: {
-          attestationObject: arrayBufferToBase64(response.response.attestationObject),
-          clientDataJSON: arrayBufferToBase64(response.response.clientDataJSON)
-        }
-      }, id
-    }, method: 'POST',
+    body: credentials, method: 'POST',
   });
   state.loading = false;
 }

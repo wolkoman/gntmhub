@@ -2,31 +2,19 @@ import { ExpectedAttestationResult } from "fido2-lib";
 import { defineEventHandler } from "h3";
 import { fido } from "~~/utils/fido";
 import { supabase } from "~~/utils/supabase";
+import { RegistrationCredential } from '../../../utils/web-authn';
+import { webAuthn } from '../../../utils/fido';
 
 export default defineEventHandler(async (event) => {
-    const { response, id } = await readBody(event);
+    const credentials = await readBody<RegistrationCredential>(event);
 
-    const clientAttestationResponse = {
-        ...response,
-        rawId: new Uint8Array(Buffer.from(response.rawId, 'base64')).buffer,
-        response: {
-            attestationObject: response.response.attestationObject,
-            clientDataJSON: response.response.clientDataJSON,
-        }
-    }; 
-    const {data: [{challenge}]} = await supabase.from('registrations').delete().eq('id', id);
-    const attestationExpectations: ExpectedAttestationResult = {
-        challenge,
-        origin: "http://localhost:3000",
-        factor: "either"
-    };
-    const regResult = await fido.attestationResult(clientAttestationResponse, attestationExpectations);
+    const {data: [{challenge}]} = await supabase.from('registrations').delete().eq('id', credentials.userId);
+    const regResult = await webAuthn.verifyRegistrationCredentials(credentials, challenge, "http://localhost:3000");
     await supabase.from('users').insert({
-        credId: Buffer.from(regResult.authnrData.get('credId')).toString('base64'),
-        publicKey: regResult.authnrData.get('credentialPublicKeyPem'),
-        userHandle: id
+        credId: regResult.credId,
+        publicKey: regResult.publicKey,
+        userHandle: credentials.userId
     })
-    console.log({regResult})
     return {regResult};
 
 });

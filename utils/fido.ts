@@ -1,6 +1,8 @@
-import { Fido2Lib } from "fido2-lib";
+import { Fido2Lib, Fido2LibOptions } from "fido2-lib";
+import { WebAuthn } from "./web-authn";
 
-export const fido = new Fido2Lib({
+
+const options: Fido2LibOptions = {
     timeout: 42,
     rpId: "localhost",
     rpName: "GNTMHUB",
@@ -11,4 +13,7 @@ export const fido = new Fido2Lib({
     authenticatorAttachment: "platform",
     authenticatorRequireResidentKey: false,
     authenticatorUserVerification: "required"
-});
+};
+
+export const webAuthn = new WebAuthn(options);
+export const fido = new Fido2Lib(options);
