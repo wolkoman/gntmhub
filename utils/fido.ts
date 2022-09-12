@@ -12,6 +12,6 @@ export const webAuthn = new WebAuthn({
     attestation: "none",
     cryptoParams: [-7, -257],
     authenticatorAttachment: "platform",
-    authenticatorRequireResidentKey: false,
-    authenticatorUserVerification: "discouraged"
+    authenticatorRequireResidentKey: true,
+    authenticatorUserVerification: "discouraged",
 });

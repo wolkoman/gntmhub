@@ -85,8 +85,9 @@ export class WebAuthn {
         const authnOptions = await this.fido.assertionOptions();
         const challenge = Buffer.from(authnOptions.challenge).toString('base64');
         const challengeId = Buffer.from(getRandomValues(12)).toString('base64');
+        const allowCredentials = [];
         //@ts-ignore
-        return { ...authnOptions, challenge, challengeId };
+        return { ...authnOptions, allowCredentials, challenge, challengeId };
     }
 
     async verifyAuthenticationCredentials(credential: AuthenticationCredentials, challenge: string, credId: string, publicKey: string, userId: string){
