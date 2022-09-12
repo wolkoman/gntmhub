@@ -11,7 +11,7 @@ export const webAuthn = new WebAuthn({
     challengeSize: 128,
     attestation: "none",
     cryptoParams: [-7, -257],
-    authenticatorAttachment: "cross-platform",
+    authenticatorAttachment: "platform",
     authenticatorRequireResidentKey: false,
     authenticatorUserVerification: "discouraged"
 });
