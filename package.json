@@ -16,6 +16,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.35.6",
-    "fido2-lib": "^3.3.1"
+    "@types/jsonwebtoken": "^8.5.9",
+    "dotenv": "^16.0.2",
+    "fido2-lib": "^3.3.1",
+    "jsonwebtoken": "^8.5.1"
   }
 }

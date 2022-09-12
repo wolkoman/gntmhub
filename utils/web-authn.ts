@@ -23,7 +23,8 @@ export type RegistrationCredential = {
             clientDataJSON: string
         }
     },
-    userId: string
+    userId: string,
+    username: string
 };
 
 export type AuthenticationChallenge = Omit<PublicKeyCredentialRequestOptions, 'challenge'> & {
@@ -33,7 +34,7 @@ export type AuthenticationChallenge = Omit<PublicKeyCredentialRequestOptions, 'c
 export type AuthenticationCredentials = {
     challengeId: string,
     id: string,
-    rawId: string,
+    credId: string,
     response: {
         authenticatorData: string,
         clientDataJSON: string,
@@ -44,9 +45,11 @@ export type AuthenticationCredentials = {
 
 export class WebAuthn {
     fido: Fido2Lib;
+    origin: string;
 
-    constructor(options: Fido2LibOptions) {
+    constructor(options: Fido2LibOptions & {origin: string}) {
         this.fido = new Fido2Lib(options);
+        this.origin = options.origin;
     }
 
     async createRegistrationChallenge(username: string): Promise<RegistrationChallenge> {
@@ -58,14 +61,14 @@ export class WebAuthn {
     }
 
 
-    async verifyRegistrationCredentials(credential: RegistrationCredential, challenge: string, origin: string) {
+    async verifyRegistrationCredentials(credential: RegistrationCredential, challenge: string) {
         const clientAttestationResponse: AttestationResult = {
             rawId: new Uint8Array(Buffer.from(credential.response.rawId, 'base64')).buffer,
             response: credential.response.response,
         };
         const attestationExpectations: ExpectedAttestationResult = {
             challenge,
-            origin,
+            origin: this.origin,
             factor: "either"
         };
         const regResult = await this.fido.attestationResult(clientAttestationResponse, attestationExpectations);
@@ -84,10 +87,10 @@ export class WebAuthn {
         return { ...authnOptions, challenge, challengeId };
     }
 
-    async verifyAuthenticationCredentials(credential: AuthenticationCredentials, challenge: string, credId: string, publicKey: string, userId: string, origin: string){
+    async verifyAuthenticationCredentials(credential: AuthenticationCredentials, challenge: string, credId: string, publicKey: string, userId: string){
         const clientAssertionResponse: AssertionResult = {
             id: credential.id as any,
-            rawId: new Uint8Array(Buffer.from(credential.rawId, 'base64')).buffer,
+            rawId: new Uint8Array(Buffer.from(credential.credId, 'base64')).buffer,
             response: {
                 authenticatorData: credential.response.authenticatorData as any,
                 clientDataJSON: credential.response.clientDataJSON,
@@ -98,7 +101,7 @@ export class WebAuthn {
     
         const assertionExpectations: ExpectedAssertionResult = {
             challenge: challenge,
-            origin,
+            origin: this.origin,
             factor: "either",
             publicKey: publicKey,
             prevCounter: 0,

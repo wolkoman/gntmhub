@@ -1,3 +1,4 @@
+import { AuthenticationChallenge, AuthenticationCredentials, RegistrationChallenge, RegistrationCredential } from "./web-authn";
 
 function base64ToArrayBuffer(base64) {
     var binary_string = window.atob(base64);
@@ -14,44 +15,8 @@ function arrayBufferToBase64(arrayBuffer) {
             .reduce((data, byte) => data + String.fromCharCode(byte), '')
     );
 }
-export type RegistrationChallenge = Omit<PublicKeyCredentialCreationOptions, 'challenge' | 'user'> & {
-    challenge: string;
-    user: {
-        displayName: string;
-        name: string;
-        id: string;
-    };
-};
 
-export type RegistrationCredential = {
-    response: {
-        authenticatorAttachment: string,
-        id: string,
-        rawId: string,
-        type: string,
-        response: {
-            attestationObject: string,
-            clientDataJSON: string
-        }
-    },
-    userId: string
-};
 
-export type AuthenticationChallenge = Omit<PublicKeyCredentialRequestOptions, 'challenge'> & {
-    challenge: string;
-    challengeId: string;
-};
-export type AuthenticationCredentials = {
-    challengeId: string,
-    id: string,
-    rawId: string,
-    response: {
-        authenticatorData: string,
-        clientDataJSON: string,
-        signature: string,
-        userHandle: string,
-    }
-}
 
 export class WebAuthnClient {
 
@@ -74,7 +39,8 @@ export class WebAuthnClient {
                     clientDataJSON: arrayBufferToBase64(credential.response.clientDataJSON)
                 }
             },
-            userId: challenge.user.id
+            userId: challenge.user.id,
+            username: challenge.user.name
         };
         return info;
     }
@@ -87,7 +53,7 @@ export class WebAuthnClient {
         return {
             challengeId: challenge.challengeId,
             id: response.id,
-            rawId: arrayBufferToBase64(response.rawId),
+            credId: arrayBufferToBase64(response.rawId),
             response: {
                 authenticatorData: arrayBufferToBase64(response.response.authenticatorData),
                 clientDataJSON: arrayBufferToBase64(response.response.clientDataJSON),

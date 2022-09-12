@@ -1,20 +1,19 @@
-import { ExpectedAttestationResult } from "fido2-lib";
 import { defineEventHandler } from "h3";
-import { fido } from "~~/utils/fido";
 import { supabase } from "~~/utils/supabase";
-import { RegistrationCredential } from '../../../utils/web-authn';
 import { webAuthn } from '../../../utils/fido';
+import { RegistrationCredential } from '../../../utils/web-authn';
 
 export default defineEventHandler(async (event) => {
     const credentials = await readBody<RegistrationCredential>(event);
 
-    const {data: [{challenge}]} = await supabase.from('registrations').delete().eq('id', credentials.userId);
-    const regResult = await webAuthn.verifyRegistrationCredentials(credentials, challenge, "http://localhost:3000");
+    const {data: [{challenge}]} = await supabase.from('challenges').delete().eq('id', credentials.userId);
+    const result = await webAuthn.verifyRegistrationCredentials(credentials, challenge);
     await supabase.from('users').insert({
-        credId: regResult.credId,
-        publicKey: regResult.publicKey,
-        userHandle: credentials.userId
+        id: result.credId,
+        publicKey: result.publicKey,
+        userId: credentials.userId,
+        username: credentials.username
     })
-    return {regResult};
+    return {regResult: result};
 
 });
