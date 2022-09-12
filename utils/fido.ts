@@ -1,9 +1,11 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { WebAuthn } from "./web-authn";
 
 export const webAuthn = new WebAuthn({
-    origin: "http://localhost:3000",
+    origin: process.env.ORIGIN,
     timeout: 60000,
-    rpId: "localhost",
+    rpId: process.env.WEBAUTHN_ID,
     rpName: "GNTMHUB",
     rpIcon: "https://example.com/logo.png",
     challengeSize: 128,
