@@ -12,7 +12,7 @@ watch(user, () => {
 <template>
   <div class="flex flex-col h-screen mx-auto w-80 my-12" v-if="user.loggedIn">
     <div class=" text-xl font-bold">
-      Hallo {{user.username}}!
+      Hallo {{user.username}}
     </div>
     <button @click="user = {loggedIn: false}" class="my-2 bg-gray-500 text-white">Abmelden</button>
   </div>

@@ -1,4 +1,6 @@
+
 import { AssertionResult, AttestationResult, ExpectedAssertionResult, ExpectedAttestationResult, Fido2Lib, Fido2LibOptions } from "fido2-lib";
+
 
 function getRandomValues(length: number) {
     return Array.from({ length }).map(() => Math.floor(Math.random() * 26 + 65));
