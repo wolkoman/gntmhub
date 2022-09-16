@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WebAuthnClient } from '../utils/web-authn-client';
+import { startRegistration, startAuthentication } from "@simplewebauthn/browser";
 import { useUser } from '../utils/store/user';
 
 const state = reactive({ loading: false, registering: false, username: 'wolkoman', error: "" });
@@ -12,9 +12,10 @@ watch(user, () => {
 const login = async () => (async () => {
   state.loading = true;
   state.error = "";
-  const challenge = await $fetch('/api/auth/loginData');
-  const credentials = await WebAuthnClient.authenticate(challenge);
-  const result = await $fetch('/api/auth/login', { body: credentials, method: 'POST', });
+  const {options, userId} = await $fetch('/api/auth/loginData', { body: { username: state.username }, method: 'POST' });
+  const credentials = await startAuthentication(options);
+  const result = await $fetch('/api/auth/login', { body: {credentials, userId}, method: 'POST', });
+  if('error' in result) throw new Error("");
   user.value = { ...result, loggedIn: true };
 })()
   .catch(err => state.error = err)
@@ -23,13 +24,10 @@ const login = async () => (async () => {
 const register = () => (async () => {
   state.loading = true;
   state.error = "";
-  const response = await $fetch('/api/auth/registerData', { body: { username: state.username }, method: 'POST' });
-  if ('error' in response) {
-    state.error = response.error;
-  } else {
-    const credentials = await WebAuthnClient.register(response);
-    await $fetch('/api/auth/register', { body: credentials, method: 'POST', });
-  }
+  const {options, userId, error} = await $fetch('/api/auth/registerData', { body: { username: state.username }, method: 'POST' });
+  if(error) throw new Error(error);
+  const credentials = await startRegistration(options);
+  await $fetch('/api/auth/register', { body: {credentials, userId}, method: 'POST', });
 })()
   .catch(err => state.error = err)
   .finally(() => state.loading = false);
@@ -51,7 +49,8 @@ const disabledButton = computed(() => state.loading || state.username.length < 4
         <div v-if="state.error" class="text-red-600 font-bold mt-4">{{state.error}}</div>
       </div>
       <div class="flex flex-col items-stretch" v-else="state.registering">
-        <button @click="login" :disabled="disabledButton" class="p-1 mt-4 bg-gray-600 text-white hover:bg-gray-700"
+        <input v-model="state.username" class="px-2 py-1">
+        <button @click="login" :disabled="disabledButton" class="p-1 bg-gray-600 text-white hover:bg-gray-700"
           :class="{'animate-pulse': state.loading,'pointer-events-none': disabledButton}">Login</button>
         <button class="text-center text-sm underline hover:no-underline"
           @click="state.registering = !state.registering">or register</button>

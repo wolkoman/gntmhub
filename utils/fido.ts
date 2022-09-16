@@ -1,17 +1,8 @@
-import * as dotenv from 'dotenv'
+import * as dotenv from 'dotenv';
 dotenv.config()
-import { WebAuthn } from "./web-authn";
 
-export const webAuthn = new WebAuthn({
-    origin: process.env.ORIGIN,
-    timeout: 60000,
-    rpId: process.env.WEBAUTHN_ID,
+export const webAuthnOptions = {
     rpName: "GNTMHUB",
-    rpIcon: "https://example.com/logo.png",
-    challengeSize: 128,
-    attestation: "none",
-    cryptoParams: [-7, -257],
-    authenticatorAttachment: "platform",
-    authenticatorRequireResidentKey: true,
-    authenticatorUserVerification: "discouraged",
-});
+    rpID: process.env.WEBAUTHN_ID,
+    origin: `http${process.env.WEBAUTHN_ID === "localhost" ? "" : "s"}://${process.env.WEBAUTHN_ID}:3000`,
+}

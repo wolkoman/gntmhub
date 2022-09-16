@@ -1,19 +1,37 @@
+import { verifyRegistrationResponse } from "@simplewebauthn/server";
 import { defineEventHandler } from "h3";
 import { supabase } from "~~/utils/supabase";
-import { webAuthn } from '../../../utils/fido';
-import { RegistrationCredential } from '../../../utils/web-authn';
+import { webAuthnOptions } from '../../../utils/fido';
 
 export default defineEventHandler(async (event) => {
-    const credentials = await readBody<RegistrationCredential>(event);
+    const { userId, credentials } = await readBody(event);
 
-    const {data: [{challenge}]} = await supabase.from('challenges').delete().eq('id', credentials.userId);
-    const result = await webAuthn.verifyRegistrationCredentials(credentials, challenge);
-    await supabase.from('users').insert({
-        id: result.credId,
-        publicKey: result.publicKey,
-        userId: credentials.userId,
-        username: credentials.username
-    })
-    return {regResult: result};
+    const { data: [user] } = await supabase.from('users').select('*').eq('id', userId);
+
+    if (user === null) throw new Error("User does not exist");
+
+    let verification;
+    try {
+        verification = await verifyRegistrationResponse({
+            credential: credentials,
+            expectedChallenge: user.currentChallenge,
+            expectedOrigin: webAuthnOptions.origin,
+            expectedRPID: webAuthnOptions.rpID,
+        });
+    } catch (error) {
+        console.error(error);
+        throw new Error(error.message);
+    }
+
+    const { verified, registrationInfo } = verification;
+    console.log(await supabase.from('authenticators').insert({
+        id: Buffer.from(registrationInfo.credentialID).toString('base64'),
+        counter: registrationInfo.counter,
+        public_key: Buffer.from(registrationInfo.credentialPublicKey).toString('base64'),
+        user: userId,
+        backed_up: registrationInfo.credentialBackedUp,
+        device_type: registrationInfo.credentialDeviceType,
+    }));
+    return verification;
 
 });

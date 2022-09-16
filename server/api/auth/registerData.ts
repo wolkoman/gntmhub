@@ -1,15 +1,27 @@
+import { generateRegistrationOptions } from "@simplewebauthn/server";
 import { defineEventHandler } from "h3";
-import { webAuthn } from '../../../utils/fido';
+import { webAuthnOptions } from "~~/utils/fido";
 import { supabase } from '../../../utils/supabase';
 
-export default  defineEventHandler(async (event) => {
-    const {username} = await readBody<{username: string}>(event);
-    const {data: users} = await supabase.from('users').select('*').eq('username', username);
-    console.log(users);
-    if(users.length !== 0){
-        return {error: 'Dieser Benutzername existiert schon'}
+export default defineEventHandler(async (event) => {
+    const { username } = await readBody<{ username: string }>(event);
+    const userId = Math.floor(Math.random()*10000000).toString();
+    const { data: users } = await supabase.from('users').select('*').eq('name', username);
+    if (users.length !== 0) {
+        return { error: 'Dieser Benutzername existiert schon' }
     }
-    const challenge = await webAuthn.createRegistrationChallenge(username);
-    await supabase.from('challenges').insert({id: challenge.user.id, challenge: challenge.challenge})
-    return challenge;
+
+    const options = generateRegistrationOptions({
+        ...webAuthnOptions,
+        userID: userId,
+        userName: username,
+        attestationType: 'none',
+    });
+    await supabase.from('users').insert({
+        id: userId,
+        name: username,
+        currentChallenge: options.challenge
+     });
+
+    return {options, userId};
 });
