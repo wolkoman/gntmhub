@@ -11,26 +11,17 @@ export default defineEventHandler(async (event) => {
         return { error: 'Dieser Benutzername existiert schon' }
     }
 
-    console.log("REGISTER_DATA", userId, username, {
-        rpID: webAuthnOptions.rpID,
-        rpName: webAuthnOptions.rpName,
-        userID: userId,
-        userName: username,
-        attestationType: 'none',
-    })
     const options = generateRegistrationOptions({
         rpID: webAuthnOptions.rpID,
         rpName: webAuthnOptions.rpName,
         userID: userId,
         userName: username,
         attestationType: 'none',
-    });/*
+    });
     await supabase.from('users').insert({
         id: userId,
         name: username,
         currentChallenge: options.challenge
      });
-
-    return {options, userId};*/
-    return {hi: true};
+    return {options, userId};
 });
